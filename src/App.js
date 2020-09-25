@@ -8,10 +8,10 @@ import PageName from './pages/PageName';
 import ComponentName from './components/ComponentName';
 
 // SingUp
-import SignUp from './components/signUp';
+import SignUp from './components/signUp/signUp';
 
 //SignIn 
-import SignIn from './components/signIn';
+import SignIn from './components/signIn/signIn';
 
 class App extends Component {
   render() {
