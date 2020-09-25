@@ -8,7 +8,10 @@ import PageName from './pages/PageName';
 import ComponentName from './components/ComponentName';
 
 // SingUp
-import SignUp from './components/SignUp';
+import SignUp from './components/signUp';
+
+//SignIn 
+import SignIn from './components/signIn';
 
 class App extends Component {
   render() {
@@ -18,7 +21,8 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={PageName} />
             <Route path='/example' component={ComponentName} />
-            <Route path='/signup' component={SignUp} />
+            <Route path='/signup' component={SignUp} />            
+            <Route path='/signin' component={SignIn} />
           </Switch>
         </div>
       </BrowserRouter>
