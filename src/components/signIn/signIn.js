@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import '../signUp/style.css';
 
 class SignIn extends React.Component{
 
@@ -16,10 +16,9 @@ class SignIn extends React.Component{
         this.setState({
             [name] : value.toLowerCase(),
         });
-        console.log('email', this.state.email)
-        console.log('password', this.state.password)
     }
     render(){
+        const {email, password} = this.state;
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -40,9 +39,11 @@ class SignIn extends React.Component{
                            
                         </div>
                         <br/>
+                        {email && password &&
                         <div>
                             <button type={"submit"} >מאושר, המשך/י</button>
                         </div>
+                        }   
                     </div>
                 </div>
             </form>

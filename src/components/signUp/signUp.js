@@ -1,4 +1,5 @@
 import React from 'react';
+import {addUserToDB} from '../../api/users';
 import './style.css';
 
 class SignUp extends React.Component {
@@ -10,6 +11,7 @@ class SignUp extends React.Component {
             password: '',
             phone:'',
             companyName:'',
+            address: '',
             selectedFile: null
         }
     }
@@ -19,11 +21,6 @@ class SignUp extends React.Component {
         this.setState({
             [name] : value.toLowerCase(),
         });
-        console.log('name', this.state.name)
-        console.log('email', this.state.email)
-        console.log('password', this.state.password)
-        console.log('phone', this.state.phone)
-        console.log('companyName', this.state.companyName)
     }
 
     handleUpload = (e)=>{
@@ -34,7 +31,41 @@ class SignUp extends React.Component {
         })
     }
 
+    signupProcessDone = (e) =>{
+        e.preventDefault();
+
+        setTimeout(() => {
+            this.props.history.replace("/confirmation"); 
+        }, 2000)
+    }
+
+    onCheck = async e => {
+        e.preventDefault();
+        const {name, email, password, phone, companyName, address, selectedFile} = this.state;
+        const user = await addUserToDB(name, email, password, phone, companyName, address, selectedFile);
+        if(user === undefined){
+            this.setState({
+                valid: "notValid",
+                message: 'One or more of the inputs is invalid!'
+            })
+        }else if(user.data === "all fields are required"){
+            this.setState({
+                valid: "notValid",
+                message: 'All fields are required'
+            })
+        } else {
+            this.setState({
+                user,
+                valid: "valid",
+                message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
+            },this.signupProcessDone())
+        }
+    };
+
+    
+
     render(){
+        const {name, email, password} = this.state;
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -45,7 +76,7 @@ class SignUp extends React.Component {
                         <div className={"text-center"} style={{backgroundColor:"white"}}>
 
                             <div>
-                                <p>?איך קוראים לך</p>
+                                <p>?מה השם שלך</p>
                                 <input type={"text"}  name={"name"} onChange={this.handleChange} required/>
                             </div>
                             <hr />
@@ -55,29 +86,36 @@ class SignUp extends React.Component {
                             </div>
                             <hr />
                             <div>
-                                <p>תבחר לך סיסמא</p>
-                                <input type={"password"} name={"password"} onChange={this.handleChange} required/>
+                                <p>?מה הסיסמא שלך</p>
+                                <input type={"password"} name={"password"} minlength="7" onChange={this.handleChange} required/>
                             </div>
                             <hr />
                             <div>
-                            <p>?מה המספר נייד שלך</p>
+                            <p>?מה הטלפון שלך</p>
                                 <input type={"text"} name={"phone"} onChange={this.handleChange}/>
                             </div>
                             <hr />
                             <div>
-                            <p>?מה שם החברה התורמת</p>
+                            <p>שם החברה התורמת</p>
                                 <input type={"text"} name={"companyName"} onChange={this.handleChange}/>
                             </div>
                             <hr />
                             <div>
-                                <p>לוגו החברה</p>
+                            <p>כתובת איסוף</p>
+                                <input type={"text"} name={"address"} onChange={this.handleChange}/>
+                            </div>
+                            <hr />
+                            <div>
+                                <p>הוספת לוגו של החברה</p>
                                 <input type={"file"} name={"companyLogo"} onChange={this.handleUpload}/>
                                 {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
                             </div>
                             <br/>
+                            { name && email && password &&
                             <div>
-                                <button type={"submit"} >מאושר, המשך/י</button>
+                                <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
                             </div>
+                            }
                         </div>
                     </div>
                 </div>
