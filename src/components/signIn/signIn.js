@@ -1,4 +1,5 @@
 import React from 'react';
+import '../signUp/style.css';
 
 class SignIn extends React.Component{
 
@@ -15,31 +16,34 @@ class SignIn extends React.Component{
         this.setState({
             [name] : value.toLowerCase(),
         });
-        console.log('email', this.state.email)
-        console.log('password', this.state.password)
     }
     render(){
+        const {email, password} = this.state;
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
-                <div className={"row"}>
-                    <div className={"col-xs-6 col-md-12"}>
-                        <img src={require('../images/logo.png')} alt={"logo"} />
+                <div className={"d-flex justify-content-center"}>
+                    <div className={"text-right"}>                        
+                    <img src={require('../../images/logo.png')} alt={"logo"} />
                         <h6>שמחים שחזרת להיות בקשר</h6>
-                        {/* <hr style={{width:"50%"}}/> */}
                         <div>
                         <p>המייל שלך</p>
-                            <input type={"text"} name={"email"} onChange={this.handleChange}/>
+                            <input type={"text"} name={"email"} onChange={this.handleChange} required/>
                         </div>
+                        <hr />
                         <div>
                             <p>סיסמא</p>
-                            <input type={"text"} name={"password"} onChange={this.handleChange}/>
+                            <input type={"password"} name={"password"} onChange={this.handleChange} required/>
                         </div>
                         <div>
-                            <a href={"1234"}>למקרה ששכחת סיסמא לחץ/י כאן</a>
+                            <span className={""} > <a href={"1234"}> לחץ/י כאן</a> למקרה ששכחת סיסמא</span>
+                           
                         </div>
+                        <br/>
+                        {email && password &&
                         <div>
                             <button type={"submit"} >מאושר, המשך/י</button>
                         </div>
+                        }   
                     </div>
                 </div>
             </form>
