@@ -7,24 +7,23 @@ const getAllUsers = async () => {
     }catch(error){
         console.log(error)
     }
-}
+};
 
 const addUserToDB = async (name, email, password, phone, companyName, address, selectedFile) =>{
     try {
-        const add = await fetcher.post('./signup', {name, email, password, phone, companyName, address, selectedFile});
-        return add;
+        return await fetcher.post('./signup', {name, email, password, phone, companyName, address, selectedFile});
     }catch(error){
-        console.log(error)
+        console.error(error)
     }
-}
+};
 
 const getUsersById = async (email, password) => {
     try{
-        const {data} = await fetcher.post('./signin', {email,password});
+        const {data} = await fetcher.post('./signin', {email, password});
         return data;
     }catch(error){
-        console.log(error);
+        console.error(error);
     }
-}
+};
 
 export {getUsersById, getAllUsers, addUserToDB};

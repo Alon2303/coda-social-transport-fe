@@ -1,5 +1,6 @@
+
 const initState = {
-}
+};
 
 const userReducer = (state = initState, action) => {
     switch (action.type) {
@@ -8,6 +9,6 @@ const userReducer = (state = initState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default userReducer;

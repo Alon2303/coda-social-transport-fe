@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // Pages
-import PageName from './pages/PageName';
+// import PageName from './pages/PageName';
+
 // Components
 import ComponentName from './components/ComponentName';
-// SingUp
 import SignUp from './components/signUp/signUp';
-//SignIn 
 import SignIn from './components/signIn/signIn';
-//Confirmation page
 import Confirmation from './components/signUp/confirmation';
+import Email from './components/email/email';
 
 class App extends Component {
   render() {
@@ -18,11 +17,12 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path='/' component={PageName} />
+            <Route exact path='/' component={SignUp} />
             <Route path='/example' component={ComponentName} />
             <Route path='/signup' component={SignUp} />            
             <Route path='/signin' component={SignIn} />
             <Route path='/confirmation' component={Confirmation} />
+            <Route path='/email' component={Email} />
 
           </Switch>
         </div>

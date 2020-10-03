@@ -1,5 +1,7 @@
+
+
 const initState = {
-}
+};
 
 const donationReducer = (state = initState, action) => {
     switch (action.type) {
@@ -8,6 +10,6 @@ const donationReducer = (state = initState, action) => {
         default:
             return state;
     }
-}
+};
 
 export default donationReducer;
