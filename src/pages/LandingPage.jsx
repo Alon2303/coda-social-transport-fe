@@ -1,7 +1,7 @@
 import React from "react";
 import Landingcmp from "../components/Landing/Landing";
 
-function Home() {
+function LandingPage() {
   return (
     <>
       <Landingcmp />
@@ -9,4 +9,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LandingPage;
