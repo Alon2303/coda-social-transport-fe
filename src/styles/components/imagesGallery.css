@@ -1,0 +1,12 @@
+.imgs-gallery-selected{
+    height: 300px;
+}
+
+.imgs-gallery-roll-item{
+    height: 100px;
+    padding: 2px;
+    border: 1px solid gray;
+}
+.imgs-gallery-roll{
+    display: inline-block;
+}

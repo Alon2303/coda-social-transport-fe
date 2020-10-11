@@ -1,0 +1,8 @@
+/* Components */
+
+@import url('components/donationsList.css');
+@import url('components/donationDetails.css');
+@import url('components/imagesGallery.css');
+/* Base */
+
+@import url('basics/base.css');
