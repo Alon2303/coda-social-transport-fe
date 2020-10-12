@@ -1,28 +1,52 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 
-
 // Services
 import donationService from '../services/donationService';
 
 // Components
 import ImagesGallery from '../components/donations/ImagesGallery';
 import DonationTags from '../components/donations/DonationTags';
+import Editable from '../components/donations/Editable';
 
 class DonationDetails extends Component {
+    constructor(props) {
+        super(props);
+        this.inputRef = React.createRef();
+        this.textareaRef = React.createRef();
+    }
     state = {
         donation: {},
         isEditing: false,
-        tags: []
+        tags: [],
+        itemsCount: [],
     };
     async componentDidMount() {
         const { id } = this.props.match.params;
         const donation = await donationService.getById(id);
-        this.setState({ ...this.state, donation: donation })
+        const itemsCount = [];
+        for (let i = 0; i < donation.items.length; i++) {
+            let currItemCount = donation.items[i].count;
+            itemsCount.push(currItemCount);
+        }
+        this.setState({ ...this.state, donation: donation, itemsCount: itemsCount })
+    }
+
+    handleCountChange = (e) => {
+        console.log(e.target.value);
+    }
+
+    setCount = (itemIdx, updatedCount) => {
+        const updateCounts = this.state.itemsCount;
+        updateCounts[itemIdx] = +updatedCount;
+        this.setState({ ...this.state, itemsCount: updateCounts });
+        const { id } = this.props.match.params;
+        donationService.updateItemCount(id, itemIdx, +updatedCount);
     }
 
     render() {
-        const { donation } = this.state;
+        const { donation, itemsCount } = this.state;
+
         return (
             (
                 donation.id ?
@@ -42,7 +66,22 @@ class DonationDetails extends Component {
                             {donation.items.map((item, i) => (
                                 <section key={i}>
                                     <div className='item-info'>
-                                        <section>Count: {item.count}</section>
+                                        <section className='item-count'>Count:
+                                            <Editable className='item-count-value'
+                                                text={itemsCount[i]}
+                                                childRef={this.inputRef}
+                                                type='number'
+                                            >
+                                                <input
+                                                    ref={this.inputRef}
+                                                    type='number'
+                                                    name='count'
+                                                    value={itemsCount[i]}
+                                                    onChange={e => this.setCount(i, e.target.value)}
+                                                />
+                                            </Editable>
+                                        </section>
+
                                         <DonationTags tag={item.tag} donationId={donation.id} itemIdx={i} />
                                     </div>
                                     <ImagesGallery images={item.images} />

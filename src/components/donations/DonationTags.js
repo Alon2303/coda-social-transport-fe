@@ -27,9 +27,7 @@ class DonationTags extends Component {
 
     render() {
         const { tags } = this.state;
-
         this.onSetTag = this.onSetTag.bind(this);
-
         let tagsList = tags.length > 0
             && tags.map((item, i) => {
                 return (

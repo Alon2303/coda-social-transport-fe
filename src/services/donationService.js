@@ -16,7 +16,12 @@ async function getById(donationId) {
 async function updateTag(donationId, itemIdx, tag) {
     const donation = await getById(donationId);
     donation.items[itemIdx].tag = tag;
-    console.log(donation.items);
+    save(donation);
+}
+
+async function updateItemCount(donationId, itemIdx, updatedCount) {
+    const donation = await getById(donationId);
+    donation.items[itemIdx].count = updatedCount;
     save(donation);
 }
 
@@ -28,5 +33,6 @@ export default {
     query,
     getById,
     save,
-    updateTag
+    updateTag,
+    updateItemCount
 }
