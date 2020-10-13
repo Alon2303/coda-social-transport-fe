@@ -8,6 +8,7 @@ import donationService from '../services/donationService';
 import ImagesGallery from '../components/donations/ImagesGallery';
 import DonationTags from '../components/donations/DonationTags';
 import Editable from '../components/donations/Editable';
+import AcceptItemToggle from '../components/donations/AcceptItemToggle';
 
 class DonationDetails extends Component {
     constructor(props) {
@@ -20,7 +21,15 @@ class DonationDetails extends Component {
         isEditing: false,
         tags: [],
         itemsCount: [],
+        items: []
     };
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.items !== this.state.items) {
+            console.log('been updated.')
+        }
+    }
+
     async componentDidMount() {
         const { id } = this.props.match.params;
         const donation = await donationService.getById(id);
@@ -29,7 +38,7 @@ class DonationDetails extends Component {
             let currItemCount = donation.items[i].count;
             itemsCount.push(currItemCount);
         }
-        this.setState({ ...this.state, donation: donation, itemsCount: itemsCount })
+        this.setState({ ...this.state, donation: donation, itemsCount: itemsCount, items: donation.items })
     }
 
     handleCountChange = (e) => {
@@ -85,6 +94,8 @@ class DonationDetails extends Component {
                                         <DonationTags tag={item.tag} donationId={donation.id} itemIdx={i} />
                                     </div>
                                     <ImagesGallery images={item.images} />
+                                    <AcceptItemToggle donationId={donation.id} itemIdx={i} item={item} />
+                                    <section>Donor comments: {item.comments}</section>
                                 </section>
                             ))}
                         </section>

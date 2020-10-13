@@ -25,6 +25,20 @@ async function updateItemCount(donationId, itemIdx, updatedCount) {
     save(donation);
 }
 
+async function updateItemAccept(donationId, itemIdx, updatedValue) {
+    const donation = await getById(donationId);
+    donation.items[itemIdx].itemAccepted = updatedValue;
+    save(donation);
+}
+
+async function updateRejectReason(donationId, itemIdx, reason) {
+    console.log('REASON IN SERVICE< ', reason);
+    const donation = await getById(donationId);
+    donation.items[itemIdx].rejectionReason = reason;
+    console.log('UPDATED SONATION ITEM AFTER : ', donation);
+    save(donation);
+}
+
 function save(donation) {
     return httpService.put(`api/donation/${donation.id}`, donation);
 }
@@ -34,5 +48,7 @@ export default {
     getById,
     save,
     updateTag,
-    updateItemCount
+    updateItemCount,
+    updateItemAccept,
+    updateRejectReason
 }

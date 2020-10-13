@@ -30,7 +30,7 @@ class DonationsList extends Component {
                     </thead>
                     <tbody className="donations-table-body">
                         {this.state.donations.map((donation) => (
-                            <DonationSummary key={donation.id} donation={donation} key={donation.id} />
+                            <DonationSummary key={donation.id} donation={donation} />
                         ))}
                     </tbody>
                 </table>
