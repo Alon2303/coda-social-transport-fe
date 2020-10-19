@@ -12,6 +12,8 @@ import SignIn from './components/signIn/signIn';
 //Confirmation page
 import Confirmation from './components/signUp/confirmation';
 
+import Wellcome from './components/signIn/wellcome';
+
 class App extends Component {
   render() {
     return (
@@ -21,9 +23,9 @@ class App extends Component {
             <Route exact path='/' component={PageName} />
             <Route path='/example' component={ComponentName} />
             <Route path='/signup' component={SignUp} />            
-            <Route path='/signin' component={SignIn} />
             <Route path='/confirmation' component={Confirmation} />
-
+            <Route path='/signin' component={SignIn} />
+            <Route path='/Wellcome' component={Wellcome} />
           </Switch>
         </div>
       </BrowserRouter>

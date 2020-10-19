@@ -1,4 +1,5 @@
 import React from 'react';
+import { getUsersByEmail} from '../../api/users';
 import '../signUp/style.css';
 
 class SignIn extends React.Component{
@@ -8,6 +9,9 @@ class SignIn extends React.Component{
         this.state = {
             email:'',
             password: '',
+            user: '',
+            valid: '',
+            message:''
         }
     }
     handleChange = (e) =>{
@@ -17,6 +21,30 @@ class SignIn extends React.Component{
             [name] : value.toLowerCase(),
         });
     }
+
+    signupProcessDone =  async e =>{
+        e.preventDefault();
+        const {email, password} = this.state;
+        console.log("singin component", email, password)
+        const user = await getUsersByEmail(email, password)
+        console.log("user", user);
+        if (user === undefined){
+            this.setState({
+                valid: "",
+                message: 'One or more of the inputs is invalid!'
+            })
+        }else {
+            this.setState({
+                user,
+                valid: "valid",
+                message: ` כל קשר מוצלח מתחיל בהיכרות,${user.name}`  
+            })
+            setTimeout(() => {
+                this.props.history.replace("/wellcome"); 
+            }, 2000)
+        }
+    }
+
     render(){
         const {email, password} = this.state;
         return (
@@ -41,7 +69,7 @@ class SignIn extends React.Component{
                         <br/>
                         {email && password &&
                         <div>
-                            <button type={"submit"} >מאושר, המשך/י</button>
+                            <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
                         </div>
                         }   
                     </div>
