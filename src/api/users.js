@@ -8,15 +8,6 @@ const getAllUsers = async () => {
         console.log(error)
     }
 }
-const getUsersById = async (email, password) => {
-    try{
-        const {data} = await fetcher.post('/login', {email, password});
-        return data;
-    }catch(error){
-        console.log(error);
-    }
-}
-
 
 const getUsersByEmail = async (email, password) => {
     console.log("fetcher,users", email, password)

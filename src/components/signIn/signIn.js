@@ -28,25 +28,26 @@ class SignIn extends React.Component{
         console.log("singin component", email, password)
         const user = await getUsersByEmail(email, password)
         console.log("user", user);
-        if (user === undefined){
+        console.log("check",!user)
+        if (!user || user === 'undifiend'){
             this.setState({
-                valid: "",
+                valid: "invalid",
                 message: 'One or more of the inputs is invalid!'
             })
         }else {
             this.setState({
                 user,
                 valid: "valid",
-                message: ` כל קשר מוצלח מתחיל בהיכרות,${user.name}`  
+                message: `${user.name} Wellcome back!`  
             })
             setTimeout(() => {
                 this.props.history.replace("/wellcome"); 
-            }, 2000)
+            }, 3000)
         }
     }
 
     render(){
-        const {email, password} = this.state;
+        const {email, password, valid, message} = this.state;
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -71,7 +72,12 @@ class SignIn extends React.Component{
                         <div>
                             <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
                         </div>
-                        }   
+                        }  
+                        {valid && 
+                        <div>
+                            <p>{message}</p>
+                        </div>
+                        } 
                     </div>
                 </div>
             </form>
