@@ -7,7 +7,7 @@ const getAllUsers = async () => {
     }catch(error){
         console.log(error)
     }
-}
+};
 
 const getUsersByEmail = async (email, password) => {
     console.log("fetcher,users", email, password)
@@ -24,9 +24,9 @@ const addUserToDB = async (name, email, password, phone, companyName, address, s
         const add = await fetcher.post('./api/signup', {name, email, password, phone, companyName, address, selectedFile});
         return add;
     }catch(error){
-        console.log(error)
+        console.error(error)
     }
-}
+};
 
 
 export {getUsersByEmail, getAllUsers, addUserToDB};

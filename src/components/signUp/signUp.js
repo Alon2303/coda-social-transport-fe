@@ -21,15 +21,14 @@ class SignUp extends React.Component {
         this.setState({
             [name] : value.toLowerCase(),
         });
-    }
+    };
 
     handleUpload = (e)=>{
-        console.log(e.target.files[0])
         this.setState({
             selectedFile: e.target.files[0],
             loaded: 0
         })
-    }
+    };
 
     signupProcessDone = (e) =>{
         e.preventDefault();
@@ -37,7 +36,7 @@ class SignUp extends React.Component {
         setTimeout(() => {
             this.props.history.replace("/confirmation"); 
         }, 2000)
-    }
+    };
 
     onCheck = async e => {
         e.preventDefault();
@@ -87,7 +86,7 @@ class SignUp extends React.Component {
                             <hr />
                             <div>
                                 <p>?מה הסיסמא שלך</p>
-                                <input type={"password"} name={"password"} minlength="7" onChange={this.handleChange} required/>
+                                <input type={"password"} name={"password"} minLength="7" onChange={this.handleChange} required/>
                             </div>
                             <hr />
                             <div>

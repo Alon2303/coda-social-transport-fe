@@ -1,0 +1,11 @@
+.toggle-accept {
+padding: 5px 10px;
+}
+
+.accepted {
+    background-color: greenyellow;
+}
+
+.rejected {
+    background-color: orangered;
+}
