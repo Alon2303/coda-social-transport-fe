@@ -1,4 +1,5 @@
 import React from 'react';
+import { getUsersByEmail} from '../../api/users';
 import '../signUp/style.css';
 
 class SignIn extends React.Component{
@@ -8,6 +9,9 @@ class SignIn extends React.Component{
         this.state = {
             email:'',
             password: '',
+            user: '',
+            valid: '',
+            message:''
         }
     }
     handleChange = (e) =>{
@@ -17,8 +21,33 @@ class SignIn extends React.Component{
             [name] : value.toLowerCase(),
         });
     }
-    render(){
+
+    signupProcessDone =  async e =>{
+        e.preventDefault();
         const {email, password} = this.state;
+        console.log("singin component", email, password)
+        const user = await getUsersByEmail(email, password)
+        console.log("user", user);
+        console.log("check",!user)
+        if (!user || user === 'undifiend'){
+            this.setState({
+                valid: "invalid",
+                message: 'One or more of the inputs is invalid!'
+            })
+        }else {
+            this.setState({
+                user,
+                valid: "valid",
+                message: `${user.name} Wellcome back!`  
+            })
+            setTimeout(() => {
+                this.props.history.replace("/wellcome"); 
+            }, 3000)
+        }
+    }
+
+    render(){
+        const {email, password, valid, message} = this.state;
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -41,9 +70,14 @@ class SignIn extends React.Component{
                         <br/>
                         {email && password &&
                         <div>
-                            <button type={"submit"} >מאושר, המשך/י</button>
+                            <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
                         </div>
-                        }   
+                        }  
+                        {valid && 
+                        <div>
+                            <p>{message}</p>
+                        </div>
+                        } 
                     </div>
                 </div>
             </form>

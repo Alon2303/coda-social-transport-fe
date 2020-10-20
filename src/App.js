@@ -11,6 +11,8 @@ import SignIn from './components/signIn/signIn';
 import Confirmation from './components/signUp/confirmation';
 // import Email from './components/email/email';
 
+import Wellcome from './components/signIn/wellcome';
+
 class App extends Component {
   render() {
     return (
@@ -18,9 +20,10 @@ class App extends Component {
         <div className="App">
           <Switch>
             <Route exact path='/' component={SignUp} />
-            <Route path='/signup' component={SignUp} />
-            <Route path='/signin' component={SignIn} />
+            <Route path='/signup' component={SignUp} />            
             <Route path='/confirmation' component={Confirmation} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/Wellcome' component={Wellcome} />
             {/* <Route path='/email' component={Email} /> */}
 
             <Route exact path='/donation' component={DonationsList} />
