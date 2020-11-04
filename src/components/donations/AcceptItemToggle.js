@@ -19,7 +19,7 @@ const AcceptItemToggle = (props) => {
             setRejectionReason(rejectionReason);
             reasons.unshift(rejectionReason);
         }
-        console.log('reasons ', reasons);
+        // console.log('reasons ', reasons);
     }, [itemAccepted, rejectionReason]);
 
     const handleItemAccept = (e) => {
@@ -30,7 +30,7 @@ const AcceptItemToggle = (props) => {
     }
 
     const onSetReason = (e) => {
-        console.log('rejectionReason: ', e.target.value);
+        // console.log('rejectionReason: ', e.target.value);
         const { donationId, itemIdx } = props;
         donationService.updateRejectReason(donationId, itemIdx, e.target.value);
     }

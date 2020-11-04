@@ -9,6 +9,7 @@ import ImagesGallery from '../components/donations/ImagesGallery';
 import DonationTags from '../components/donations/DonationTags';
 import Editable from '../components/donations/Editable';
 import AcceptItemToggle from '../components/donations/AcceptItemToggle';
+import ShipmentCoordination from '../components/donations/ShipmentCoordination';
 
 class DonationDetails extends Component {
     constructor(props) {
@@ -106,6 +107,9 @@ class DonationDetails extends Component {
                             </div>
                             <div>
                                 {donation.shippingDate}
+                            </div>
+                            <div>
+                                {(donation.shippingMethod === 'זקוקים להובלה') ? <ShipmentCoordination /> : ''}
                             </div>
                             <div>
                                 כתובת איסוף: {donation.pickupAddress}
