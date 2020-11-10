@@ -14,6 +14,7 @@ class SignIn extends React.Component{
             message:''
         }
     }
+
     handleChange = (e) =>{
         e.preventDefault();
         let {name, value} = e.target;
@@ -22,17 +23,23 @@ class SignIn extends React.Component{
         });
     }
 
-    signupProcessDone =  async e =>{
+    signInProcessDone =  async e => {
         e.preventDefault();
         const {email, password} = this.state;
         console.log("singin component", email, password)
         const user = await getUsersByEmail(email, password)
         console.log("user", user);
-        console.log("check",!user)
-        if (!user || user === 'undifiend'){
+        console.log("check",!user);
+        if (user.name === 'Error'){
+            console.log("1", user.message);
             this.setState({
                 valid: "invalid",
-                message: 'One or more of the inputs is invalid!'
+                message: "User doesn't exist in the system!"
+            })
+        }else if(user.message === 'worng password') {
+            this.setState({
+                valid: "invalid",
+                message: "One of the inputs is invalid"  
             })
         }else {
             this.setState({
@@ -70,7 +77,7 @@ class SignIn extends React.Component{
                         <br/>
                         {email && password &&
                         <div>
-                            <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
+                            <button type={"submit"} onClick={this.signInProcessDone}>מאושר, המשך/י</button>
                         </div>
                         }  
                         {valid && 
