@@ -22,22 +22,31 @@ class SignUp extends React.Component {
         this.setState({
             [name] : value.toLowerCase(),
         });
-    }
+    };
 
     handleUpload = (e)=>{
-        console.log(e.target.files[0])
         this.setState({
             selectedFile: e.target.files[0],
             loaded: 0
         })
-    }
+    };
 
+<<<<<<< HEAD
     // signupProcessDone = (e) =>{
     //     e.preventDefault();
     //     setTimeout(() => {
     //         this.props.history.replace("/confirmation"); 
     //     }, 2000)
     // }
+=======
+    signupProcessDone = (e) =>{
+        e.preventDefault();
+
+        setTimeout(() => {
+            this.props.history.replace("/confirmation"); 
+        }, 2000)
+    };
+>>>>>>> refs/remotes/origin/login
 
     signupProcessDone = async e => {
         e.preventDefault();
