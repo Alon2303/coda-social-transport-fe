@@ -1,5 +1,5 @@
 import React from 'react';
-import {addUserToDB} from '../../api/users';
+import { addUserToDB } from '../../api/users';
 import './style.css';
 
 class SignUp extends React.Component {
@@ -15,6 +15,7 @@ class SignUp extends React.Component {
             selectedFile: null
         }
     }
+
     handleChange = (e) =>{
         e.preventDefault();
         let {name, value} = e.target;
@@ -31,38 +32,37 @@ class SignUp extends React.Component {
         })
     }
 
-    signupProcessDone = (e) =>{
-        e.preventDefault();
+    // signupProcessDone = (e) =>{
+    //     e.preventDefault();
+    //     setTimeout(() => {
+    //         this.props.history.replace("/confirmation"); 
+    //     }, 2000)
+    // }
 
-        setTimeout(() => {
-            this.props.history.replace("/confirmation"); 
-        }, 2000)
-    }
-
-    onCheck = async e => {
+    signupProcessDone = async e => {
         e.preventDefault();
         const {name, email, password, phone, companyName, address, selectedFile} = this.state;
-        const user = await addUserToDB(name, email, password, phone, companyName, address, selectedFile);
-        if(user === undefined){
-            this.setState({
-                valid: "notValid",
-                message: 'One or more of the inputs is invalid!'
-            })
-        }else if(user.data === "all fields are required"){
-            this.setState({
-                valid: "notValid",
-                message: 'All fields are required'
-            })
-        } else {
-            this.setState({
-                user,
-                valid: "valid",
-                message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
-            },this.signupProcessDone())
-        }
+        // const user = await addUserToDB(name, email, password, phone, companyName, address, selectedFile);
+        const user = await addUserToDB(name, email, password, phone, companyName, address);
+        console.log("user", user);
+        // if(user === undefined){
+        //     this.setState({
+        //         valid: "notValid",
+        //         message: 'One or more of the inputs is invalid!'
+        //     })
+        // }else if(user.data === "all fields are required"){
+        //     this.setState({
+        //         valid: "notValid",
+        //         message: 'All fields are required'
+        //     })
+        // }else{
+        //     this.setState({
+        //         user,
+        //         valid: "valid",
+        //         message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
+        //     },this.signupProcessDone())
+        // }
     };
-
-    
 
     render(){
         const {name, email, password} = this.state;
@@ -74,7 +74,6 @@ class SignUp extends React.Component {
                         <h6>כל קשר מוצלח מתחיל בהיכרות</h6>
                         {/* <hr style={{width:"50%"}}/> */}
                         <div className={"text-center"} style={{backgroundColor:"white"}}>
-
                             <div>
                                 <p>?מה השם שלך</p>
                                 <input type={"text"}  name={"name"} onChange={this.handleChange} required/>
@@ -87,7 +86,7 @@ class SignUp extends React.Component {
                             <hr />
                             <div>
                                 <p>?מה הסיסמא שלך</p>
-                                <input type={"password"} name={"password"} minlength="7" onChange={this.handleChange} required/>
+                                <input type={"password"} name={"password"} minLength="7" onChange={this.handleChange} required/>
                             </div>
                             <hr />
                             <div>
