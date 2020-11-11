@@ -11,7 +11,9 @@ import SignIn from './components/signIn/signIn';
 import Confirmation from './components/signUp/confirmation';
 // import Email from './components/email/email';
 
-import Wellcome from './components/signIn/wellcome';
+import Wellcome from './components/newDonation/wellcome';
+import NewDonation from'./components/newDonation/newDonation';
+import Transportation from'./components/newDonation/transportation';
 
 class App extends Component {
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
             <Route path='/signin' component={SignIn} />
             <Route path='/Wellcome' component={Wellcome} />
             {/* <Route path='/email' component={Email} /> */}
+            <Route path='/newdonation' component={NewDonation} />
+            <Route path='/transportation' component={Transportation} />
 
             <Route exact path='/donation' component={DonationsList} />
             <Route path='/donation/:id' component={DonationDetails} />
