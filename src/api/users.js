@@ -1,6 +1,5 @@
 import fetcher from './fetcher';
 
-<<<<<<< HEAD
 // const getAllUsers = async () => {
 //     try {
 //         const users = await fetcher.get('./api/user');
@@ -9,16 +8,6 @@ import fetcher from './fetcher';
 //         console.log(error)
 //     }
 // }
-=======
-const getAllUsers = async () => {
-    try {
-        const users = await fetcher.get('./api/user');
-        return users.data
-    }catch(error){
-        console.log(error)
-    }
-};
->>>>>>> refs/remotes/origin/login
 
 const getUsersByEmail = async (email, password) => {
     console.log("fetcher,users", email, password)

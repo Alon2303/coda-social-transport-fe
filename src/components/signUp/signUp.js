@@ -31,46 +31,41 @@ class SignUp extends React.Component {
         })
     };
 
-<<<<<<< HEAD
-    // signupProcessDone = (e) =>{
-    //     e.preventDefault();
-    //     setTimeout(() => {
-    //         this.props.history.replace("/confirmation"); 
-    //     }, 2000)
-    // }
-=======
     signupProcessDone = (e) =>{
-        e.preventDefault();
-
         setTimeout(() => {
-            this.props.history.replace("/confirmation"); 
+            this.props.history.push({
+                pathname: './wellcome',
+                state: {
+                    user: this.state.user
+                }
+            })
         }, 2000)
     };
->>>>>>> refs/remotes/origin/login
 
-    signupProcessDone = async e => {
+    signupProcess = async e => {
         e.preventDefault();
         const {name, email, password, phone, companyName, address, selectedFile} = this.state;
         // const user = await addUserToDB(name, email, password, phone, companyName, address, selectedFile);
         const user = await addUserToDB(name, email, password, phone, companyName, address);
+        // const user = {name: 'inna', email:'inna@gmail.com', password:'1234'};
         console.log("user", user);
-        // if(user === undefined){
-        //     this.setState({
-        //         valid: "notValid",
-        //         message: 'One or more of the inputs is invalid!'
-        //     })
-        // }else if(user.data === "all fields are required"){
-        //     this.setState({
-        //         valid: "notValid",
-        //         message: 'All fields are required'
-        //     })
-        // }else{
-        //     this.setState({
-        //         user,
-        //         valid: "valid",
-        //         message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
-        //     },this.signupProcessDone())
-        // }
+        if(user === undefined){
+            this.setState({
+                valid: "notValid",
+                message: 'One or more of the inputs is invalid!'
+            })
+        }else if(user.data === "all fields are required"){
+            this.setState({
+                valid: "notValid",
+                message: 'All fields are required'
+            })
+        }else{
+            this.setState({
+                user,
+                valid: "valid",
+                message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
+            },this.signupProcessDone())
+        }
     };
 
     render(){
@@ -121,7 +116,7 @@ class SignUp extends React.Component {
                             <br/>
                             { name && email && password &&
                             <div>
-                                <button type={"submit"} onClick={this.signupProcessDone}>מאושר, המשך/י</button>
+                                <button type={"submit"} onClick={this.signupProcess}>מאושר, המשך/י</button>
                             </div>
                             }
                         </div>
