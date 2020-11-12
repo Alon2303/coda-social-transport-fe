@@ -12,8 +12,9 @@ import Confirmation from './components/signUp/confirmation';
 // import Email from './components/email/email';
 
 import Wellcome from './components/newDonation/wellcome';
-import NewDonation from'./components/newDonation/newDonation';
-import Transportation from'./components/newDonation/transportation';
+import Company from'./components/newDonation/company';
+import NewItem from'./components/donationFlow/newItem';
+import Shipping from'./components/donationFlow/shipping';
 
 class App extends Component {
   render() {
@@ -23,12 +24,13 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={SignUp} />
             <Route path='/signup' component={SignUp} />            
-            <Route path='/confirmation' component={Confirmation} />
             <Route path='/signin' component={SignIn} />
-            <Route path='/Wellcome' component={Wellcome} />
             {/* <Route path='/email' component={Email} /> */}
-            <Route path='/newdonation' component={NewDonation} />
-            <Route path='/transportation' component={Transportation} />
+            <Route path='/confirmation' component={Confirmation} />
+            <Route path='/Wellcome' component={Wellcome} />
+            <Route path='/company' component={Company} />
+            <Route path='/shipping' component={Shipping} />
+            <Route path='/newItem' component={NewItem} />
 
             <Route exact path='/donation' component={DonationsList} />
             <Route path='/donation/:id' component={DonationDetails} />

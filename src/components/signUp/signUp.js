@@ -9,10 +9,6 @@ class SignUp extends React.Component {
             name: '',
             email:'',
             password: '',
-            phone:'',
-            companyName:'',
-            address: '',
-            selectedFile: null
         }
     }
 
@@ -24,17 +20,10 @@ class SignUp extends React.Component {
         });
     };
 
-    handleUpload = (e)=>{
-        this.setState({
-            selectedFile: e.target.files[0],
-            loaded: 0
-        })
-    };
-
     signupProcessDone = (e) =>{
         setTimeout(() => {
             this.props.history.push({
-                pathname: './wellcome',
+                pathname: './confirmation',
                 state: {
                     user: this.state.user
                 }
@@ -44,10 +33,9 @@ class SignUp extends React.Component {
 
     signupProcess = async e => {
         e.preventDefault();
-        const {name, email, password, phone, companyName, address, selectedFile} = this.state;
-        // const user = await addUserToDB(name, email, password, phone, companyName, address, selectedFile);
-        const user = await addUserToDB(name, email, password, phone, companyName, address);
-        // const user = {name: 'inna', email:'inna@gmail.com', password:'1234'};
+        const {name, email, password} = this.state;
+        // const user = await addUserToDB(name, email, password);
+        const user = {name: 'inna', email:'inna@gmail.com', password:'1234'};
         console.log("user", user);
         if(user === undefined){
             this.setState({
@@ -93,27 +81,11 @@ class SignUp extends React.Component {
                                 <input type={"password"} name={"password"} minLength="7" onChange={this.handleChange} required/>
                             </div>
                             <hr />
-                            <div>
+                            {/* <div>
                             <p>?מה הטלפון שלך</p>
                                 <input type={"text"} name={"phone"} onChange={this.handleChange}/>
                             </div>
-                            <hr />
-                            <div>
-                            <p>שם החברה התורמת</p>
-                                <input type={"text"} name={"companyName"} onChange={this.handleChange}/>
-                            </div>
-                            <hr />
-                            <div>
-                            <p>כתובת איסוף</p>
-                                <input type={"text"} name={"address"} onChange={this.handleChange}/>
-                            </div>
-                            <hr />
-                            <div>
-                                <p>הוספת לוגו של החברה</p>
-                                <input type={"file"} name={"companyLogo"} onChange={this.handleUpload}/>
-                                {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
-                            </div>
-                            <br/>
+                            <hr /> */}
                             { name && email && password &&
                             <div>
                                 <button type={"submit"} onClick={this.signupProcess}>מאושר, המשך/י</button>
