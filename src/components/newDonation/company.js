@@ -27,9 +27,11 @@ class Company extends React.Component {
     sendDetailsDone = (e) =>{
         setTimeout(() => {
             this.props.history.push({
-                pathname: './newitem',
                 state: {
-                    user: '1'
+                    items: [],
+                    currentItem: 1,
+                    imgCounter: 0,
+                    files: this.props.location.state.files,
                 }
             })
         }, 2000)

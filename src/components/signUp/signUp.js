@@ -8,7 +8,7 @@ class SignUp extends React.Component {
         this.state = {
             name: '',
             email:'',
-            password: '',
+            password: ''
         }
     }
 
@@ -73,7 +73,7 @@ class SignUp extends React.Component {
                             <hr />
                             <div>
                             <p>?מה המייל שלך</p>
-                                <input type={"text"} name={"email"} onChange={this.handleChange} required/>
+                                <input type={"email"} name={"email"} onChange={this.handleChange} required/>
                             </div>
                             <hr />
                             <div>
@@ -81,11 +81,6 @@ class SignUp extends React.Component {
                                 <input type={"password"} name={"password"} minLength="7" onChange={this.handleChange} required/>
                             </div>
                             <hr />
-                            {/* <div>
-                            <p>?מה הטלפון שלך</p>
-                                <input type={"text"} name={"phone"} onChange={this.handleChange}/>
-                            </div>
-                            <hr /> */}
                             { name && email && password &&
                             <div>
                                 <button type={"submit"} onClick={this.signupProcess}>מאושר, המשך/י</button>

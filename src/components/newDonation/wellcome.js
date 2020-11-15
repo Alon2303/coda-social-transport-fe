@@ -24,7 +24,10 @@ class Wellcome extends React.Component {
             this.props.history.push({
                 pathname: './newitem',
                 state: {
-                    user: this.state.user
+                    items: [],
+                    currentItem: 1,
+                    imgCounter: 0,
+                    files: this.props.location.state.files,
                 }
             })
         }, 2000)
