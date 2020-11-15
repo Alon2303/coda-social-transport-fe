@@ -8,10 +8,10 @@ class Wellcome extends React.Component {
         }
     }
 
-    donate = () =>{
+    donate1 = () =>{
         setTimeout(() => {
             this.props.history.push({
-                pathname: './newdonation',
+                pathname: './company',
                 state: {
                     user: this.state.user
                 }
@@ -19,25 +19,40 @@ class Wellcome extends React.Component {
         }, 2000)
     };
 
+    donate2 = () =>{
+        setTimeout(() => {
+            this.props.history.push({
+                pathname: './newitem',
+                state: {
+                    items: [],
+                    currentItem: 1,
+                    imgCounter: 0,
+                    files: this.props.location.state.files,
+                }
+            })
+        }, 2000)
+    };
+
     render(){
-        const {user} = this.state;
         return(
             <div className={"container fluid"}>
                 <div className={"d-flex justify-content-center"}>
-                    <div className={"text-right"}>
-                        <h6>!תורם חדש נולד</h6>
-                        <p>{user.name} ,שלום</p>
-                        <p>שמחים שהצטרפת לשינוי חברתי</p>
-                    </div>
-                </div>
-                <div className={"d-flex justify-content-center"}>
-                    <button onClick={this.donate}>
-                        <img src={require('../../images/buttons/img1.png')} alt={"logo"} height={"100px"}/>
+                    <p>asdfasldn
+                        ,ljknsdf
+                        lknms
+                    </p>
+                    <button onClick={this.donate1}>
+                        <p>מטעם חברה</p>
+                        {/* <img src={require('../../images/buttons/img1.png')} alt={"logo"} height={"100px"}/> */}
                     </button>
                 </div>
+                <p>asdasdasd
+                    asdasdasdasdasd
+                </p>
                 <div className={"d-flex justify-content-center"}>
-                    <button>
-                        <img src={require('../../images/buttons/img2.png')} alt={"logo"} height={"100px"}/>
+                    <button onClick={this.donate2}>
+                        <p>עצמאי</p>
+                        {/* <img src={require('../../images/buttons/img2.png')} alt={"logo"} height={"100px"}/> */}
                     </button>
                 </div>  
             </div>
