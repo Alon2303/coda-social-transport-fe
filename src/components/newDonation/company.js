@@ -29,7 +29,9 @@ class Company extends React.Component {
             this.props.history.push({
                 pathname: './newitem',
                 state: {
-                    user: '1'
+                    items: [],
+                    currentItem: 1,
+                    imgCounter: 0
                 }
             })
         }, 2000)

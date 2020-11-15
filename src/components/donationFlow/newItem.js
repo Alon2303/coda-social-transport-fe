@@ -4,10 +4,14 @@ class NewItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currentItem: 1,
+            currentItem: this.props.location.state.currentItem,
             amountOfItmes: '',
+            selectedFile: '',
+            imgCounter: this.props.location.state.imgCounter,
             maxImg: 3,
-            items: [{item:1, img:'', }]
+            files: [],
+            comments: '',
+            items: this.props.location.state.items,
         }
     }
 
@@ -20,27 +24,87 @@ class NewItem extends React.Component {
         });
     };
 
+    handleUpload = (e)=>{
+        console.log("files", this.state.files);
+        console.log("target", e.target.files);
+        console.log("target2", e.target.files[0]);
+        this.setState({
+            selectedFile: e.target.files[0],
+            loaded: 0,
+            imgCounter: +1,
+            files:[...this.state.files, e.target.files]
+        })
+    };
+
     newItemProcesssDone = (e) =>{
+        console.log("newItemProcesssDone")
         setTimeout(() => {
             this.props.history.push({
                 pathname: './shipping',
                 state: {
-                    amountOfItmes: '1'
+                    items: this.state.items
                 }
             })
         }, 2000)
+        console.log("items", this.state.items);
+
     };
 
-    newItemProcess = async e => {
+    addNewItem = (e) =>{
         e.preventDefault();
+        const {currentItem, amountOfItmes, comments, items, selectedFile} = this.state;
+        if(currentItem === '1' ){
+            console.log('1');
+            this.setState({ 
+                items :  [{currentItem, amountOfItmes, comments, selectedFile}],
+                currentItem: currentItem + 1
+            });
+        }else {
+            console.log('more than 1')
+            let tempItems = [];
+            tempItems = {currentItem, amountOfItmes, comments, selectedFile};
+            console.log("tempItems", tempItems)
+            this.setState({
+                items : [...items, tempItems],
+                currentItem: currentItem + 1
+            });        
+        }
+        setTimeout(() => {
+            this.props.history.push({
+                pathname: './newitem',
+                state: {
+                    items,
+                    currentItem: currentItem,
+                    imgCounter: 0
+                }
+            })
+        }, 2000)
+        console.log('adding more items');
+        console.log("currentItem", currentItem);
+        console.log("amountOfItmes", amountOfItmes);
+        console.log("comments", comments);
+        console.log("items", items);            
+
+    };
+
+    newItemProcess = (e) => {
+        e.preventDefault();
+        const {currentItem, amountOfItmes, comments, items, selectedFile} = this.state;
+        this.setState({
+            items: [{currentItem, amountOfItmes, comments, selectedFile}],
+            currentItem: currentItem + 1
+        });
+        console.log('for shipping');
         this.newItemProcesssDone();
     };
 
 
     render(){
-        const {currentItem, amountOfItmes, maxImg} = this.state;
-
-        return(
+        const {currentItem, amountOfItmes, maxImg, comments, items} = this.state;
+        console.log("currentItem", currentItem);
+        console.log("amountOfItmes", amountOfItmes);
+        console.log("comments", comments);
+        console.log("items", items);        return(
             <form className={"container fluid text-center"} style={{backgroundColor:"lightgray"}} onSubmit={this.handleSubmit}> 
                 <div >
                     <h4>פרטי תרומה חדשה</h4>
@@ -50,9 +114,11 @@ class NewItem extends React.Component {
                     <p>התרומה מיועדת ליעד ספציפי</p>
                 </div>
                 <div className={"text-left"} >
-                    <button>
-                        <p>הבא</p>
+                { amountOfItmes &&
+                    <button onClick={this.addNewItem}>
+                        <p>הוסף עוד פריט</p>
                     </button>
+                }
                 </div>    
                 <div style={{backgroundColor:"white", border:"1px solid lightgray"}}>
                     <div>
@@ -60,27 +126,29 @@ class NewItem extends React.Component {
                         <p>ניתן להוסיף עד {maxImg} תמונות לפריט</p>  
                     </div>  
                     <hr/>
-                    <div>
-                        <p>add img here</p>
+                    <div>    
+                        <p>העלאת תמונה</p>
+                        <input type={"file"} multiple name={"companyLogo"} onChange={this.handleUpload}/>
+                        {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
                     </div>
                     <hr/>
                     <div>
                         <p>כמות
-                        <input/>
+                        <input type={"text"} name={"amountOfItmes"} onChange={this.handleChange}/>
                         יחידות  </p>
                     </div>
                     <div>
                         <p>הערות</p>
-                        <input/>
+                        <input type={"text"} name={"comments"} onChange={this.handleChange}/>
                     </div>
                     { amountOfItmes &&
                     <div>
-                        <button type={"submit"} onClick={this.signupProcess}>מאושר, המשך/י</button>
+                        <button type={"submit"} onClick={this.newItemProcess}>מאושר, המשך/י</button>
                     </div>
                     }
 
                 </div>
-                <p>dasdsadas</p>              
+                <p> בהצלחה </p>              
             </form>
         )
     }
