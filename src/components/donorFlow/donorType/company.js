@@ -27,6 +27,7 @@ class Company extends React.Component {
     sendDetailsDone = (e) =>{
         setTimeout(() => {
             this.props.history.push({
+                pathname: './newitem',
                 state: {
                     items: [],
                     currentItem: 1,
@@ -53,7 +54,7 @@ class Company extends React.Component {
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
                     <div className={"text-right"}>
-                        <img src={require('../../images/logo.png')} alt={"logo"} height={"100px"}/>
+                        <img src={require('../../../images/logo.png')} alt={"logo"} height={"100px"}/>
                         <h6>פרטי חברה</h6>
                         <div className={"text-center"} style={{backgroundColor:"white"}}>
                             <div>

@@ -39,7 +39,7 @@ class NewItem extends React.Component {
         console.log("newItemProcesssDone")
         setTimeout(() => {
             this.props.history.push({
-                pathname: './shipping',
+                pathname: './mainshipping',
                 state: {
                     items: this.state.items
                 }
