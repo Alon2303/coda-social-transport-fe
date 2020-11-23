@@ -37,22 +37,15 @@ class Wellcome extends React.Component {
         return(
             <div className={"container fluid"}>
                 <div className={"d-flex justify-content-center"}>
-                    <p>asdfasldn
-                        ,ljknsdf
-                        lknms
-                    </p>
+                    <p>אני חברה</p>
                     <button onClick={this.donate1}>
                         <p>מטעם חברה</p>
-                        {/* <img src={require('../../images/buttons/img1.png')} alt={"logo"} height={"100px"}/> */}
                     </button>
                 </div>
-                <p>asdasdasd
-                    asdasdasdasdasd
-                </p>
                 <div className={"d-flex justify-content-center"}>
+                    <p>אני עצמאי</p>
                     <button onClick={this.donate2}>
                         <p>עצמאי</p>
-                        {/* <img src={require('../../images/buttons/img2.png')} alt={"logo"} height={"100px"}/> */}
                     </button>
                 </div>  
             </div>

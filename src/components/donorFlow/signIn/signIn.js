@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUsersByEmail} from '../../api/users';
+import { getUsersByEmail} from '../../../api/users';
 import '../signUp/style.css';
 
 class SignIn extends React.Component{
@@ -59,7 +59,7 @@ class SignIn extends React.Component{
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
                     <div className={"text-right"}>                        
-                    <img src={require('../../images/logo.png')} alt={"logo"} />
+                    <img src={require('../../../images/logo.png')} alt={"logo"} />
                         <h6>שמחים שחזרת להיות בקשר</h6>
                         <div>
                         <p>המייל שלך</p>
