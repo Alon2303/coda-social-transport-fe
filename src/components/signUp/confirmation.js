@@ -27,7 +27,7 @@ class Confirmation extends React.Component {
                     <div className={"text-right"}>
                         <h6>!תורם חדש נולד</h6>
                         <p>{user.name} ,שלום</p>
-                        <p>שמחים שהצטרפת לשינוי חברתי</p>
+                        <p>שמחים שהצטרפת לשינוע חברתי</p>
                     </div>
                 </div>
                 <div className={"d-flex justify-content-center"}>
