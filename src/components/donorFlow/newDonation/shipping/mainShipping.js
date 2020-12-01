@@ -4,12 +4,21 @@ class MainShipping extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            // contact : {
+            //     contactName : '',
+            //     phone:''
+            // }
             name: '',
             phone: '',
+            // shippingDateStart: '',
+            // shippingDateEnd: '',
+            // alternativeShippingDate: '',
             date1: '',
             date2: '',
+            // pickUpAddress: '',
             address: '',
             comments:'',
+            // shippingMethod: '',
             shipping:'',
             notShipping: '',
             // user : this.props.location.state.user
