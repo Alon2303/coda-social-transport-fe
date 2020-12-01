@@ -15,6 +15,11 @@ class NewItem extends React.Component {
         }
     }
 
+    handleRest = () =>{
+        Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+        );
+    }
     handleChange = (e) =>{
         e.preventDefault();
         let {name, value} = e.target;
@@ -74,15 +79,20 @@ class NewItem extends React.Component {
                 }
             })
         }, 2000)
+        this.handleRest();
     };
 
     newItemProcess = (e) => {
         e.preventDefault();
         const {currentItem, amountOfItmes, comments, items, selectedFile} = this.state;
+        // how the data should look:
+        // itmes: [{tag: '', count: num, images: ["ffff", "ffff"], comments: '', itemAccepted: 'no'}]
         this.setState({
             items: [{currentItem, amountOfItmes, comments, selectedFile}],
-            currentItem: currentItem + 1
+            currentItem: currentItem + 1,
+            amountOfItmes: ''
         });
+        this.handleRest();
         this.newItemProcesssDone();
     };
 
