@@ -31,8 +31,9 @@ class NewItem extends React.Component {
     handleUpload = (e)=>{
         let images = [];
         let input = e.target;
-        for(let i =0; i< input.images.length; i++){
-            images.push(input.images[i].name);
+        for(let i =0; i< input.files.length; i++){
+            console.log('ff1', input.files[i].name )
+            images.push(input.files[i].name);
         }
         console.log('images', images);
         this.setState({
