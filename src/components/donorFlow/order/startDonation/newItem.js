@@ -3,15 +3,15 @@ import React from 'react';
 class NewItem extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
+        this.state = {             
             currentItem: this.props.location.state.currentItem,
-            amountOfItmes: '',
-            selectedFile: '',
-            imgCounter: this.props.location.state.imgCounter,
-            maxImg: 3,
-            files: this.props.location.state.files,
-            comments: '',
             items: this.props.location.state.items,
+            imgCounter: this.props.location.state.imgCounter,
+            images: this.props.location.state.images,
+            selectedFile: '',
+            count: '',
+            maxImg: 3,
+            comments: ''
         }
     }
 
@@ -29,14 +29,14 @@ class NewItem extends React.Component {
     };
 
     handleUpload = (e)=>{
-        let files = [];
+        let images = [];
         let input = e.target;
-        for(let i =0; i< input.files.length; i++){
-            files.push(input.files[i].name);
+        for(let i =0; i< input.images.length; i++){
+            images.push(input.images[i].name);
         }
-        console.log('files', files);
+        console.log('images', images);
         this.setState({
-            files
+            images
         })
     };
 
@@ -54,15 +54,15 @@ class NewItem extends React.Component {
 
     addNewItem = (e) =>{
         e.preventDefault();
-        const {currentItem, amountOfItmes, comments, items, files} = this.state;
+        const {currentItem, count, comments, items, images} = this.state;
         if(currentItem === '1' ){
             this.setState({ 
-                items :  [{currentItem, amountOfItmes, comments, files}],
+                items :  [{currentItem, count, comments, images}],
                 currentItem: currentItem + 1
             });
         }else {
             let tempItems = [];
-            tempItems = {currentItem, amountOfItmes, comments, files};
+            tempItems = {currentItem, count, comments, images};
             this.setState({
                 items : [...items, tempItems],
                 currentItem: currentItem + 1
@@ -75,7 +75,7 @@ class NewItem extends React.Component {
                     items,
                     currentItem: currentItem,
                     imgCounter: 0,
-                    files: this.props.location.state.files,
+                    images: this.props.location.state.images,
                 }
             })
         }, 2000)
@@ -84,20 +84,20 @@ class NewItem extends React.Component {
 
     newItemProcess = (e) => {
         e.preventDefault();
-        const {currentItem, amountOfItmes, comments, items, selectedFile} = this.state;
+        const {currentItem, count, comments, selectedFile} = this.state;
         // how the data should look:
-        // itmes: [{tag: '', count: num, images: ["ffff", "ffff"], comments: '', itemAccepted: 'no'}]
+        // itmes: [{count: num, images: ["ffff", "ffff"], comments: ''}]
         this.setState({
-            items: [{currentItem, amountOfItmes, comments, selectedFile}],
+            items: [{currentItem, count, comments, selectedFile}],
             currentItem: currentItem + 1,
-            amountOfItmes: ''
+            count: ''
         });
         this.handleRest();
         this.newItemProcesssDone();
     };
 
     render(){
-        const {currentItem, amountOfItmes, maxImg, comments, items} = this.state;
+        const {currentItem, count, maxImg, comments, items} = this.state;
         console.log("items", items);        
         return(
             <form className={"container fluid text-center"} style={{backgroundColor:"lightgray"}} onSubmit={this.handleSubmit}> 
@@ -109,7 +109,7 @@ class NewItem extends React.Component {
                     <p>התרומה מיועדת ליעד ספציפי</p>
                 </div>
                 <div className={"text-left"} >
-                { amountOfItmes &&
+                { count &&
                     <button onClick={this.addNewItem}>
                         <p>הוסף עוד פריט</p>
                     </button>
@@ -129,14 +129,14 @@ class NewItem extends React.Component {
                     <hr/>
                     <div>
                         <p>כמות
-                        <input type={"text"} name={"amountOfItmes"} onChange={this.handleChange}/>
+                        <input type={"text"} name={"count"} onChange={this.handleChange}/>
                         יחידות  </p>
                     </div>
                     <div>
                         <p>הערות</p>
                         <input type={"text"} name={"comments"} onChange={this.handleChange}/>
                     </div>
-                    { amountOfItmes &&
+                    { count &&
                     <div>
                         <button type={"submit"} onClick={this.newItemProcess}>מאושר, המשך/י</button>
                     </div>
@@ -150,3 +150,7 @@ class NewItem extends React.Component {
 }
 
 export default NewItem;
+
+
+
+

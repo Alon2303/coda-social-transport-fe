@@ -27,7 +27,7 @@ class Wellcome extends React.Component {
                     items: [],
                     currentItem: 1,
                     imgCounter: 0,
-                    files: this.props.location.state.files,
+                    images: this.props.location.state.images,
                 }
             })
         }, 2000)
