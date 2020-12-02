@@ -1,5 +1,5 @@
 import React from 'react';
-import { addUserToDB } from '../../../api/users';
+import { addUserToDB } from '../../../../api/users';
 import './style.css';
 
 class SignUp extends React.Component {
@@ -62,7 +62,7 @@ class SignUp extends React.Component {
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
                     <div className={"text-right"}>
-                        <img src={require('../../../images/logo.png')} alt={"logo"} height={"100px"}/>
+                        <img src={require('../../../../images/logo.png')} alt={"logo"} height={"100px"}/>
                         <h6>כל קשר מוצלח מתחיל בהיכרות</h6>
                         {/* <hr style={{width:"50%"}}/> */}
                         <div className={"text-center"} style={{backgroundColor:"white"}}>
