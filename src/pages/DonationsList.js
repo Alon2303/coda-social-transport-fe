@@ -6,17 +6,48 @@ import donationService from '../services/donationService';
 
 class DonationsList extends Component {
     state = {
-        donations: []
+        donations: [],
+        status: 'Open donations',
+        donationStatuses: ['Open donations', 'Closed donations', 'Archived donations', 'All donations']
     }
 
     async componentDidMount() {
-        const donations = await donationService.query();
-        this.setState({ donations });
+        // const donations = await donationService.query();
+        // this.setState({ ...this.state, donations });
+        await this.getDonations();
     };
 
+    async getDonations() {
+        const filterBy = { status: this.state.status }
+        console.log('FILTER BY: ', filterBy);
+        const donations = await donationService.query(filterBy);
+        this.setState({ ...this.state, donations });
+    }
+
+    onSetFilter = (e) => {
+        const selectedStatus = e.target.value;
+        this.setState({ ...this.state, status: selectedStatus }, function () {
+            this.getDonations();
+        });
+    }
+
     render() {
+        const { donationStatuses } = this.state;
+        this.onSetFilter = this.onSetFilter.bind(this);
+        let donationStatusesList = donationStatuses.length > 0
+            && donationStatuses.map((item, i) => {
+                return (
+                    <option key={i} value={item} >{item}</option>
+                )
+            }, this);
+
         return (
             <div className="donations-list">
+                <div>
+                    <select onChange={(e) => this.onSetFilter(e)}>
+                        {donationStatusesList}
+                    </select>
+                </div>
                 <table className="donations-table">
                     <thead className="donations-table-head">
                         <tr className="donations-table-head-row">

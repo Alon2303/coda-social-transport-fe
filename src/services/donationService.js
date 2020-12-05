@@ -1,8 +1,10 @@
 import httpService from './httpService';
 
-async function query() {
+async function query(filterBy = { 'status': 'open' }) {
+    var queryStr = "?";
+    queryStr += `&status=${filterBy.status}`;
     try {
-        const donations = await httpService.get(`api/donation`);
+        const donations = await httpService.get(`api/donation${queryStr}`);
         return Promise.resolve(donations);
     } catch (error) {
         console.error(error);
