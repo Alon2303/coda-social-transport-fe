@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import donationService from '../services/donationService';
 
 // Components
-import ImagesGallery from '../components/donations/ImagesGallery';
-import DonationTags from '../components/donations/DonationTags';
-import Editable from '../components/donations/Editable';
-import AcceptItemToggle from '../components/donations/AcceptItemToggle';
-import ShipmentCoordination from '../components/donations/ShipmentCoordination';
+import ImagesGallery from '../components/adminDonationDetails/ImagesGallery';
+import DonationTags from '../components/adminDonationDetails/DonationTags';
+import Editable from '../components/adminDonationDetails/Editable';
+import AcceptItemToggle from '../components/adminDonationDetails/AcceptItemToggle';
+import ShipmentCoordination from '../components/adminDonationDetails/ShipmentCoordination';
 
 class DonationDetails extends Component {
     constructor(props) {

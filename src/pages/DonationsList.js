@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DonationSummary from '../components/donations/DonationSummary';
+import DonationSummary from '../components/adminDonationList/DonationSummary';
 
 // Services
 import donationService from '../services/donationService';
