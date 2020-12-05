@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DonationSummary from '../components/adminDonationList/DonationSummary';
 
+
 // Services
 import donationService from '../services/donationService';
 
@@ -48,15 +49,16 @@ class DonationsList extends Component {
                         {donationStatusesList}
                     </select>
                 </div>
-                <table className="donations-table">
+                <table className="donations-table" dir="rtl">
                     <thead className="donations-table-head">
                         <tr className="donations-table-head-row">
-                            <th>סטאטוס תשלום</th>
-                            <th>סטאטוס</th>
-                            <th>תאריך הובלה</th>
-                            <th>אופן ההובלה</th>
-                            <th>שם הארגון</th>
                             <th>תאריך פניה</th>
+                            <th>שם הארגון</th>
+                            <th>אופן ההובלה</th>
+                            <th>תאריך הובלה</th>
+                            <th>סטאטוס</th>
+                            <th>סטאטוס תשלום</th>
+                            <th>פעולות  </th>
                         </tr>
                     </thead>
                     <tbody className="donations-table-body">

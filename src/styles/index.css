@@ -2,6 +2,8 @@
 
 @import url('components/donationsList.css');
 @import url('components/donationDetails.css');
+@import url('components/donationSummary.css');
+@import url('components/donationRowActionBtns.css');
 @import url('components/imagesGallery.css');
 @import url('components/acceptItemToggle.css');
 @import url('components/shipmentCoordination.css');
