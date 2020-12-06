@@ -3,7 +3,9 @@ import React from 'react';
 class NewItem extends React.Component {
     constructor(props){
         super(props);
-        this.state = {             
+        this.state = {      
+            donorName: this.props.location.state.donorName,
+            logo: this.props.location.state.logo,             
             currentItem: this.props.location.state.currentItem,
             items: this.props.location.state.items,
             imgCounter: this.props.location.state.imgCounter,
@@ -42,11 +44,19 @@ class NewItem extends React.Component {
     };
 
     newItemProcesssDone = (e) =>{
-        console.log("newItemProcesssDone")
+        let tempItems = [];
+        const { donorName, logo, currentItem, count, comments, items, images} = this.state;
+        tempItems = {count, comments, images};
+        console.log("newItemProcesssDone");
+        this.setState({
+            items : [...items, tempItems],
+        });        
         setTimeout(() => {
             this.props.history.push({
                 pathname: './mainshipping',
                 state: {
+                    donorName,
+                    logo,
                     items: this.state.items
                 }
             })
@@ -55,15 +65,15 @@ class NewItem extends React.Component {
 
     addNewItem = (e) =>{
         e.preventDefault();
-        const {currentItem, count, comments, items, images} = this.state;
+        const { donorName, logo, currentItem, count, comments, items, images} = this.state;
+        let tempItems = [];
+        tempItems = {tags: 'כללי', count, comments, images, itemAccepted: 'לא'};
         if(currentItem === '1' ){
             this.setState({ 
-                items :  [{currentItem, count, comments, images}],
+                items :  [tempItems],
                 currentItem: currentItem + 1
             });
         }else {
-            let tempItems = [];
-            tempItems = {currentItem, count, comments, images};
             this.setState({
                 items : [...items, tempItems],
                 currentItem: currentItem + 1
@@ -73,6 +83,8 @@ class NewItem extends React.Component {
             this.props.history.push({
                 pathname: './newitem',
                 state: {
+                    donorName,
+                    logo,
                     items,
                     currentItem: currentItem,
                     imgCounter: 0,
@@ -85,20 +97,18 @@ class NewItem extends React.Component {
 
     newItemProcess = (e) => {
         e.preventDefault();
-        const {currentItem, count, comments, selectedFile} = this.state;
+        const {count, comments, selectedFile} = this.state;
         // how the data should look:
         // itmes: [{count: num, images: ["ffff", "ffff"], comments: ''}]
         this.setState({
-            items: [{currentItem, count, comments, selectedFile}],
-            currentItem: currentItem + 1,
+            items: [{tags: 'כללי', count, comments, selectedFile, itemAccepted: 'לא'}],
             count: ''
         });
-        this.handleRest();
         this.newItemProcesssDone();
     };
 
     render(){
-        const {currentItem, count, maxImg, comments, items} = this.state;
+        const {currentItem, count, maxImg, comments,items,donorName,logo,imgCounter,images} = this.state;
         console.log("items", items);        
         return(
             <form className={"container fluid text-center"} style={{backgroundColor:"lightgray"}} onSubmit={this.handleSubmit}> 

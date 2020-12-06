@@ -1,11 +1,11 @@
 import React from 'react';
-
+ 
 class Company extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            companyName:'',
-            selectedFile: null
+            donorName:'',
+            logo: null
         }
     }
 
@@ -19,20 +19,23 @@ class Company extends React.Component {
 
     handleUpload = (e)=>{
         this.setState({
-            selectedFile: e.target.files[0],
+            logo: e.target.files[0],
             loaded: 0
         })
     };
 
     sendDetailsDone = (e) =>{
+        const {donorName, logo} = this.state;
         setTimeout(() => {
             this.props.history.push({
                 pathname: './newitem',
                 state: {
+                    donorName,
+                    logo,      
                     items: [],
                     currentItem: 1,
                     imgCounter: 0,
-                    images: this.props.location.state.images,
+                    images: []
                 }
             })
         }, 2000)
@@ -40,16 +43,13 @@ class Company extends React.Component {
 
     sendDetails = async e => {
         e.preventDefault();
-        const {companyName, selectedFile}  = this.state;
-        // const {companyName, selectedFile} = this.state;
-        // const company = await addUserToDB(companyName, selectedFile);
+        const {donorName, logo}  = this.state;
         this.sendDetailsDone();
     };
 
     render(){
-        console.log("companyName", this.state.companyName);
-
-        const {companyName, selectedFile} = this.state;
+        const {donorName, logo} = this.state;
+        console.log("donorName", donorName);
         return(
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -59,15 +59,15 @@ class Company extends React.Component {
                         <div className={"text-center"} style={{backgroundColor:"white"}}>
                             <div>
                             <p>שם החברה התורמת</p>
-                                <input type={"text"} name={"companyName"} onChange={this.handleChange}/>
+                                <input type={"text"} name={"donorName"} onChange={this.handleChange}/>
                             </div>
                             <hr />
                                 <p>הוספת לוגו של החברה</p>
-                                <input type={"file"} name={"companyLogo"} onChange={this.handleUpload}/>
+                                <input type={"file"} name={"logo"} onChange={this.handleUpload}/>
                                 {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
                             </div>
                             <br/>
-                            { companyName && selectedFile &&
+                            { donorName && logo &&
                         <div>
                             <button type={"submit"} onClick={this.sendDetails}>מאושר, המשך/י</button>
                         </div>

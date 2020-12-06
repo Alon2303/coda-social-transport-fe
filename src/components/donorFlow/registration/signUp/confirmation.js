@@ -4,29 +4,26 @@ class Confirmation extends React.Component {
     constructor(props){
         super(props);
         this.state ={
-            user : this.props.location.state.user
+            name : this.props.location.state.name
         }
     }
 
     donate = () =>{
         setTimeout(() => {
             this.props.history.push({
-                pathname: './wellcome',
-                state: {
-                    user: this.state.user
-                }
+                pathname: './wellcome'
             })
         }, 2000)
     };
 
     render(){
-        const {user} = this.state;
+        const {name} = this.state;
         return (
             <div className={"container fluid"}>
                 <div className={"d-flex justify-content-center"}>
                     <div className={"text-right"}>
                         <h6>!תורם חדש נולד</h6>
-                        <p>{user.name} ,שלום</p>
+                        <p>{name} ,שלום</p>
                         <p>שמחים שהצטרפת לשינוע חברתי</p>
                     </div>
                 </div>
