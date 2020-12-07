@@ -4,17 +4,13 @@ class Wellcome extends React.Component {
     constructor(props){
         super(props);
         this.state ={
-            user : this.props.location.state.user
         }
     }
 
     donate1 = () =>{
         setTimeout(() => {
             this.props.history.push({
-                pathname: './company',
-                state: {
-                    user: this.state.user
-                }
+                pathname: './company'
             })
         }, 2000)
     };
@@ -24,10 +20,12 @@ class Wellcome extends React.Component {
             this.props.history.push({
                 pathname: './newitem',
                 state: {
+                    donorName: 'notCompany',
+                    logo: null,        
                     items: [],
                     currentItem: 1,
                     imgCounter: 0,
-                    images: this.props.location.state.images,
+                    images: []
                 }
             })
         }, 2000)
