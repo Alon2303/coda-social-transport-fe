@@ -15,16 +15,25 @@ async function getById(donationId) {
     return await httpService.get(`api/donation/${donationId}`);
 }
 
+
 async function updateTag(donationId, itemIdx, tag) {
     const donation = await getById(donationId);
     donation.items[itemIdx].tag = tag;
     save(donation);
 }
 
+async function updateStatus(donationId, status) {
+    const donation = await getById(donationId);
+    donation.status = status;
+    // save(donation);
+    return donation;
+}
+
 async function updateItemCount(donationId, itemIdx, updatedCount) {
     const donation = await getById(donationId);
     donation.items[itemIdx].count = updatedCount;
-    save(donation);
+    // save(donation);
+    return donation;
 }
 
 async function updateItemAccept(donationId, itemIdx, updatedValue) {
@@ -50,6 +59,7 @@ export default {
     getById,
     save,
     updateTag,
+    updateStatus,
     updateItemCount,
     updateItemAccept,
     updateRejectReason

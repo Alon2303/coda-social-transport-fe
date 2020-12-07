@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 // Services
 import donationService from '../services/donationService';
+
+import { loadDonationById, saveDonation } from '../store/actions/donationActions';
 
 // Components
 import ImagesGallery from '../components/adminDonationDetails/ImagesGallery';
@@ -10,6 +12,7 @@ import DonationTags from '../components/adminDonationDetails/DonationTags';
 import Editable from '../components/adminDonationDetails/Editable';
 import AcceptItemToggle from '../components/adminDonationDetails/AcceptItemToggle';
 import ShipmentCoordination from '../components/adminDonationDetails/ShipmentCoordination';
+import DonationRowActionBtns from '../components/adminDonationList/DonationRowActionBtns';
 
 class DonationDetails extends Component {
     constructor(props) {
@@ -17,49 +20,33 @@ class DonationDetails extends Component {
         this.inputRef = React.createRef();
         this.textareaRef = React.createRef();
     }
-    state = {
-        donation: {},
-        isEditing: false,
-        tags: [],
-        itemsCount: [],
-        items: []
+
+    componentDidMount = async () => {
+        await this.loadDonation();
+    }
+
+    loadDonation = async () => {
+        const { id } = this.props.match.params;
+        const donation = await this.props.loadDonationById(id);
+        return donation;
     };
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.items !== this.state.items) {
-            console.log('been updated.')
-        }
-    }
-
-    async componentDidMount() {
+    setCount = async (itemIdx, updatedCount) => {
         const { id } = this.props.match.params;
-        const donation = await donationService.getById(id);
-        const itemsCount = [];
-        for (let i = 0; i < donation.items.length; i++) {
-            let currItemCount = donation.items[i].count;
-            itemsCount.push(currItemCount);
-        }
-        this.setState({ ...this.state, donation: donation, itemsCount: itemsCount, items: donation.items })
-    }
+        const updatedDonation = await donationService.updateItemCount(id, itemIdx, +updatedCount);
+        await this.props.saveDonation(updatedDonation);
+        await this.props.loadDonationById(id);
 
-    handleCountChange = (e) => {
-        console.log(e.target.value);
-    }
-
-    setCount = (itemIdx, updatedCount) => {
-        const updateCounts = this.state.itemsCount;
-        updateCounts[itemIdx] = +updatedCount;
-        this.setState({ ...this.state, itemsCount: updateCounts });
-        const { id } = this.props.match.params;
-        donationService.updateItemCount(id, itemIdx, +updatedCount);
     }
 
     render() {
-        const { donation, itemsCount } = this.state;
+        const { donation } = this.props;
 
         return (
             (
-                donation.id ?
+                !donation ?
+                    <div>no donation found</div>
+                    :
                     <div>
                         <header className='donation-details'>
                             <div className='donation-details donation-header-right'>
@@ -78,7 +65,7 @@ class DonationDetails extends Component {
                                     <div className='item-info'>
                                         <section className='item-count'>Count:
                                             <Editable className='item-count-value'
-                                                text={itemsCount[i]}
+                                                text={donation.items[i].count}
                                                 childRef={this.inputRef}
                                                 type='number'
                                             >
@@ -86,7 +73,7 @@ class DonationDetails extends Component {
                                                     ref={this.inputRef}
                                                     type='number'
                                                     name='count'
-                                                    value={itemsCount[i]}
+                                                    value={donation.items[i].count}
                                                     onChange={e => this.setCount(i, e.target.value)}
                                                 />
                                             </Editable>
@@ -118,12 +105,25 @@ class DonationDetails extends Component {
                                 סטאטוס תשלום: {donation.paymentStatus}
                             </div>
                         </section>
+                        <section>
+                            <DonationRowActionBtns key={donation.id} donation={donation} classRow={'show-row-action-btns'} />
+                        </section>
                     </div>
-                    :
-                    <div>no donation found</div>
             )
         );
     }
 }
 
-export default DonationDetails;
+
+const mapStateToProps = (state) => {
+    return {
+        donation: state.donation.currDonation,
+    };
+};
+
+const mapDispatchToProps = {
+    loadDonationById,
+    saveDonation
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DonationDetails);

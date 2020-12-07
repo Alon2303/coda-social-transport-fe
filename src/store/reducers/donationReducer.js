@@ -2,16 +2,20 @@
 
 const initState = {
     donations: [],
-    currDonation: null
+    currDonation: null,
+    currDonationStatus: ''
 }
 
 const donationReducer = (state = initState, action) => {
     switch (action.type) {
         case 'SET_DONATIONS':
+            console.log('in set donations');
+            // let state =  { ...state, donations: action.donations };
+            // console.log('print ', state);
             return { ...state, donations: action.donations };
         case 'SET_CURR_DONATION':
             return { ...state, currDonation: action.donation };
-        case 'UPDATE_DONATION_TAG':
+        case 'UPDATE_DONATION':
             return {
                 ...state,
                 donations: state.donations.map(donation => {

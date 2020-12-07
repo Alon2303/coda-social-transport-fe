@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import DonationSummary from '../components/adminDonationList/DonationSummary';
 
-
-// Services
-import donationService from '../services/donationService';
+import { loadDonations } from '../store/actions/donationActions';
 
 class DonationsList extends Component {
     state = {
-        donations: [],
         status: 'Open donations',
         donationStatuses: ['Open donations', 'Closed donations', 'Archived donations', 'All donations']
     }
 
     async componentDidMount() {
-        // const donations = await donationService.query();
-        // this.setState({ ...this.state, donations });
         await this.getDonations();
     };
 
-    async getDonations() {
-        const filterBy = { status: this.state.status }
-        console.log('FILTER BY: ', filterBy);
-        const donations = await donationService.query(filterBy);
-        this.setState({ ...this.state, donations });
-    }
-
     onSetFilter = (e) => {
         const selectedStatus = e.target.value;
-        this.setState({ ...this.state, status: selectedStatus }, function () {
-            this.getDonations();
+        this.setState({ ...this.state, status: selectedStatus }, async function () {
+            await this.getDonations();
         });
+    }
+
+    async getDonations() {
+        const filterBy = { status: this.state.status }
+        await this.props.loadDonations(filterBy);
     }
 
     render() {
         const { donationStatuses } = this.state;
+        const { donations } = this.props;
         this.onSetFilter = this.onSetFilter.bind(this);
         let donationStatusesList = donationStatuses.length > 0
             && donationStatuses.map((item, i) => {
@@ -62,7 +58,7 @@ class DonationsList extends Component {
                         </tr>
                     </thead>
                     <tbody className="donations-table-body">
-                        {this.state.donations.map((donation) => (
+                        {donations.map((donation) => (
                             <DonationSummary key={donation.id} donation={donation} />
                         ))}
                     </tbody>
@@ -72,4 +68,14 @@ class DonationsList extends Component {
     }
 }
 
-export default DonationsList;
+const mapStateToProps = (state) => {
+    return {
+        donations: state.donation.donations
+    };
+};
+
+const mapDispatchToProps = {
+    loadDonations
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DonationsList);
