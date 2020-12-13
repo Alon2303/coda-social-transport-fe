@@ -19,7 +19,7 @@ const donationReducer = (state = initState, action) => {
             return {
                 ...state,
                 donations: state.donations.map(donation => {
-                    if (donation.id === action.donation.id) return action.donation;
+                    if (donation._id === action.donation._id) return action.donation;
                     return donation;
                 })
             }
@@ -27,7 +27,7 @@ const donationReducer = (state = initState, action) => {
             return {
                 ...state,
                 donations: state.donations.filter(donation => {
-                    return donation.id !== action.id
+                    return donation._id !== action.donationId
                 })
             }
         case 'ADD_DONATION':

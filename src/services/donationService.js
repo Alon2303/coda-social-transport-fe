@@ -51,7 +51,7 @@ async function updateRejectReason(donationId, itemIdx, reason) {
 }
 
 function save(donation) {
-    return httpService.put(`api/donation/${donation.id}`, donation);
+    return httpService.put(`api/donation/${donation._id}`, donation);
 }
 
 export default {

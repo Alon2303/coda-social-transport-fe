@@ -10,7 +10,7 @@ const DonationSummary = (props) => {
 
     const handleDonationDetails = (e) => {
         if (e.target.value !== 'Cancel' && e.target.value !== 'On Hold') {
-            const { id } = donation;
+            const id = donation._id;
             history.push({
                 pathname: '/donation/' + id
             });
@@ -25,7 +25,7 @@ const DonationSummary = (props) => {
     }
 
     return (
-        (donation.id ? <tr dir="rtl" key={donation.id} className="donations-table-body-row"
+        (donation._id ? <tr dir="rtl" key={donation._id} className="donations-table-body-row"
             onClick={(e) => handleDonationDetails(e)}
             onMouseOver={() => showActionBtns()}
             onMouseOut={() => hideActionBtns()}
@@ -38,7 +38,7 @@ const DonationSummary = (props) => {
             <td>{donation.status}</td>
             <td>{donation.paymentStatus}</td>
             <td className={classRow} >
-                <DonationRowActionBtns key={donation.id} donation={donation} classRow={classRow} />
+                <DonationRowActionBtns key={donation._id} donation={donation} classRow={classRow} />
             </td>
         </tr> :
             <tr>Loading ..</tr>

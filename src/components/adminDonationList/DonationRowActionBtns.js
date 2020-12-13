@@ -15,7 +15,7 @@ const DonationRowActionBtns = (props) => {
     }, []);
 
     const handleDonationStatus = async (donation, status) => {
-        const { id } = donation;
+        const id = donation._id;
         if (window.confirm(`Are you sure you want to change ${donation.donorName}'s donation to ${status}?`)) {
             let updatedDonation = await donationService.updateStatus(id, status);
             await props.saveDonation(updatedDonation);
@@ -24,7 +24,7 @@ const DonationRowActionBtns = (props) => {
     }
 
     return (
-        (donation.id ? <tr key={donation.id} className="donations-table-body-row"  >
+        (donation._id ? <tr key={donation._id} className="donations-table-body-row"  >
             <td>
                 <button onClick={() => handleDonationStatus(donation, 'on hold')}
                     variant="tertiary"

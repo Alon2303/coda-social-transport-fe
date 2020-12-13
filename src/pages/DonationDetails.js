@@ -54,7 +54,7 @@ class DonationDetails extends Component {
                                 <section>{donation.status}</section>
                             </div>
                             <div className='donation-header-left'>
-                                <img className='donor-logo' src={require(`../${donation.logo}`)} alt='donor-logo' />
+                                {/* <img className='donor-logo' src={require(`../${donation.logo}`)} alt='donor-logo' /> */}
                                 <section>{donation.donorName}</section>
                             </div>
                         </header>
@@ -79,11 +79,11 @@ class DonationDetails extends Component {
                                             </Editable>
                                         </section>
 
-                                        <DonationTags tag={item.tag} donationId={donation.id} itemIdx={i} />
+                                        <DonationTags tag={item.tags} donationId={donation._id} itemIdx={i} />
                                     </div>
-                                    <ImagesGallery images={item.images} />
-                                    <AcceptItemToggle donationId={donation.id} itemIdx={i} item={item} />
-                                    <section>Donor comments: {item.comments}</section>
+                                    {/* <ImagesGallery images={item.images} /> */}
+                                    <AcceptItemToggle donationId={donation._id} itemIdx={i} item={item} />
+                                    <section>Donor comments: {item.comment}</section>
                                 </section>
                             ))}
                         </section>
@@ -93,20 +93,23 @@ class DonationDetails extends Component {
                                 {donation.shippingMethod}
                             </div>
                             <div>
-                                {donation.shippingDate}
+                                Start date: {donation.shippingDateStart}
+                            </div>
+                            <div>
+                                End date: {donation.shippingDateStart}
                             </div>
                             <div>
                                 {(donation.shippingMethod === 'זקוקים להובלה') ? <ShipmentCoordination /> : ''}
                             </div>
                             <div>
-                                כתובת איסוף: {donation.pickupAddress}
+                                כתובת איסוף: {donation.pickUpAddress}
                             </div>
                             <div>
                                 סטאטוס תשלום: {donation.paymentStatus}
                             </div>
                         </section>
                         <section>
-                            <DonationRowActionBtns key={donation.id} donation={donation} classRow={'show-row-action-btns'} />
+                            <DonationRowActionBtns key={donation._id} donation={donation} classRow={'show-row-action-btns'} />
                         </section>
                     </div>
             )
@@ -116,6 +119,7 @@ class DonationDetails extends Component {
 
 
 const mapStateToProps = (state) => {
+    console.log('PROPS IN DETAILS : ', state.donation.currDonation);
     return {
         donation: state.donation.currDonation,
     };

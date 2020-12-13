@@ -59,7 +59,7 @@ class DonationsList extends Component {
                     </thead>
                     <tbody className="donations-table-body">
                         {donations.map((donation) => (
-                            <DonationSummary key={donation.id} donation={donation} />
+                            <DonationSummary key={donation._id} donation={donation} />
                         ))}
                     </tbody>
                 </table>
@@ -69,6 +69,7 @@ class DonationsList extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log('PROPS IN LIST - ALL: ', state.donation.donations);
     return {
         donations: state.donation.donations
     };

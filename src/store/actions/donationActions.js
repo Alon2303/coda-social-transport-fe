@@ -9,10 +9,10 @@ export function loadDonations(filterBy) {
 }
 
 // READ
-export function loadDonationById(id) {
-    console.log(id, 'in action');
+export function loadDonationById(donationId) {
+    console.log(donationId, 'in action');
     return async dispatch => {
-        let donation = await donationService.getById(id);
+        let donation = await donationService.getById(donationId);
         console.log('in action , ', donation);
         dispatch({ type: 'SET_CURR_DONATION', donation })
     }
@@ -21,7 +21,7 @@ export function loadDonationById(id) {
 // UPDATE + CREATE
 export function saveDonation(donation) {
     return async dispatch => {
-        const isEdit = !!donation.id;
+        const isEdit = !!donation._id;
         donation = await donationService.save(donation);
         if (isEdit) dispatch({ type: 'UPDATE_DONATION', donation })
         else dispatch({ type: 'ADD_DONATION', donation })
@@ -30,9 +30,9 @@ export function saveDonation(donation) {
 }
 
 // REMOVE
-export function deleteDonation(id) {
+export function deleteDonation(donationId) {
     return async dispatch => {
-        await donationService.deleteDonation(id);
-        dispatch({ type: 'DELETE_DONATION', id })
+        await donationService.deleteDonation(donationId);
+        dispatch({ type: 'DELETE_DONATION', donationId })
     }
 }
