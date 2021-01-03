@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 // Services
 import donationService from '../../services/donationService';
-
-// Components
-import Editable from './Editable';
+import { loadDonationById, saveDonation } from '../../store/actions/donationActions';
 
 const AcceptItemToggle = (props) => {
     const [itemAccepted, setItemAccepted] = useState('');
@@ -19,20 +18,21 @@ const AcceptItemToggle = (props) => {
             setRejectionReason(rejectionReason);
             reasons.unshift(rejectionReason);
         }
-        // console.log('reasons ', reasons);
     }, [itemAccepted, rejectionReason]);
 
-    const handleItemAccept = (e) => {
+    const handleItemAccept = async (e) => {
         const newValue = e.target.value;
         setItemAccepted(newValue);
         const { donationId, itemIdx } = props;
-        donationService.updateItemAccept(donationId, itemIdx, newValue);
+        let updatedDonation = await donationService.updateItemAccept(donationId, itemIdx, newValue);
+        await props.saveDonation(updatedDonation);
     }
 
-    const onSetReason = (e) => {
-        // console.log('rejectionReason: ', e.target.value);
+    const onSetReason = async (e) => {
         const { donationId, itemIdx } = props;
-        donationService.updateRejectReason(donationId, itemIdx, e.target.value);
+        let updatedDonation = await donationService.updateRejectReason(donationId, itemIdx, e.target.value);
+        // await props.saveDonation(updatedDonation);
+        await props.saveDonation(updatedDonation);
     }
 
     const acceptedStyle = 'toggle-accept accepted';
@@ -62,4 +62,9 @@ const AcceptItemToggle = (props) => {
     );
 }
 
-export default AcceptItemToggle;
+const mapDispatchToProps = {
+    loadDonationById,
+    saveDonation
+};
+
+export default connect(null, mapDispatchToProps)(AcceptItemToggle);

@@ -21,10 +21,11 @@ class DonationTags extends Component {
             ]
         });
     }
+
     onSetTag = async (e) => {
         const selectedTag = e.target.value;
-        const { donationId, itemIdx } = this.props;
-        let updatedDonation = await donationService.updateTag(donationId, itemIdx, selectedTag);
+        const { donation, itemIdx } = this.props;
+        let updatedDonation = await donationService.updateTag(donation._id, itemIdx, selectedTag);
         await this.props.saveDonation(updatedDonation);
     }
 

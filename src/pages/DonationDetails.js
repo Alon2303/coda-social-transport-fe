@@ -79,7 +79,7 @@ class DonationDetails extends Component {
                                             </Editable>
                                         </section>
 
-                                        <DonationTags tag={item.tags} donationId={donation._id} itemIdx={i} />
+                                        <DonationTags tag={item.tags} donation={donation} itemIdx={i} />
                                     </div>
                                     {/* <ImagesGallery images={item.images} /> */}
                                     <AcceptItemToggle donationId={donation._id} itemIdx={i} item={item} />

@@ -40,14 +40,16 @@ async function updateItemCount(donationId, itemIdx, updatedCount) {
 async function updateItemAccept(donationId, itemIdx, updatedValue) {
     const donation = await getById(donationId);
     donation.items[itemIdx].itemAccepted = updatedValue;
-    save(donation);
+    // save(donation);
+    return donation;
 }
 
 async function updateRejectReason(donationId, itemIdx, reason) {
     console.log('REASON IN SERVICE< ', reason);
     const donation = await getById(donationId);
     donation.items[itemIdx].rejectionReason = reason;
-    save(donation);
+    // save(donation);
+    return donation;
 }
 
 function save(donation) {
