@@ -9,9 +9,6 @@ const initState = {
 const donationReducer = (state = initState, action) => {
     switch (action.type) {
         case 'SET_DONATIONS':
-            console.log('in set donations');
-            // let state =  { ...state, donations: action.donations };
-            // console.log('print ', state);
             return { ...state, donations: action.donations };
         case 'SET_CURR_DONATION':
             return { ...state, currDonation: action.donation };
@@ -19,7 +16,7 @@ const donationReducer = (state = initState, action) => {
             return {
                 ...state,
                 donations: state.donations.map(donation => {
-                    if (donation._id === action.donation._id) return action.donation;
+                    if (donation._id === action.donation._id) return { ...state, currDonation: action.donation };
                     return donation;
                 })
             }

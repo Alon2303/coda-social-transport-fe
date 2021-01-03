@@ -13,7 +13,6 @@ export function loadDonationById(donationId) {
     console.log(donationId, 'in action');
     return async dispatch => {
         let donation = await donationService.getById(donationId);
-        console.log('in action , ', donation);
         dispatch({ type: 'SET_CURR_DONATION', donation })
     }
 }

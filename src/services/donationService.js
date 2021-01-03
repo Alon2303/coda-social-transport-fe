@@ -18,8 +18,9 @@ async function getById(donationId) {
 
 async function updateTag(donationId, itemIdx, tag) {
     const donation = await getById(donationId);
-    donation.items[itemIdx].tag = tag;
-    save(donation);
+    donation.items[itemIdx].tags = tag;
+    // save(donation);
+    return donation;
 }
 
 async function updateStatus(donationId, status) {
@@ -46,7 +47,6 @@ async function updateRejectReason(donationId, itemIdx, reason) {
     console.log('REASON IN SERVICE< ', reason);
     const donation = await getById(donationId);
     donation.items[itemIdx].rejectionReason = reason;
-    console.log('UPDATED SONATION ITEM AFTER : ', donation);
     save(donation);
 }
 

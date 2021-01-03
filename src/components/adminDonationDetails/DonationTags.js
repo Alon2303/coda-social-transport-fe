@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // Services
 import donationService from '../../services/donationService';
+import { saveDonation } from '../../store/actions/donationActions';
+
 
 class DonationTags extends Component {
     state = {
@@ -18,11 +21,11 @@ class DonationTags extends Component {
             ]
         });
     }
-    onSetTag = (e) => {
+    onSetTag = async (e) => {
         const selectedTag = e.target.value;
         const { donationId, itemIdx } = this.props;
-        donationService.updateTag(donationId, itemIdx, selectedTag);
-
+        let updatedDonation = await donationService.updateTag(donationId, itemIdx, selectedTag);
+        await this.props.saveDonation(updatedDonation);
     }
 
     render() {
@@ -45,4 +48,8 @@ class DonationTags extends Component {
     }
 }
 
-export default DonationTags;
+const mapDispatchToProps = {
+    saveDonation
+};
+
+export default connect(null, mapDispatchToProps)(DonationTags);
