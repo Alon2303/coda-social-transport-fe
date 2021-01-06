@@ -1,0 +1,27 @@
+.landing-container {
+  background: khaki;
+}
+
+.landing-text {
+  margin-left: auto;
+  margin-right: auto;
+  width: 20em;
+}
+
+.landing-btn {
+  display: inline-block;
+  margin-left: 5%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: center;
+}
+.landing-logo {
+  color: #fff;
+  justify-self: start;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}

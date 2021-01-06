@@ -1,0 +1,9 @@
+.shipment-toggle > * {
+    padding: 5px 10px;
+    border: none;
+    }
+    
+    .shipment-toggle-selected {
+        background-color: rgb(53, 50, 50);
+        color: #ffffff;
+    }

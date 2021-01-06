@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+}
+
+.donations-table thead {
+    background-color: rgb(163, 184, 187);
+    color: black;
+}
+
+.donations-table td {
+    text-align: center;
+}
