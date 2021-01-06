@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cf7fe700-9c66-4fcf-83ed-561326ee987a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/signUp/signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/signUp/signUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/reducers/donationReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/donationReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/reducers/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/userReducer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,21 +79,35 @@
       <workItem from="1601222850226" duration="10045000" />
       <workItem from="1601361461491" duration="37000" />
       <workItem from="1601560435569" duration="13575000" />
-      <workItem from="1601737481785" duration="2658000" />
+      <workItem from="1601737481785" duration="3321000" />
+      <workItem from="1601917696360" duration="649000" />
     </task>
+    <task id="LOCAL‎00001" summary="Added Email Api/component/page&#10;Added fileHandler --&gt; extracts emails&#10;from an excel sheet">
+      <created>1601746071376</created>
+      <option name="number" value="LOCAL‎00001" />
+      <option name="presentableId" value="LOCAL‎00001" />
+      <updated>1601746071376</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Added Email Api/component/page&#10;Added fileHandler --&gt; extracts emails&#10;from an excel sheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Email Api/component/page&#10;Added fileHandler --&gt; extracts emails&#10;from an excel sheet" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1335" y="112" key="CommitChangelistDialog2" timestamp="1601207306445">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state x="390" y="0" key="CommitChangelistDialog2" timestamp="1601746069068">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="-1335" y="112" key="CommitChangelistDialog2/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1601207306445" />
+    <state x="390" y="0" key="CommitChangelistDialog2/0.0.1280.680@0.0.1280.680" timestamp="1601746069068" />
+    <state x="242" y="56" key="DiffContextDialog" timestamp="1601745981652">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="242" y="56" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1601745981652" />
     <state x="-1180" y="276" key="FileChooserDialogImpl" timestamp="1601589708088">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -186,6 +192,10 @@
     </state>
     <state width="1899" height="338" key="GridCell.Tab.3.right/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1601583097792" />
     <state width="1899" height="338" key="GridCell.Tab.3.right/0.0.1280.680/-1920.0.1920.1040@0.0.1280.680" timestamp="1601663679452" />
+    <state x="233" y="75" key="Vcs.Push.Dialog.v2" timestamp="1601746482669">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="75" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1601746482669" />
     <state x="-1828" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601588742438">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -195,9 +205,10 @@
     </state>
     <state x="-1265" y="252" width="610" height="536" key="find.popup/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1601589383958" />
     <state x="437" y="144" width="612" height="536" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1601745766241" />
-    <state x="-1275" y="312" key="git4idea.merge.GitPullDialog" timestamp="1601207316257">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state x="430" y="204" key="git4idea.merge.GitPullDialog" timestamp="1601746084735">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="-1275" y="312" key="git4idea.merge.GitPullDialog/0.0.1280.680/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1601207316257" />
+    <state x="430" y="204" key="git4idea.merge.GitPullDialog/0.0.1280.680@0.0.1280.680" timestamp="1601746084735" />
   </component>
 </project>
