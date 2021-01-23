@@ -1,6 +1,5 @@
 import React from 'react';
 import { addUserToDB } from '../../../../api/users';
-import './style.css';
 
 class SignUp extends React.Component {
     constructor(props){
@@ -64,6 +63,8 @@ class SignUp extends React.Component {
         console.log('user', this.state.user)
         console.log('valid', this.state.valid);
         console.log('message', this.state.message);
+
+        
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
