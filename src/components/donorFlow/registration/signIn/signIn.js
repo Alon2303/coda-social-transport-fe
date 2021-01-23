@@ -1,6 +1,5 @@
 import React from 'react';
 import { getUsersByEmail} from '../../../../api/users';
-import '../signUp/style.css';
 
 class SignIn extends React.Component{
 
