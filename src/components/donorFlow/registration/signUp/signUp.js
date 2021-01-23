@@ -1,7 +1,7 @@
 import React from 'react';
 import { addUserToDB } from '../../../../api/users';
 
-class SignUp extends React.Component {
+class SignUp5 extends React.Component {
     constructor(props){
         super(props);
         this.state = {
