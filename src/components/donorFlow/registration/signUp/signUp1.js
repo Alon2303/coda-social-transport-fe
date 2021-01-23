@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState }from 'react';
 import logo from '../../../Logo/logo.svg';
 
 import Button from '@material-ui/core/Button';
@@ -67,7 +67,8 @@ function CheckBoxFun() {
     )
 }
 
-function SignUp(){
+function SignUp4(){
+   
     return(
         <div>
             <ThemeProvider theme={theme}>
