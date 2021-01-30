@@ -16,6 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Link from '@material-ui/core/Link';
 
 
 function CheckBoxFun() {
@@ -30,6 +31,7 @@ function CheckBoxFun() {
         </div>
     )
 }
+
 const theme = createMuiTheme ({
     typography: {
         h6:{
@@ -78,12 +80,12 @@ const SignIn = () => {
                         <img src={logo} alt={'logo'} style={{width:53, height:45}} justify={'center'}/>
                     </Grid> 
                     <Grid container spacing={2} direction={"column"} style={{textAlign:"right"}}>
-                        <Grid item xs={12} sm={6} xl={3}>
+                        <Grid item xs={12} sm={6} xl={3} >
                             <Typography variant={"h6"} color={"secondary"}>
                                 הרשמה
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={11}>
+                        <Grid item xs={12} sm={11} >
                             <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} fullWidth required/>
                         </Grid>
                         {/* input email*/}
@@ -128,26 +130,21 @@ const SignIn = () => {
                         <Button variant={"contained"}  color={"primary"} style={{height: 56 ,width:225, fontSize:16 }}>
                             צרפו אותי
                         </Button>
+                        <Link
+                            component="button"
+                            variant="body2"
+                            onClick={() => {
+                                console.info("link");
+                            }}
+                            >
+                            נרשמתי כבר 
+                        </Link>
                     </Grid>
                 </form>
             </Container>
         </ThemeProvider>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // class SignIn extends React.Component{
 
