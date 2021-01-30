@@ -33,7 +33,6 @@ function CheckBoxFun() {
 const theme = createMuiTheme ({
     typography: {
         h6:{
-            fontFamily: 'Rubik',
             fontSize: 22,
             maginTop: 140,
             textAlign : 'right'
