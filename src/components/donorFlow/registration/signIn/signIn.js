@@ -8,14 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {ThemeProvider , createMuiTheme} from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { addUserToDB } from '../../../../api/users';
+import { getUsersByEmail} from '../../../../api/users';
 
 
 function CheckBoxFun() {
@@ -56,19 +49,6 @@ const SignIn = () => {
         showPassword: false
     });
 
-    const handleChange = (prop) => (event) =>{
-        setValues({ ...values, [prop]: event.target.value})
-        console.log('values', values);
-    };
-
-    const handleClickShowPassword = () =>{
-        setValues({ ...values, showPassword: !values.showPassword});
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -85,39 +65,13 @@ const SignIn = () => {
                         <Grid item xs={12} sm={11}>
                             <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
                         </Grid>
-                        {/* input email*/}
-                        {/* <FormControl >
-                            <InputLabel htmlFor="my-input" justify={"right"} required>מייל</InputLabel>
-                            <Input  id="my-input" aria-describedby="my-helper-text" />
-                        </FormControl> */}
-                        {/* input password with showpassword*/}
-
-                        {/* <FormControl>
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input 
-                            type={values.showPassword ? 'text' : 'password'}
-                            value= {values.password}
-                            onChange={handleChange('password')}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                                </InputAdornment>
-                            }
-                            />
-                        </FormControl> */}
                         <Grid item xs={12} sm={11}>
                             <TextField color={"secondary"} label={"סיסמא"} type="password" inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
                             <CheckBoxFun/>
                         </Grid>
-                        <Button variant={"contained"}  color={"primary"} style={{height: 56 ,width:225, fontSize:16 }}>
+                        <Button className="text-center text-md-right" variant={"contained"}  color={"primary"} style={{height: 56 ,width:225, fontSize:16 }}>
                         לתרומות שלי
                         </Button>
                     </Grid>
@@ -148,30 +102,35 @@ const SignIn = () => {
 //         }, 2000) 
 //     };
 
-//     signupProcess = async e => {
-//         e.preventDefault();
-//         const {name, email, password} = this.state;
-//         const user = await addUserToDB(name, email, password);
-//         //const user = {name: 'inna', email:'inna@gmail.com', password:'1234'};
-//         console.log("user", user);
-//         if(user === undefined){
-//             this.setState({
-//                 valid: "notValid",
-//                 message: 'One or more of the inputs is invalid!'
-//             })
-//         }else if(user.data === "all fields are required"){
-//             this.setState({
-//                 valid: "notValid",
-//                 message: 'All fields are required'
-//             })
-//         }else{
-//             this.setState({
-//                 valid: "valid",
-//                 message: ` כל קשר מוצלח מתחיל בהיכרות,${name}`
-//             },
-//             this.signupProcessDone());
-//         }
-//     };
+//   const signInProcessDone =  async e => {
+//    e.preventDefault();
+//    const {email, password} = this.state;
+//    console.log("singin component", email, password)
+//    const user = await getUsersByEmail(email, password)
+//    console.log("user", user);
+//    console.log("check",!user);
+//    if (user.name === 'Error'){
+//        console.log("1", user.message);
+//        this.setState({
+//            valid: "invalid",
+//            message: "User doesn't exist in the system!"
+//        })
+//    }else if(user.message === 'worng password') {
+//        this.setState({
+//            valid: "invalid",
+//            message: "One of the inputs is invalid"  
+//        })
+//    }else {
+//        this.setState({
+//            user,
+//            valid: "valid",
+//            message: `${user.name} Wellcome back!`  
+//        })
+//        setTimeout(() => {
+//            this.props.history.replace("/wellcome"); 
+//        }, 3000)
+//    }
+//}
 
 //     render(){
 //         const {name, email, password} = this.state;
