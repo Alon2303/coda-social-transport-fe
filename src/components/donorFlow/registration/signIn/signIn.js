@@ -9,13 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {ThemeProvider , createMuiTheme} from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Link from '@material-ui/core/Link';
 
 
@@ -59,19 +52,6 @@ const SignIn = () => {
         showPassword: false
     });
 
-    const handleChange = (prop) => (event) =>{
-        setValues({ ...values, [prop]: event.target.value})
-        console.log('values', values);
-    };
-
-    const handleClickShowPassword = () =>{
-        setValues({ ...values, showPassword: !values.showPassword});
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -86,43 +66,16 @@ const SignIn = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={11} >
-                            <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} fullWidth required/>
+                            <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} inputProps={{ style: {textAlign: 'right'} }} fullWidth required/>
                         </Grid>
-                        {/* input email*/}
-                        {/* <FormControl >
-                            <InputLabel htmlFor="my-input" justify={"right"} required>מייל</InputLabel>
-                            <Input  id="my-input" aria-describedby="my-helper-text" />
-                        </FormControl> */}
-                        {/* input password with showpassword*/}
-
-                        {/* <FormControl>
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input 
-                            type={values.showPassword ? 'text' : 'password'}
-                            value= {values.password}
-                            onChange={handleChange('password')}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                >
-                                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                                </IconButton>
-                                </InputAdornment>
-                            }
-                            />
-                        </FormControl> */}
-
                         <Grid item xs={12} sm={11} >
-                            <TextField  color={"secondary"} label={"שם ומשפחה"} fullWidth required/>
+                            <TextField  color={"secondary"} label={"שם ומשפחה"} inputProps={{ style: {textAlign: 'right'} }} fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"סיסמא"} type="password" fullWidth required/>
+                            <TextField color={"secondary"} label={"סיסמא"} type={"password"} inputProps={{ style: {textAlign: 'right'} }}fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"אימות סיסמא"} type="password" fullWidth required/>
+                            <TextField color={"secondary"} label={"אימות סיסמא"} type={"password"} inputProps={{ style: {textAlign: 'right'} }} fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
                             <CheckBoxFun/>
@@ -136,8 +89,7 @@ const SignIn = () => {
                             onClick={() => {
                                 console.info("link");
                             }}
-                            >
-                            נרשמתי כבר 
+                            > נרשמתי כבר 
                         </Link>
                     </Grid>
                 </form>
