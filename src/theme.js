@@ -1,6 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import Rubik from './Fonts/Rubik/static/Rubik-Black.ttf';
- 
+
 const rubik = {
  fontFamily: 'Rubik',
  fontStyle: 'semi-bold',
@@ -17,16 +17,16 @@ const rubik = {
 
 
 const theme = createMuiTheme({
-    typography: {
-        fontFamily: ['"Open Sans"', 'Rubik', 'Roboto'].join(','),
-    },
-    overrides: {
-      MuiCssBaseline: {
-        '@global': {
-          '@font-face': [rubik],
-        },
-      }
+  typography: {
+      fontFamily: ['"Open Sans"', 'Rubik', 'Roboto'].join(','),
+  },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [rubik],
+      },
     }
+  }
 })
 
 export default theme;
