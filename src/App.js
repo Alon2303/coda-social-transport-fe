@@ -13,8 +13,8 @@ import SignUp from './components/donorFlow/registration/signUp/signUp2';
 import SignIn from './components/donorFlow/registration/signIn/signIn';
 import Confirmation from './components/donorFlow/registration/signUp/confirmation';
 import Wellcome from './components/donorFlow/order/startDonation/wellcome';
-import Company from'./components/donorFlow/order/startDonation/donorType/company';
-import NewItem from'./components/donorFlow/order/startDonation/newItem';
+import Company from './components/donorFlow/order/startDonation/donorType/company';
+import NewItem from './components/donorFlow/order/startDonation/newItem';
 import MainShipping from './components/donorFlow/order/shipping/mainShipping'
 import Comments from './components/donorFlow/order/endDonation/comments';
 import CloseDonation from './components/donorFlow/order/endDonation/closeDonation';
@@ -27,8 +27,8 @@ class App extends Component {
         <div className="App">
           <Switch>
             <Route exact path='/' component={SignUp} />
-            // donor flow 
-            <Route path='/signup' component={SignUp} />            
+            // donor flow
+            <Route path='/signup' component={SignUp} />
             <Route path='/signin' component={SignIn} />
             {/* <Route path='/email' component={Email} /> */}
             <Route path='/confirmation' component={Confirmation} />
@@ -36,9 +36,9 @@ class App extends Component {
             <Route path='/company' component={Company} />
             <Route path='/mainshipping' component={MainShipping} />
             <Route path='/newItem' component={NewItem} />
-            <Route path= '/comments' component={Comments} />
-            <Route path= '/closedonation' component={CloseDonation} />
-            <Route path= '/mainflow' component={MainFlow} />
+            <Route path='/comments' component={Comments} />
+            <Route path='/closedonation' component={CloseDonation} />
+            <Route path='/mainflow' component={MainFlow} />
 
             // admin flow
             <Route exact path='/donation' component={DonationsList} />
