@@ -9,7 +9,7 @@ import DonationDetails from './pages/DonationDetails';
 // import Email from './components/email/email';
 
 //Donor Flow
-import SignUp from './components/donorFlow/registration/signUp/signUp2';
+import SignUp from './components/donorFlow/registration/signUp/signUp';
 import SignIn from './components/donorFlow/registration/signIn/signIn';
 import Confirmation from './components/donorFlow/registration/signUp/confirmation';
 import Wellcome from './components/donorFlow/order/startDonation/wellcome';
