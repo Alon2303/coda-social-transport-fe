@@ -65,8 +65,60 @@ class NewItem extends React.Component {
             selectedFile: '',
             count: '',
             maxImg: 3,
-            comments: ''
+            comments: '',
+            startX: 0,
+            startY: 0,
+            currentX: 0,
+            currentY: 0,
+            direction: 'none',
+            threshold: 150,
         }
+    }
+
+    touchStart(e) {
+        const touchObj = e.touches[0];
+        this.setState({
+            ...this.state,
+            startX: touchObj.clientX,
+            startY: touchObj.clientY,
+        })
+    }
+
+    touchMove(e) {
+        const touchObj = e.touches[0];
+        this.setState({
+            ...this.state,
+            currentX: touchObj.clientX,
+            currentY: touchObj.clientY,
+        })
+    }
+
+    touchEnd(e) {
+        var s = {
+            touchStarted: false
+        };
+
+        s.direction = (this.state.startX > this.state.currentX) ? "left" : "right";
+
+        var nextImgIdx;
+
+        if (s.direction === 'left') {
+            if (this.state.currImage === 2) nextImgIdx = 0;
+            else nextImgIdx = this.state.currImage + 1;
+        }
+
+        if (s.direction === 'right') {
+            if (this.state.currImage === 0) nextImgIdx = 2;
+            else nextImgIdx = this.state.currImage - 1;
+        }
+
+        if (Math.abs(this.state.startX - this.state.currentX) < this.state.threshold) {
+            s.direction = this.state.startY > this.state.currentY ? "top" : "bottom";
+            nextImgIdx = this.state.currImage
+        }
+
+        console.log(' s.direction ' + s.direction);
+        this.setState({ ...this.state, direction: s.direction, currImage: nextImgIdx });
     }
 
     handleRest = () => {
@@ -102,11 +154,11 @@ class NewItem extends React.Component {
         // this.setState(prevState => ({ images: newImages })); //set the new state
     }
 
-    newItemProcesssDone = (e) => {
+    newItemProcessDone = (e) => {
         let tempItems = [];
         const { donorName, logo, currentItem, count, comments, items, images } = this.state;
         tempItems = { count, comments, images };
-        console.log("newItemProcesssDone");
+        console.log("newItemProcessDone");
         this.setState({
             items: [...items, tempItems],
         });
@@ -163,13 +215,12 @@ class NewItem extends React.Component {
             items: [{ tags: 'כללי', count, comments, selectedFile, itemAccepted: 'לא' }],
             count: ''
         });
-        this.newItemProcesssDone();
+        this.newItemProcessDone();
     };
 
     render() {
         const { classes } = this.props;
         const { currImage, currentItem, count, maxImg, comments, items, donorName, logo, imgCounter, images } = this.state;
-        console.log("images", images.length);
 
         return (
             <div className="new-item">
@@ -178,7 +229,6 @@ class NewItem extends React.Component {
                 {(images.length >= 1) ?
                     '' : (
                         <div >
-                            {/* <p>ניתן להוסיף עד {maxImg} תמונות לפריט</p> */}
                             <p>כמה דגשים לצילום הפריט:
                             <br />
                             יש לצרף <span className="bold">לפחות</span> תמונה אחת של הפריט הנתרם.
@@ -189,23 +239,31 @@ class NewItem extends React.Component {
 
                     )}
 
-                {(images[currImage]) ?
-                    (
-                        <div className="upload-image-preview">
-                            <img src={this.state.images[currImage]} alt="img" />
-                            <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
-                        </div>
-                    ) : (
-                        <label className={classes.imagePlaceholder} >
-                            <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
-                            <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
-                        </label>
-                    )}
+                <div className="swipe-gallery"
+                    onTouchStart={this.touchStart.bind(this)}
+                    onTouchMove={this.touchMove.bind(this)}
+                    onTouchEnd={this.touchEnd.bind(this)}
+                >
 
-                <div className="upload-image-dots">
-                    <img src={(images[0]) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(images[1]) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(images[2]) ? imageWhiteDot : imageBlackDot} />
+                    {(images[currImage]) ?
+                        (
+                            <div className="image-gallery" >
+                                <img src={this.state.images[currImage]} alt="img" />
+                                <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
+                            </div>
+                        ) : (
+                            <label className={classes.imagePlaceholder} >
+                                <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
+                                <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
+                            </label>
+                        )}
+                </div>
+
+
+                <div className="swipe-gallery-bottom">
+                    <img src={(currImage === 0) ? imageWhiteDot : imageBlackDot} />
+                    <img src={(currImage === 1) ? imageWhiteDot : imageBlackDot} />
+                    <img src={(currImage === 2) ? imageWhiteDot : imageBlackDot} />
                 </div>
 
                 <div className="new-item-count">

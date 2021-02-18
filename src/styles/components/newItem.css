@@ -8,13 +8,8 @@
     height: 100%;
 }
 
-.newItemPicInfo p {
-    line-height: 16px;
-}
-
 .new-item-count {
     display: flex;
-    /* flex-direction: row; */
     align-items: center;
     margin-bottom: 35px;
 }
@@ -48,11 +43,11 @@
     height: 30px;
 }
 
-.upload-image-dots img{
+.swipe-gallery-bottom img{
     margin-right: 1px;
 }
 
-.upload-image-preview {
+.image-gallery {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
