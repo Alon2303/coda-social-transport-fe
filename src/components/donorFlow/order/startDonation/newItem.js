@@ -98,7 +98,15 @@ class NewItem extends React.Component {
             touchStarted: false
         };
 
+        console.log("currImage: " + this.state.currImage);
+        console.log("startX: " + this.state.startX);
+        console.log("currentX: " + this.state.currentX);
+        console.log("startY: " + this.state.startY);
+        console.log("currentY: " + this.state.currentY);
+
+        // if (this.state.currentY < this.state.startY < 10) {
         s.direction = (this.state.startX > this.state.currentX) ? "left" : "right";
+        // }
 
         var nextImgIdx;
 
@@ -114,7 +122,7 @@ class NewItem extends React.Component {
 
         if (Math.abs(this.state.startX - this.state.currentX) < this.state.threshold) {
             s.direction = this.state.startY > this.state.currentY ? "top" : "bottom";
-            nextImgIdx = this.state.currImage
+            nextImgIdx = this.state.currImage;
         }
 
         console.log(' s.direction ' + s.direction);
@@ -135,16 +143,17 @@ class NewItem extends React.Component {
     };
 
     handleUpload = (e) => {
-        let images = [];
+        let images = this.state.images.slice(); //copy the array
         let input = e.target;
-        for (let i = 0; i < input.files.length; i++) {
-            console.log('ff1', input.files[i].name)
-            images.push(URL.createObjectURL(e.target.files[i]));
+
+        if (input.files.length === 1) {
+            images[this.state.currImage] = URL.createObjectURL(e.target.files[0]);
+        } else {
+            for (let i = 0; i < input.files.length; i++) {
+                images.push(URL.createObjectURL(e.target.files[i]));
+            }
         }
-        console.log('images', images);
-        this.setState({
-            images
-        })
+        this.setState({ ...this.state, images })
     };
 
     onDeleteImage = () => {
