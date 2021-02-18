@@ -27,13 +27,14 @@ const styles = theme => ({
     },
     button: {
         '& > *': {
-            margin: theme.spacing(1),
             borderRadius: '16px',
             height: '37px',
             width: '84px',
             backgroundColor: '#3A4F40',
             color: '#ffffff',
-            fontFamily: 'RubikRegular sans-serif'
+            fontFamily: 'RubikRegular sans-serif',
+            marginTop: '70px',
+            marginBottom: '40px'
         }
     },
     imagePlaceholder: {
@@ -68,19 +69,6 @@ class NewItem extends React.Component {
         }
     }
 
-    // state = {
-    //         donorName: this.props.location.state.donorName,
-    //         logo: this.props.location.state.logo,
-    //         currentItem: this.props.location.state.currentItem,
-    //         items: this.props.location.state.items,
-    //         imgCounter: this.props.location.state.imgCounter,
-    //         images: this.props.location.state.images,
-    //         selectedFile: '',
-    //         count: '',
-    //         maxImg: 3,
-    //         comments: ''
-    // }
-
     handleRest = () => {
         Array.from(document.querySelectorAll("input")).forEach(
             input => (input.value = "")
@@ -108,11 +96,10 @@ class NewItem extends React.Component {
     };
 
     onDeleteImage = () => {
-        console.log('OLD STATE... ' + this.state.images);
-        var images = [...this.state.images];
-        images[this.state.currImage] = '';
-        this.setState({ ...this.state, images });
-        console.log('NEW STATE... ' + this.state.images);
+        const newImages = this.state.images.slice(); //copy the array
+        newImages.splice(this.state.currImage, 1);
+        this.setState({ ...this.state, images: newImages })
+        // this.setState(prevState => ({ images: newImages })); //set the new state
     }
 
     newItemProcesssDone = (e) => {
@@ -182,57 +169,44 @@ class NewItem extends React.Component {
     render() {
         const { classes } = this.props;
         const { currImage, currentItem, count, maxImg, comments, items, donorName, logo, imgCounter, images } = this.state;
-        console.log("images", this.state.images);
-        return (
-            // <form className={"container fluid text-center"} style={{ backgroundColor: "lightgray" }} onSubmit={this.handleSubmit}>
-            // <div >
-            //     <h4>פרטי תרומה חדשה</h4>
-            //     <p>תהליך רישום התרומה זריז במיוחד</p>
-            //     <p>כולל העלאת תמונות הפריטים, בחירת טווח</p>
-            //     <p>לתהליך ההבולה ואפשרות לספר לנו אם</p>
-            //     <p>התרומה מיועדת ליעד ספציפי</p>
-            // </div>
-            // <div className={"text-left"} >
-            //     {count &&
-            //         <button onClick={this.addNewItem}>
-            //             <p>הוסף עוד פריט</p>
-            //         </button>
-            //     }
-            // </div>
-            <div className="new-item">
+        console.log("images", images.length);
 
-                <div>
-                    <h3>פריט {currentItem}</h3>
-                    {/* <p>ניתן להוסיף עד {maxImg} תמונות לפריט</p> */}
-                    <p>כמה דגשים לצילום הפריט:
+        return (
+            <div className="new-item">
+                <h3>פריט {currentItem}</h3>
+
+                {(images.length >= 1) ?
+                    '' : (
+                        <div >
+                            {/* <p>ניתן להוסיף עד {maxImg} תמונות לפריט</p> */}
+                            <p>כמה דגשים לצילום הפריט:
                             <br />
                             יש לצרף <span className="bold">לפחות</span> תמונה אחת של הפריט הנתרם.
                             <br />נשמח שהתמונה תהיה הכי אותנטית, בדיוק כמו התרומה שלך.
                             <br />
                             אפשר לצרף עד 3 תמונות מזוויות שונות.</p>
-                </div>
+                        </div>
 
-                {
-                    (this.state.images[currImage]) ?
-                        (
-                            <div className="upload-image-preview">
-                                <img src={this.state.images[currImage]} alt="img" />
-                                <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
-                            </div>
-                        ) : (
-                            <label className={classes.imagePlaceholder} >
-                                <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
-                                <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
-                            </label>
-                        )
-                }
+                    )}
+
+                {(images[currImage]) ?
+                    (
+                        <div className="upload-image-preview">
+                            <img src={this.state.images[currImage]} alt="img" />
+                            <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
+                        </div>
+                    ) : (
+                        <label className={classes.imagePlaceholder} >
+                            <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
+                            <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
+                        </label>
+                    )}
 
                 <div className="upload-image-dots">
                     <img src={(images[0]) ? imageWhiteDot : imageBlackDot} />
                     <img src={(images[1]) ? imageWhiteDot : imageBlackDot} />
                     <img src={(images[2]) ? imageWhiteDot : imageBlackDot} />
                 </div>
-
 
                 <div className="new-item-count">
                     <p className="red-color">*</p>
@@ -244,20 +218,27 @@ class NewItem extends React.Component {
                 </div>
 
                 <div className="new-item-info">
+
                     <p>מידע נוסף</p>
                     <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
+
                     <form className={classes.line} noValidate autoComplete="off">
                         <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} />
                     </form>
 
-                    {count &&
-                        <div className={classes.button}>
-                            <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
-                            {/* <button type={"submit"} onClick={this.newItemProcess}>מאושר, המשך/י</button> */}
-                        </div>
+                </div>
+
+                {/* check if "submit" btn should be disabled */}
+                <div className={classes.button}>
+
+                    {(count && images.length >= 1) ?
+
+                        <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
+                        :
+                        <Button variant="contained" disabled>הוספה</Button>
                     }
                 </div>
-                {/* </form> */}
+
             </div>
 
         )

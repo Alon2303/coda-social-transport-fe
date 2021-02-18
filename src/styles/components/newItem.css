@@ -3,9 +3,9 @@
     background-color: #ADD2DC;
     border: 1px solid lightgray;
     text-align: center;
-    padding: 34px;
+    padding-top: 27px;
     font-family: RubikRegular sans-serif;
-    height: 100vh;
+    height: 100%;
 }
 
 .newItemPicInfo p {
@@ -32,8 +32,10 @@
 }
 
 .new-item-info {
+    text-align: start;
     margin-bottom: 26px;
 }
+
 .new-item-info p {
     height: 16px;
     margin-bottom: 5px;
