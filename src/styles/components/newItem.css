@@ -1,0 +1,64 @@
+.new-item{
+    /* direction: rtl; */
+    background-color: #ADD2DC;
+    border: 1px solid lightgray;
+    text-align: center;
+    padding-top: 27px;
+    font-family: RubikRegular sans-serif;
+    height: 100%;
+}
+
+.new-item-count {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.new-item-count p {
+    margin-bottom: 0;
+}
+ 
+.red-color {
+    color: red;
+}
+
+.amount {
+    font-size: 18px;
+}
+
+.new-item-info {
+    text-align: start;
+    margin-bottom: 26px;
+}
+
+.new-item-info p {
+    height: 16px;
+    margin-bottom: 5px;
+    text-align: start;
+    font-family: RubikRegular sans-serif;
+}
+
+.new-item-avatar img {
+    width: 44px;
+    height: 30px;
+}
+
+.swipe-gallery-bottom img{
+    margin-right: 1px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width:270px;
+    max-height:190px;
+    position:relative;
+    margin-bottom: 20px;
+}
+
+.delete-icon {
+    position:absolute;
+    bottom: 0; 
+    right: 18px;
+}

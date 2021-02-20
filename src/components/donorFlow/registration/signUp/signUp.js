@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SignUpForm from './signUpForm';
-import {ThemeProvider} from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { addUserToDB } from '../../../../api/users';
 import {  createMuiTheme} from '@material-ui/core/styles';
 
@@ -32,31 +32,31 @@ const theme = createMuiTheme ({
 })
 
 const SignUp = () => {
-    const [email , setEmail] = useState({ 
-        email:''
+    const [email, setEmail] = useState({
+        email: ''
     });
-    const [name , setName] = useState({ 
-        name:''
+    const [name, setName] = useState({
+        name: ''
     });
-    const [password , setPassword] = useState({ 
-        password:''
+    const [password, setPassword] = useState({
+        password: ''
     });
-    const [password2 , setPassword2] = useState({ 
-        password2:''
+    const [password2, setPassword2] = useState({
+        password2: ''
     });
 
-    const addValues = (email, name, password) =>{
-        setEmail({email});
-        setName({name});
-        setPassword({password});        
-        setPassword2({password2});
+    const addValues = (email, name, password) => {
+        setEmail({ email });
+        setName({ name });
+        setPassword({ password });
+        setPassword2({ password2 });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem('name', JSON.stringify(name))
     }, [name]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(email);
         console.log(name);
         console.log(password);
@@ -64,15 +64,15 @@ const SignUp = () => {
         setEmail('');
     })
 
-    const signUp = async (name,email,password) =>{
+    const signUp = async (name, email, password) => {
         await addUserToDB(name, email, password);
     }
-    
+
 
     return (
         <ThemeProvider theme={theme}>
 
-            <SignUpForm addValues={addValues}/>
+            <SignUpForm addValues={addValues} />
         </ThemeProvider>
     )
 }

@@ -6,6 +6,31 @@
 
 body {
     line-height: 1.7;
-    padding: 3rem;
+    /* padding: 3rem; */
     box-sizing: border-box;
+    direction: rtl;
+    font-family: RubikRegular sans-serif;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.MuiOutlinedInput-root{
+    border-radius: 16px;
+    width: 55px;
+    height: 23px;
+}
+
+
+.Mui-focused{
+    /* border: none; */
+}
+
+/* .MuiInputBase-input:focus{
+    border-color: black;
+} */
