@@ -93,7 +93,7 @@ function CheckBoxFun() {
                     </Grid>
                     <Button variant={"contained"} 
                     color={"primary"} 
-                    style={{height: 56 ,width:225, fontSize:16, borderRadius: 18, marginBottom:12}}
+                    style={{height: 56 ,width:260, fontSize:16, borderRadius: 18, marginBottom:12}}
                     type={"submit"} 
                     //onClick={this.signInProcessDone}
                     >צרפו אותי

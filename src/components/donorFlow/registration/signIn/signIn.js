@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import {ThemeProvider } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
-import theme from '../theme'
+import theme from '../theme';
+
 import { getUsersByEmail} from '../../../../api/users';
 
 
@@ -20,7 +21,8 @@ function CheckBoxFun() {
         <div>
             <FormControlLabel 
             control= {
-                <Checkbox checked={checked} onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
+                <Checkbox checked={checked} 
+                onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
                 label={"שמירת סיסמא"}
                 style={{marginRight:-10}}
                 labelPlacement={"end"} />
@@ -50,18 +52,20 @@ const SignIn = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} placeholder={"מייל"} placeholder={"test@test.com"} fullWidth required/>
+                            <TextField color={"secondary"} 
+                            label={"מייל"} placeholder={"test@test.com"} fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"סיסמא"} type="password" fullWidth required/>
+                            <TextField color={"secondary"} 
+                            label={"סיסמא"} type="password" fullWidth required/>
                         </Grid>
-                        <Grid item xs={12} sm={11} style={{fontSize: 14, display:'flex', alignItems:'center', justifyContent: 'space-between'}}>
+                        <Grid item xs={12} sm={11} style={{fontSize: 14, display:'flex', alignItems:'baseline', justifyContent: 'space-between'}}>
                             <CheckBoxFun />
                             <Link>שכחתי סיסמא </Link>
                         </Grid>
                         <Button variant={"contained"} 
                     color={"primary"} 
-                    style={{height: 56 ,width:225, fontSize:16, borderRadius: 18,  marginTop:130, marginBottom:12}}
+                    style={{height: 56 ,width:260, fontSize:16, borderRadius: 18,  marginTop:130, marginBottom:12}}
                     type={"submit"} >
                         לתרומות שלי
                         </Button>
