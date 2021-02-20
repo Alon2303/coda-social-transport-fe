@@ -2,6 +2,34 @@ import React, { useEffect, useState } from 'react';
 import SignUpForm from './signUpForm';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { addUserToDB } from '../../../../api/users';
+import {  createMuiTheme} from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme ({
+    typography: {
+        h6:{
+            fontFamily: 'Rubik',
+            fontSize: 22,
+            maginTop: 140,
+            textAlign : 'right'
+        }, 
+    },
+    palette:{
+        primary:{
+            main: '#3A4F40',
+        }, 
+        secondary: {
+            main: '#44919B',
+        }
+    },
+    overrides: {
+        MuiSelect:{
+            root:{
+                textAlign:'right'
+            }
+        }
+   }
+})
 
 const SignUp = () => {
     const [email, setEmail] = useState({
@@ -42,8 +70,7 @@ const SignUp = () => {
 
 
     return (
-        //<ThemeProvider theme={theme}>
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
 
             <SignUpForm addValues={addValues} />
         </ThemeProvider>
