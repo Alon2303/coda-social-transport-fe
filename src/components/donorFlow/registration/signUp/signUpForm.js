@@ -6,7 +6,7 @@ import Grid  from '@material-ui/core/Grid';
 import logo from '../../../Logo/logo.svg';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import {  createMuiTheme} from '@material-ui/core/styles';
+import {  createMuiTheme , ThemeProvider} from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 
@@ -19,18 +19,21 @@ function CheckBoxFun() {
             <FormControlLabel control= {
                 <Checkbox checked={checked} onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
                 label={"שמירת סיסמא"}
-                labelPlacement={"start"} />
+                style={{marginRight:-10}}
+                labelPlacement={"end"} />
         </div>
     )
 }
 
+  
 const theme = createMuiTheme ({
+    direction: 'rtl',
     typography: {
         h6:{
             fontFamily: 'Rubik',
             fontSize: 22,
             maginTop: 140,
-            textAlign : 'right'
+            // textAlign : 'right'
         }, 
     },
     palette:{
@@ -41,13 +44,13 @@ const theme = createMuiTheme ({
             main: '#44919B',
         }
     },
-    overrides: {
-        MuiSelect:{
-            root:{
-                textAlign:'right'
-            }
-        }
-   }
+//     overrides: {
+//         MuiSelect:{
+//             root:{
+//                 textAlign:'right'
+//             }
+//         }
+//    }
 })
 
 
@@ -65,77 +68,79 @@ const theme = createMuiTheme ({
         // set values back to empty fileds
     }
     return(
-        <Container>
+    <Container>
         <form onSubmit={handleSubmit}>
-            <Grid container justify={'center'}>
-                <img src={logo} alt={'logo'} style={{width:53, height:45}} justify={'center'}/>
-            </Grid> 
-            <Grid container spacing={2} direction={"column"} style={{textAlign:"right"}}>
-                <Grid item xs={12} sm={6} xl={3} >
-                    <Typography variant={"h6"} color={"secondary"}>
-                        הרשמה
-                    </Typography>
+            <ThemeProvider theme={theme}>
+                <Grid container justify={'center'}>
+                    <img src={logo} alt={'logo'} style={{width:53, height:45}} justify={'center'}/>
+                </Grid> 
+                <div dir="rtl">
+                    {/* <TextField placeholder="Name" />
+                    <input type="text" placeholder="Name" /> */}
+                <Grid container spacing={2} direction={"column"} style={{textAlign:"right"}}>
+                    <Grid item xs={12} sm={6} xl={3} >
+                        <Typography variant={"h6"} color={"secondary"}>
+                            הרשמה
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={11} >
+                        <TextField color={"secondary"} 
+                        label={"מייל"} 
+                        placeholder={"test@test.com"} 
+                        value={email}
+                        onChange={(e)=>setEmailForm(e.target.value)}
+                        fullWidth required/>
+                    </Grid>
+                    <Grid item xs={12} sm={11} >
+                        <TextField  
+                        color={"secondary"} 
+                        label={"שם ומשפחה"} 
+                        value={name}
+                        onChange={(e)=>setNameForm(e.target.value)}
+                        fullWidth required/>
+                    </Grid>
+                    <Grid item xs={12} sm={11}>
+                        <TextField 
+                        color={"secondary"} 
+                        label={"סיסמא"} 
+                        type={"password"} 
+                        value={password}
+                        onChange={(e)=>setPasswordForm(e.target.value)}
+                        fullWidth required/>
+                    </Grid>
+                    <Grid item xs={12} sm={11}>
+                        <TextField 
+                        color={"secondary"} 
+                        label={"אימות סיסמא"} 
+                        type={"password"} 
+                        value={password2}
+                        onChange={(e) =>setPassword2Form(e.target.value)}
+                        fullWidth required/>
+                    </Grid>
+                    <Grid item xs={12} sm={11}>
+                        <CheckBoxFun/>
+                    </Grid>
+                    <Button variant={"contained"} 
+                    color={"primary"} 
+                    style={{height: 56 ,width:225, fontSize:16, borderRadius: 18, marginBottom:12}}
+                    type={"submit"} 
+                    //onClick={this.signInProcessDone}
+                    >צרפו אותי
+                    </Button>
+                    <Link
+                        component={"button"}
+                        variant={"body2"}
+                        onClick={() => {
+                            console.info("link");
+                        }}
+                        > נרשמתי כבר 
+                    </Link>
                 </Grid>
-                <Grid item xs={12} sm={11} >
-                    <TextField color={"secondary"} 
-                    label={"מייל"} 
-                    placeholder={"test@test.com"} 
-                    inputProps={{ style: {textAlign: 'right'} }} 
-                    value={email}
-                    onChange={(e)=>setEmailForm(e.target.value)}
-                    fullWidth required/>
-                </Grid>
-                <Grid item xs={12} sm={11} >
-                    <TextField  
-                    color={"secondary"} 
-                    label={"שם ומשפחה"} 
-                    inputProps={{ style: {textAlign: 'right'} }} 
-                    value={name}
-                    onChange={(e)=>setNameForm(e.target.value)}
-                    fullWidth required/>
-                </Grid>
-                <Grid item xs={12} sm={11}>
-                    <TextField 
-                    color={"secondary"} 
-                    label={"סיסמא"} 
-                    type={"password"} 
-                    inputProps={{ style: {textAlign: 'right'} }}
-                    value={password}
-                    onChange={(e)=>setPasswordForm(e.target.value)}
-                    fullWidth required/>
-                </Grid>
-                <Grid item xs={12} sm={11}>
-                    <TextField 
-                    color={"secondary"} 
-                    label={"אימות סיסמא"} 
-                    type={"password"} 
-                    inputProps={{ style: {textAlign: 'right'} }} 
-                    value={password2}
-                    onChange={(e) =>setPassword2Form(e.target.value)}
-                    fullWidth required/>
-                </Grid>
-                <Grid item xs={12} sm={11}>
-                    <CheckBoxFun/>
-                </Grid>
-                <Button variant={"contained"} 
-                color={"primary"} 
-                style={{height: 56 ,width:225, fontSize:16 }}
-                type={"submit"} 
-                //onClick={this.signInProcessDone}
-                >
-                    צרפו אותי
-                </Button>
-                <Link
-                    component="button"
-                    variant="body2"
-                    onClick={() => {
-                        console.info("link");
-                    }}
-                    > נרשמתי כבר 
-                </Link>
-            </Grid>
+                    </div>
+            </ThemeProvider>
         </form>
     </Container>
+
     );
  }
 
