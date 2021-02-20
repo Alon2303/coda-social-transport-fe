@@ -6,8 +6,10 @@ import Grid  from '@material-ui/core/Grid';
 import logo from '../../../Logo/logo.svg';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import {ThemeProvider , createMuiTheme} from '@material-ui/core/styles';
+import {ThemeProvider } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+import theme from '../theme'
 import { getUsersByEmail} from '../../../../api/users';
 
 
@@ -16,30 +18,15 @@ function CheckBoxFun() {
     console.log('checked', checked)
     return (
         <div>
-            <FormControlLabel control= {
+            <FormControlLabel 
+            control= {
                 <Checkbox checked={checked} onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
                 label={"שמירת סיסמא"}
-                labelPlacement={"start"} />
+                style={{marginRight:-10}}
+                labelPlacement={"end"} />
         </div>
     )
 }
-const theme = createMuiTheme ({
-    typography: {
-        h6:{
-            fontSize: 22,
-            maginTop: 140,
-            textAlign : 'right'
-        }, 
-    },
-    palette:{
-        primary:{
-            main: '#3A4F40',
-        }, 
-        secondary: {
-            main: '#44919B',
-        }
-    }
-})
 
 const SignIn = () => {
     const [values , setValues] = useState({
@@ -63,17 +50,29 @@ const SignIn = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
+                            <TextField color={"secondary"} placeholder={"מייל"} placeholder={"test@test.com"} fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"סיסמא"} type="password" inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
+                            <TextField color={"secondary"} label={"סיסמא"} type="password" fullWidth required/>
                         </Grid>
-                        <Grid item xs={12} sm={11}>
-                            <CheckBoxFun/>
+                        <Grid item xs={12} sm={11} style={{fontSize: 14, display:'flex', alignItems:'center', justifyContent: 'space-between'}}>
+                            <CheckBoxFun />
+                            <Link>שכחתי סיסמא </Link>
                         </Grid>
-                        <Button className="text-center text-md-right" variant={"contained"}  color={"primary"} style={{height: 56 ,width:225, fontSize:16 }}>
+                        <Button variant={"contained"} 
+                    color={"primary"} 
+                    style={{height: 56 ,width:225, fontSize:16, borderRadius: 18,  marginTop:130, marginBottom:12}}
+                    type={"submit"} >
                         לתרומות שלי
                         </Button>
+                        <Link
+                        component={"button"}
+                        variant={"body2"}
+                        onClick={() => {
+                            console.info("link");
+                        }}
+                        >  עוד לא נרשמתי
+                    </Link>
                     </Grid>
                 </form>
             </Container>

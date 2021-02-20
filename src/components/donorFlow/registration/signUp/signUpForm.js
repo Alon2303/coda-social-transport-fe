@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {  createMuiTheme , ThemeProvider} from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
-
+import theme from '../theme';
 
 function CheckBoxFun() {
     const [checked, setChecked] = React.useState(false)
@@ -24,35 +24,6 @@ function CheckBoxFun() {
         </div>
     )
 }
-
-  
-const theme = createMuiTheme ({
-    direction: 'rtl',
-    typography: {
-        h6:{
-            fontFamily: 'Rubik',
-            fontSize: 22,
-            maginTop: 140,
-            // textAlign : 'right'
-        }, 
-    },
-    palette:{
-        primary:{
-            main: '#3A4F40',
-        }, 
-        secondary: {
-            main: '#44919B',
-        }
-    },
-//     overrides: {
-//         MuiSelect:{
-//             root:{
-//                 textAlign:'right'
-//             }
-//         }
-//    }
-})
-
 
  const SignUpForm = ({addValues}) => {
     //const [email, setInputForm] = useState('');
