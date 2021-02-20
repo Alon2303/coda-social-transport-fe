@@ -17,7 +17,14 @@ const theme = createMuiTheme ({
         secondary: {
             main: '#44919B',
         }
-    }
+    },
+    overrides: {
+        MuiFormControlLabel: {
+            label: {
+                fontSize: '0.875rem',
+            }
+        }
+    },
     //     overrides: {
 //         MuiSelect:{
 //             root:{

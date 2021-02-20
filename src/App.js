@@ -11,6 +11,7 @@ import DonationDetails from './pages/DonationDetails';
 //Donor Flow
 import SignUp from './components/donorFlow/registration/signUp/signUp';
 import SignIn from './components/donorFlow/registration/signIn/signIn';
+import Navigation from './components/donorFlow/navigation/navigation';
 import Confirmation from './components/donorFlow/registration/signUp/confirmation';
 import Wellcome from './components/donorFlow/order/startDonation/wellcome';
 import Company from './components/donorFlow/order/startDonation/donorType/company';
@@ -29,8 +30,10 @@ class App extends Component {
         <div className="App">
           <Switch>
             <Route exact path='/' component={SignUp} />
-            // donor flow
-            <Route path='/signup' component={SignUp} />
+      
+            // donor flow 
+            <Route path='/navigation' component={Navigation} />            
+            <Route path='/signup' component={SignUp} />            
             <Route path='/signin' component={SignIn} />
             {/* <Route path='/email' component={Email} /> */}
             <Route path='/confirmation' component={Confirmation} />
