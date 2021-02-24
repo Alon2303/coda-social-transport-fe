@@ -45,7 +45,7 @@ class NewItem extends React.Component {
 
     newItemProcesssDone = (e) =>{
         let tempItems = [];
-        const { donorName, logo, currentItem, count, comments, items, images} = this.state;
+        const { donorName, logo, count, comments, items, images} = this.state;
         tempItems = {count, comments, images};
         console.log("newItemProcesssDone");
         this.setState({
@@ -108,7 +108,7 @@ class NewItem extends React.Component {
     };
 
     render(){
-        const {currentItem, count, maxImg, comments,items,donorName,logo,imgCounter,images} = this.state;
+        const {currentItem, count, maxImg,items} = this.state;
         console.log("items", items);        
         return(
             <form className={"container fluid text-center"} style={{backgroundColor:"lightgray"}} onSubmit={this.handleSubmit}> 

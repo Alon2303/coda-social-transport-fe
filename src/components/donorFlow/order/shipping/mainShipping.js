@@ -63,7 +63,7 @@ class MainShipping extends React.Component {
         //YYYY-mm-dd
         //{contactName && phone && shippingDateStart &&}
         // {contactName && phone && shippingDateStart && shippingDateEnd && pickUpAddress &&}
-        const {shipping} = this.state;
+        //const {shipping} = this.state;
         return(
             <div className={"container fluid"}>
                 <div className={"d-flex justify-content-center text-right flex-column"}>
