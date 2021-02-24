@@ -12,15 +12,12 @@ import './styles/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import store from './store';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>
   document.getElementById('root')
 );
 
