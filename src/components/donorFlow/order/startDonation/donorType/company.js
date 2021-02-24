@@ -43,7 +43,7 @@ class Company extends React.Component {
 
     sendDetails = async e => {
         e.preventDefault();
-        const {donorName, logo}  = this.state;
+        //const {donorName, logo}  = this.state;
         this.sendDetailsDone();
     };
 

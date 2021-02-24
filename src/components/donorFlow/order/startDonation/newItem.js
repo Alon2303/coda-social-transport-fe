@@ -165,9 +165,9 @@ class NewItem extends React.Component {
 
     newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, currentItem, count, comments, items, images } = this.state;
-        tempItems = { count, comments, images };
-        console.log("newItemProcessDone");
+        const { donorName, logo, count, comments, items, images} = this.state;
+        tempItems = {count, comments, images};
+        console.log("newItemProcesssDone");
         this.setState({
             items: [...items, tempItems],
         });
