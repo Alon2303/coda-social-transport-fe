@@ -32,18 +32,19 @@ const SignUp = () => {
     const [password , setPassword] = useState({ password:''});
     const [password2 , setPassword2] = useState({password2:''});
 
-    const addValues = (email, name, password) =>{
-        setEmail({email});
-        setName({name});
-        setPassword({password});        
-        setPassword2({password2});
+
+    const addValues = (email, name, password) => {
+        setEmail({ email });
+        setName({ name });
+        setPassword({ password });
+        setPassword2({ password2 });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem('name', JSON.stringify(name))
     }, [name]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(email);
         console.log(name);
         console.log(password);
@@ -51,7 +52,7 @@ const SignUp = () => {
         setEmail('');
     })
 
-    const signUp = async (name,email,password) =>{
+    const signUp = async (name, email, password) => {
         await addUserToDB(name, email, password);
     }
 
@@ -60,6 +61,16 @@ const SignUp = () => {
     // const [name, setNameForm] = useState('');
     // const [password, setPasswordForm] = useState('');
     // const [password2, setPassword2Form] = useState('');
+
+
+
+    return (
+        <ThemeProvider theme={theme}>
+
+            <SignUpForm addValues={addValues} />
+        </ThemeProvider>
+    )
+}
 
     const handleSubmit = (e) =>{
         e.preventDefault();
