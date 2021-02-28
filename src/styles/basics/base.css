@@ -34,3 +34,7 @@ body {
 /* .MuiInputBase-input:focus{
     border-color: black;
 } */
+
+.flex {
+    display: flex;
+}

@@ -1,7 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
+import { TextField, Button, Avatar, } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from "@material-ui/core/styles";
 import imagePlaceholder from '../../../../images/donation/imagePlaceholder.svg'
@@ -165,8 +163,8 @@ class NewItem extends React.Component {
 
     newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, count, comments, items, images} = this.state;
-        tempItems = {count, comments, images};
+        const { donorName, logo, count, comments, items, images } = this.state;
+        tempItems = { count, comments, images };
         console.log("newItemProcesssDone");
         this.setState({
             items: [...items, tempItems],

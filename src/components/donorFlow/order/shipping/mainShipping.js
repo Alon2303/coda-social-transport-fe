@@ -1,7 +1,41 @@
 import React from 'react';
-import Switch from '@material-ui/core/Switch';
+import { Switch, TextField } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
-import lightGreen from '@material-ui/core/colors/lightGreen';
+import footerLogo from '../../../../images/donation/logo-green-black-and-yellow.svg';
+import next from '../../../../images/donation/next.svg';
+import nextDisabled from '../../../../images/donation/nextDisabled.svg';
+import back from '../../../../images/donation/back.svg';
+
+const styles = theme => ({
+    toggle: {
+        '& .Mui-checked': {
+            color: '#88AD3F',
+        },
+        '& .MuiSwitch-colorPrimary.Mui-checked': {
+            color: '#88AD3F',
+        }
+    }, line: {
+        ' & > *': {
+            margin: theme.spacing(1),
+            width: '259px',
+        }
+    }, formInput: {
+        color: '#FFFFFF',
+        marginBottom: '16px',
+
+        ' & > *': {
+            color: '#FFFFFF',
+            direction: 'rtl'
+        }
+    },
+    narrow: {
+        ' & > *': {
+            margin: theme.spacing(1),
+            width: '92px',
+            marginRight: '0'
+        }
+    }
+});
 
 class MainShipping extends React.Component {
     constructor(props) {
@@ -17,19 +51,33 @@ class MainShipping extends React.Component {
             pickUpAddress: '',
             shippingMethod: 'הובלה עצמאית',
             isSelfShipping: true,
+            comments: '',
         }
     }
 
-    handleChange = (event) => {
-        var a = "הובלה עצמאית";
-        var b = "זקוק להובלה";
+    handleShippingMethodChange = (e) => {
+        var selfShipping = 'הובלה עצמאית';
+        var externalShipping = 'זקוק להובלה';
         this.setState({
             ...this.state,
-            isSelfShipping: event.target.checked,
-            shippingMethod: (event.target.checked) ? a : b
+            isSelfShipping: e.target.checked,
+            shippingMethod: (e.target.checked) ? selfShipping : externalShipping
         });
+        console.log("on change -state: ", this.state);
     };
 
+    handleChange = (e) => {
+        e.preventDefault();
+        let { name, value } = e.target;
+        this.setState({
+            [name]: value
+        })
+        console.log("on change -state: ", this.state);
+    }
+
+    handleBack = () => {
+        // TODO: go back to previous page
+    }
     contactDetails = async e => {
         e.preventDefault();
         const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress } = this.state;
@@ -52,86 +100,97 @@ class MainShipping extends React.Component {
     }
 
     render() {
-        const { shipping } = this.state;
+        const { classes } = this.props;
+        const { isSelfShipping, shippingDateStart, contactName, phone } = this.state;
         return (
             <div className={"shipping-request"}>
-                {/* <div className={"d-flex justify-content-center text-right flex-column"}> */}
 
                 <form className={"shipping-form"}>
-                    <h2>הובלת ציוד למחסני שינוע חברתי</h2>
-
                     <div>
-                        <p>ההובלה עליי</p>
+                        <p className={(isSelfShipping) ? 'selected-shipping' : 'unselected-shipping'}>ההובלה עליי</p>
                         <Switch
                             checked={this.state.isSelfShipping}
-                            onChange={this.handleChange}
+                            onChange={this.handleShippingMethodChange}
                             name="isSelfShipping"
-                            color="secondary"
-                            // color="#88AD3F"
-                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            color="default"
+                            className={classes.toggle}
+                            inputProps={{ 'aria-label': 'primary checkbox' }}
                         />
-                        <p>אשמח שתובילו</p>
+                        <p className={(isSelfShipping) ? 'unselected-shipping' : 'selected-shipping'}>אשמח שתובילו</p>
                     </div>
                 </form>
 
-                <form>
-                    {/* {!shipping &&
-                            <div>
-                            <p>פרטי התקשרות</p>
-                            <div>
-                                <p>שם איש קשר</p>
-                                <input type={"text"}  name={"contactName"} onChange={this.handleChange} required/>
+                <form className={classes.line} noValidate autoComplete="off">
+                    {isSelfShipping ?
+                        <div>
+                            <p className="form-titles">תאריך</p>
+                            <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput} />
+
+                            <p className="form-titles">עם מי לדבר?</p>
+                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput} />
+
+                            <p className="form-titles">טלפון</p>
+                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput} />
+
+                            <p className="form-titles">זה המקום לכתוב העדפה לארגון אליו הפריטים יועברו או כל דבר אחר שנראה לך חשוב</p>
+                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput} />
+
+                            <div className="shipping-address flex">
+                                <div>
+                                    <p>מחסני שינוע חברתי</p>
+                                    <p>שלונסקי 33, גבעתיים</p>
+                                </div>
+                                <img src={footerLogo} alt="logo" />
                             </div>
-                            <div>
-                                <p>מספר טלפון נייד</p>
-                                <input type={"text"} name={"phone"} onChange={this.handleChange} required/>
+
+                        </div>
+                        :
+                        <div>
+
+                            <p className="form-titles">תאריכים אפשריים להובלה</p>
+                            <div className="flex">
+                                <div className={classes.narrow}>
+
+                                    <p className="form-titles">מתאריך</p>
+                                    <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput, classes.narrow} />
+                                </div>
+                                <div className={classes.narrow}>
+
+                                    <p className="form-titles">עד תאריך</p>
+                                    <TextField id="standard-basic" type={"date"} name={"shippingDateEnd"} onChange={this.handleChange} required className={classes.formInput, classes.narrow} />
+                                </div>
                             </div>
-                            <div>
-                                <p>תאריך</p>
-                                <input type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required/>
-                            </div>
-                            
-                            <div>
-                                <button type={"submit"} onClick={this.contactDetails}>מאושר, המשך/י</button>
-                            </div>
+
+                            <p className="form-titles">עם מי לדבר?</p>
+                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput} />
+
+                            <p className="form-titles">טלפון</p>
+                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput} />
+
+                            <p className="form-titles">כתובת</p>
+                            <TextField id="standard-basic" type={"text"} name={"pickUpAddress"} onChange={this.handleChange} required className={classes.formInput} />
+
+
+                            <p className="form-titles">תמיד טוב לדעת אם יש חנייה, מעלית או דברים נוספים שיכולים להקל עלינו</p>
+                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput} />
                         </div>
-                        } */}
-                    {/* {shipping && */}
-                    <div>
-                        <p>פרטי התקשרות</p>
+                    }
+
+                    <footer className="flex shipping-footer">
                         <div>
-                            <p>שם איש קשר</p>
-                            <input type={"text"} name={"contactName"} onChange={this.handleChange} required />
-                        </div>
-                        <div>
-                            <p>מספר טלפון נייד</p>
-                            <input type={"text"} name={"phone"} onChange={this.handleChange} required />
-                        </div>
-                        <div>
-                            <p> 1 תאריך</p>
-                            <input type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required />
+                            <img src={back} alt="go back" />
+                            <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
                         </div>
                         <div>
-                            <p> 2 תאריך</p>
-                            <input type={"date"} name={"shippingDateEnd"} onChange={this.handleChange} required />
+                            <button className={
+                                (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
+                            <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
                         </div>
-                        <div>
-                            <p>כתובת</p>
-                            <input type={"text"} name={"pickUpAddress"} onChange={this.handleChange} required />
-                        </div>
-                        <div>
-                            <p>הערות</p>
-                            <input type={"text"} name={"comments"} onChange={this.handleChange} required />
-                        </div>
-                        <div>
-                            <button type={"submit"} onClick={this.contactDetails}>מאושר, המשך/י</button>
-                        </div>
-                    </div>
-                    {/* } */}
+                    </footer>
                 </form>
             </div>
         );
     }
 }
 
-export default MainShipping;
+export default withStyles(styles)(MainShipping);
