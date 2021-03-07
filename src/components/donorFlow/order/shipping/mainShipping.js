@@ -14,12 +14,25 @@ const styles = theme => ({
         '& .MuiSwitch-colorPrimary.Mui-checked': {
             color: '#88AD3F',
         }
-    }, line: {
+    },
+    line: {
         ' & > *': {
             margin: theme.spacing(1),
             width: '259px',
         }
-    }, formInput: {
+    },
+    underline: {
+        '&:before': {
+            borderBottomColor: '#56735E',
+        },
+        '&:after': {
+            borderBottomColor: '#56735E',
+        },
+        '&:hover:before': {
+            borderBottomColor: ['#56735E', '!important'],
+        },
+    },
+    formInput: {
         color: '#FFFFFF',
         marginBottom: '16px',
 
@@ -32,7 +45,7 @@ const styles = theme => ({
         ' & > *': {
             margin: theme.spacing(1),
             width: '92px',
-            marginRight: '0'
+            marginRight: '0',
         }
     }
 });
@@ -101,7 +114,7 @@ class MainShipping extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { isSelfShipping, shippingDateStart, contactName, phone } = this.state;
+        const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress } = this.state;
         return (
             <div className={"shipping-request"}>
 
@@ -120,20 +133,24 @@ class MainShipping extends React.Component {
                     </div>
                 </form>
 
-                <form className={classes.line} noValidate autoComplete="off">
+                <form className={classes.line} noValidate autoComplete="off" >
                     {isSelfShipping ?
                         <div>
                             <p className="form-titles">תאריך</p>
-                            <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <p className="form-titles">עם מי לדבר?</p>
-                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <p className="form-titles">טלפון</p>
-                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <p className="form-titles">זה המקום לכתוב העדפה לארגון אליו הפריטים יועברו או כל דבר אחר שנראה לך חשוב</p>
-                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <div className="shipping-address flex">
                                 <div>
@@ -152,27 +169,33 @@ class MainShipping extends React.Component {
                                 <div className={classes.narrow}>
 
                                     <p className="form-titles">מתאריך</p>
-                                    <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput, classes.narrow} />
+                                    <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.narrow, classes.formInput}
+                                        InputProps={{ classes: { underline: classes.underline } }} />
                                 </div>
                                 <div className={classes.narrow}>
 
                                     <p className="form-titles">עד תאריך</p>
-                                    <TextField id="standard-basic" type={"date"} name={"shippingDateEnd"} onChange={this.handleChange} required className={classes.formInput, classes.narrow} />
+                                    <TextField id="standard-basic" type={"date"} name={"shippingDateEnd"} onChange={this.handleChange} required className={classes.narrow, classes.formInput}
+                                        InputProps={{ classes: { underline: classes.underline } }} />
                                 </div>
                             </div>
 
                             <p className="form-titles">עם מי לדבר?</p>
-                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <p className="form-titles">טלפון</p>
-                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
                             <p className="form-titles">כתובת</p>
-                            <TextField id="standard-basic" type={"text"} name={"pickUpAddress"} onChange={this.handleChange} required className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"pickUpAddress"} onChange={this.handleChange} required className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
 
 
                             <p className="form-titles">תמיד טוב לדעת אם יש חנייה, מעלית או דברים נוספים שיכולים להקל עלינו</p>
-                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput} />
+                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} />
                         </div>
                     }
 
@@ -181,11 +204,20 @@ class MainShipping extends React.Component {
                             <img src={back} alt="go back" />
                             <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
                         </div>
-                        <div>
-                            <button className={
-                                (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
-                            <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
-                        </div>
+                        {isSelfShipping ?
+                            <div>
+                                <button className={
+                                    (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
+                                <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
+                            </div>
+
+                            :
+                            <div>
+                                <button className={
+                                    (shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
+                                <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
+                            </div>
+                        }
                     </footer>
                 </form>
             </div>

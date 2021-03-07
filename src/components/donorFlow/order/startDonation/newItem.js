@@ -20,8 +20,21 @@ const styles = theme => ({
         ' & > *': {
             margin: theme.spacing(1),
             width: '259px',
-
+        },
+        '&:focus, &:hover, &:visited, &:link, &:active': {
+            textDecoration: 'none',
         }
+    },
+    underline: {
+        '&:before': {
+            borderBottomColor: '#56735E',
+        },
+        '&:after': {
+            borderBottomColor: '#56735E',
+        },
+        '&:hover:before': {
+            borderBottomColor: ['#56735E', '!important'],
+        },
     },
     button: {
         '& > *': {
@@ -288,7 +301,8 @@ class NewItem extends React.Component {
                     <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
 
                     <form className={classes.line} noValidate autoComplete="off">
-                        <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} />
+                        <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                            onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
                     </form>
 
                 </div>
