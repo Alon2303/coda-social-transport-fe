@@ -1,7 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
+import { TextField, Button, Avatar, } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from "@material-ui/core/styles";
 import imagePlaceholder from '../../../../images/donation/imagePlaceholder.svg'
@@ -22,18 +20,32 @@ const styles = theme => ({
         ' & > *': {
             margin: theme.spacing(1),
             width: '259px',
-
+        },
+        '&:focus, &:hover, &:visited, &:link, &:active': {
+            textDecoration: 'none',
         }
+    },
+    underline: {
+        '&:before': {
+            borderBottomColor: '#56735E',
+        },
+        '&:after': {
+            borderBottomColor: '#56735E',
+        },
+        '&:hover:before': {
+            borderBottomColor: ['#56735E', '!important'],
+        },
     },
     button: {
         '& > *': {
-            margin: theme.spacing(1),
             borderRadius: '16px',
             height: '37px',
             width: '84px',
             backgroundColor: '#3A4F40',
             color: '#ffffff',
-            fontFamily: 'RubikRegular sans-serif'
+            fontFamily: 'RubikRegular sans-serif',
+            marginTop: '70px',
+            marginBottom: '40px'
         }
     },
     imagePlaceholder: {
@@ -64,22 +76,69 @@ class NewItem extends React.Component {
             selectedFile: '',
             count: '',
             maxImg: 3,
-            comments: ''
+            comments: '',
+            startX: 0,
+            startY: 0,
+            currentX: 0,
+            currentY: 0,
+            direction: 'none',
+            threshold: 150,
         }
     }
 
-    // state = {
-    //         donorName: this.props.location.state.donorName,
-    //         logo: this.props.location.state.logo,
-    //         currentItem: this.props.location.state.currentItem,
-    //         items: this.props.location.state.items,
-    //         imgCounter: this.props.location.state.imgCounter,
-    //         images: this.props.location.state.images,
-    //         selectedFile: '',
-    //         count: '',
-    //         maxImg: 3,
-    //         comments: ''
-    // }
+    touchStart(e) {
+        const touchObj = e.touches[0];
+        this.setState({
+            ...this.state,
+            startX: touchObj.clientX,
+            startY: touchObj.clientY,
+        })
+    }
+
+    touchMove(e) {
+        const touchObj = e.touches[0];
+        this.setState({
+            ...this.state,
+            currentX: touchObj.clientX,
+            currentY: touchObj.clientY,
+        })
+    }
+
+    touchEnd(e) {
+        var s = {
+            touchStarted: false
+        };
+
+        console.log("currImage: " + this.state.currImage);
+        console.log("startX: " + this.state.startX);
+        console.log("currentX: " + this.state.currentX);
+        console.log("startY: " + this.state.startY);
+        console.log("currentY: " + this.state.currentY);
+
+        // if (this.state.currentY < this.state.startY < 10) {
+        s.direction = (this.state.startX > this.state.currentX) ? "left" : "right";
+        // }
+
+        var nextImgIdx;
+
+        if (s.direction === 'left') {
+            if (this.state.currImage === 2) nextImgIdx = 0;
+            else nextImgIdx = this.state.currImage + 1;
+        }
+
+        if (s.direction === 'right') {
+            if (this.state.currImage === 0) nextImgIdx = 2;
+            else nextImgIdx = this.state.currImage - 1;
+        }
+
+        if (Math.abs(this.state.startX - this.state.currentX) < this.state.threshold) {
+            s.direction = this.state.startY > this.state.currentY ? "top" : "bottom";
+            nextImgIdx = this.state.currImage;
+        }
+
+        console.log(' s.direction ' + s.direction);
+        this.setState({ ...this.state, direction: s.direction, currImage: nextImgIdx });
+    }
 
     handleRest = () => {
         Array.from(document.querySelectorAll("input")).forEach(
@@ -95,29 +154,29 @@ class NewItem extends React.Component {
     };
 
     handleUpload = (e) => {
-        let images = [];
+        let images = this.state.images.slice(); //copy the array
         let input = e.target;
-        for (let i = 0; i < input.files.length; i++) {
-            console.log('ff1', input.files[i].name)
-            images.push(URL.createObjectURL(e.target.files[i]));
+
+        if (input.files.length === 1) {
+            images[this.state.currImage] = URL.createObjectURL(e.target.files[0]);
+        } else {
+            for (let i = 0; i < input.files.length; i++) {
+                images.push(URL.createObjectURL(e.target.files[i]));
+            }
         }
-        console.log('images', images);
-        this.setState({
-            images
-        })
+        this.setState({ ...this.state, images })
     };
 
     onDeleteImage = () => {
-        console.log('OLD STATE... ' + this.state.images);
-        var images = [...this.state.images];
-        images[this.state.currImage] = '';
-        this.setState({ ...this.state, images });
-        console.log('NEW STATE... ' + this.state.images);
+        const newImages = this.state.images.slice(); //copy the array
+        newImages.splice(this.state.currImage, 1);
+        this.setState({ ...this.state, images: newImages })
+        // this.setState(prevState => ({ images: newImages })); //set the new state
     }
 
-    newItemProcesssDone = (e) => {
+    newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, currentItem, count, comments, items, images } = this.state;
+        const { donorName, logo, count, comments, items, images } = this.state;
         tempItems = { count, comments, images };
         console.log("newItemProcesssDone");
         this.setState({
@@ -176,46 +235,39 @@ class NewItem extends React.Component {
             items: [{ tags: 'כללי', count, comments, selectedFile, itemAccepted: 'לא' }],
             count: ''
         });
-        this.newItemProcesssDone();
+        this.newItemProcessDone();
     };
 
     render() {
         const { classes } = this.props;
         const { currImage, currentItem, count, maxImg, comments, items, donorName, logo, imgCounter, images } = this.state;
-        console.log("images", this.state.images);
-        return (
-            // <form className={"container fluid text-center"} style={{ backgroundColor: "lightgray" }} onSubmit={this.handleSubmit}>
-            // <div >
-            //     <h4>פרטי תרומה חדשה</h4>
-            //     <p>תהליך רישום התרומה זריז במיוחד</p>
-            //     <p>כולל העלאת תמונות הפריטים, בחירת טווח</p>
-            //     <p>לתהליך ההבולה ואפשרות לספר לנו אם</p>
-            //     <p>התרומה מיועדת ליעד ספציפי</p>
-            // </div>
-            // <div className={"text-left"} >
-            //     {count &&
-            //         <button onClick={this.addNewItem}>
-            //             <p>הוסף עוד פריט</p>
-            //         </button>
-            //     }
-            // </div>
-            <div className="new-item">
 
-                <div>
-                    <h3>פריט {currentItem}</h3>
-                    {/* <p>ניתן להוסיף עד {maxImg} תמונות לפריט</p> */}
-                    <p>כמה דגשים לצילום הפריט:
+        return (
+            <div className="new-item">
+                <h3>פריט {currentItem}</h3>
+
+                {(images.length >= 1) ?
+                    '' : (
+                        <div >
+                            <p>כמה דגשים לצילום הפריט:
                             <br />
                             יש לצרף <span className="bold">לפחות</span> תמונה אחת של הפריט הנתרם.
                             <br />נשמח שהתמונה תהיה הכי אותנטית, בדיוק כמו התרומה שלך.
                             <br />
                             אפשר לצרף עד 3 תמונות מזוויות שונות.</p>
-                </div>
+                        </div>
 
-                {
-                    (this.state.images[currImage]) ?
+                    )}
+
+                <div className="swipe-gallery"
+                    onTouchStart={this.touchStart.bind(this)}
+                    onTouchMove={this.touchMove.bind(this)}
+                    onTouchEnd={this.touchEnd.bind(this)}
+                >
+
+                    {(images[currImage]) ?
                         (
-                            <div className="upload-image-preview">
+                            <div className="image-gallery" >
                                 <img src={this.state.images[currImage]} alt="img" />
                                 <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
                             </div>
@@ -224,15 +276,15 @@ class NewItem extends React.Component {
                                 <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
                                 <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
                             </label>
-                        )
-                }
-
-                <div className="upload-image-dots">
-                    <img src={(images[0]) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(images[1]) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(images[2]) ? imageWhiteDot : imageBlackDot} />
+                        )}
                 </div>
 
+
+                <div className="swipe-gallery-bottom">
+                    <img src={(currImage === 0) ? imageWhiteDot : imageBlackDot} />
+                    <img src={(currImage === 1) ? imageWhiteDot : imageBlackDot} />
+                    <img src={(currImage === 2) ? imageWhiteDot : imageBlackDot} />
+                </div>
 
                 <div className="new-item-count">
                     <p className="red-color">*</p>
@@ -244,20 +296,28 @@ class NewItem extends React.Component {
                 </div>
 
                 <div className="new-item-info">
+
                     <p>מידע נוסף</p>
                     <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
+
                     <form className={classes.line} noValidate autoComplete="off">
-                        <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} />
+                        <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                            onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
                     </form>
 
-                    {count &&
-                        <div className={classes.button}>
-                            <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
-                            {/* <button type={"submit"} onClick={this.newItemProcess}>מאושר, המשך/י</button> */}
-                        </div>
+                </div>
+
+                {/* check if "submit" btn should be disabled */}
+                <div className={classes.button}>
+
+                    {(count && images.length >= 1) ?
+
+                        <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
+                        :
+                        <Button variant="contained" disabled>הוספה</Button>
                     }
                 </div>
-                {/* </form> */}
+
             </div>
 
         )

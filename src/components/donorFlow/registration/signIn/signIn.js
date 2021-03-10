@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -6,53 +7,43 @@ import Grid  from '@material-ui/core/Grid';
 import logo from '../../../Logo/logo.svg';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import {ThemeProvider , createMuiTheme} from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import {ThemeProvider } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import theme from '../theme';
 import { getUsersByEmail} from '../../../../api/users';
 
 
 function CheckBoxFun() {
     const [checked, setChecked] = React.useState(false)
-    console.log('checked', checked)
+    // console.log('checked', checked)
     return (
         <div>
-            <FormControlLabel control= {
-                <Checkbox checked={checked} onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
-                label={"שמירת סיסמא"}
-                labelPlacement={"start"} />
+            <FormControlLabel 
+            control= {
+                <Checkbox checked={checked} 
+                onChange={(e) =>setChecked(e.target.checked)} color={"primary"} />}
+                label={"שמירת סיסמא"} style={{marginRight:-10}} labelPlacement={"end"} />
         </div>
     )
 }
-const theme = createMuiTheme ({
-    typography: {
-        h6:{
-            fontSize: 22,
-            maginTop: 140,
-            textAlign : 'right'
-        }, 
-    },
-    palette:{
-        primary:{
-            main: '#3A4F40',
-        }, 
-        secondary: {
-            main: '#44919B',
-        }
-    }
-})
 
 const SignIn = () => {
-    const [values , setValues] = useState({
-        email:'', 
-        name:'', 
-        password:'',
-        showPassword: false
-    });
+    const[email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        // console.log(password)
+        // console.log(email)
+        const user = await getUsersByEmail(email, password)
+        // console.log("user", user);
+        // console.log("check",!user);
+    }
 
     return (
         <ThemeProvider theme={theme}>
             <Container>
-                <form >
+                <form onSubmit={handleSubmit}>
                     <Grid container justify={'center'}>
                         <img src={logo} alt={'logo'} style={{width:53, height:45}} justify={'center'}/>
                     </Grid> 
@@ -63,29 +54,34 @@ const SignIn = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
+                            <TextField color={"secondary"} label={"מייל"} placeholder={"test@test.com"} 
+                            value={email} onChange={(e) => setEmail(e.target.value)}
+                            fullWidth required/>
                         </Grid>
                         <Grid item xs={12} sm={11}>
-                            <TextField color={"secondary"} label={"סיסמא"} type="password" inputProps={{ style: {textAlign: 'right'} }}  fullWidth required/>
+                            <TextField color={"secondary"} label={"סיסמא"} type="password" 
+                            value={password} onChange={(e) => setPassword(e.target.value)}
+                            fullWidth required/>
                         </Grid>
-                        <Grid item xs={12} sm={11}>
-                            <CheckBoxFun/>
+                        <Grid item xs={12} sm={11} style={{fontSize: 14, display:'flex', alignItems:'baseline', justifyContent: 'space-between'}}>
+                            <CheckBoxFun />
+                            <Link>שכחתי סיסמא </Link>
                         </Grid>
-                        <Button className="text-center text-md-right" variant={"contained"}  color={"primary"} style={{height: 56 ,width:225, fontSize:16 }}>
-                        לתרומות שלי
-                        </Button>
+                        <Button variant={"contained"} 
+                            color={"primary"} 
+                            style={{height: 56 ,width:260, fontSize:16, borderRadius: 18,  marginTop:130, marginBottom:12}}
+                            type={"submit"} > לתרומות שלי </Button>
+                        </Grid>
+                    </form>
+                    <Grid style={{display:'flex',justifyContent:'center', paddingTop:'10px'}}>
+
+                    <Link href={'/signup'} variant={"body2"}>  עוד לא נרשמתי </Link>
                     </Grid>
-                </form>
             </Container>
         </ThemeProvider>
     )
 }
 
-
-// class SignUp3 extends React.Component {
-//     handleChange = (e) =>{
-//         e.preventDefault();
-//         let {name, value} = e.target;
 //         this.setState({
 //             [name] : value.toLowerCase(),
 //         });
@@ -132,13 +128,5 @@ const SignIn = () => {
 //    }
 //}
 
-//     render(){
-//         const {name, email, password} = this.state;
-//         return (
-//             <div>
-//             </div>
-//         )
-//     }
-// };
 
 export default SignIn;

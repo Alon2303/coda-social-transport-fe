@@ -1,0 +1,85 @@
+.shipping-request {
+    text-align: start;
+    background-color: #3A4F40;
+    /* height: 100vh; */
+    color: #ffffff;
+    padding-top: 63px;
+    padding-left: 44px;
+    padding-right: 49px;
+    font-family: RubikRegular sans-serif;
+    line-height: 28px;
+    
+}
+
+.shipping-form h2 {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.shipping-form div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.shipping-form p {
+    margin-bottom: 0;
+    font-size: 15.6px;
+}
+
+.selected-shipping {
+    color: #ffffff;
+}
+
+.unselected-shipping {
+    color: #57734C;
+}
+
+.form-titles {
+left: 225px;
+top: 246px;
+font-family: RubikRegular sans-serif;
+font-size: 10px;
+line-height:  11px;
+color: #FFFFFF38;
+margin-bottom: 0;
+width: 180px;
+/* width: 259px; */
+}
+
+.shipping-address {
+    text-align: center;
+    color: #FFFFFF38;
+    font-size: 18px;
+}
+
+.shipping-address p {
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+.shipping-form-submit {
+    /* font-family:  RubikRegular sans-serif; */
+    background-color: inherit;
+    border: none;
+}
+
+.shipping-footer {
+    justify-content: space-between;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.shipping-footer button {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.footer-selected-button{
+    color: #ffffff;
+}
+
+.footer-unselected-button{
+    color: #738779;
+}

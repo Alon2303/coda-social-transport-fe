@@ -8,9 +8,15 @@
 @import url('components/acceptItemToggle.css');
 @import url('components/shipmentCoordination.css');
 @import url('components/newItem.css');
+@import url('components/mainShipping.css');
+
+
 
 /* Typography */
+
 @import url('typography/fonts.css');
+
+
 
 /* Base */
 

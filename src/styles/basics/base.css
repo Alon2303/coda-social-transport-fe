@@ -26,11 +26,6 @@ body {
     height: 23px;
 }
 
-
-.Mui-focused{
-    /* border: none; */
+.flex {
+    display: flex;
 }
-
-/* .MuiInputBase-input:focus{
-    border-color: black;
-} */
