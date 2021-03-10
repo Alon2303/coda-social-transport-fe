@@ -13,7 +13,7 @@ import SignUp from './components/donorFlow/registration/signUp/signUp';
 import SignIn from './components/donorFlow/registration/signIn/signIn';
 import Navigation from './components/donorFlow/navigation/navigation';
 import Confirmation from './components/donorFlow/registration/signUp/confirmation';
-import Wellcome from './components/donorFlow/order/startDonation/wellcome';
+import Welcome from './components/donorFlow/order/startDonation/welcome';
 import Company from './components/donorFlow/order/startDonation/donorType/company';
 import NewItem from './components/donorFlow/order/startDonation/newItem';
 import MainShipping from './components/donorFlow/order/shipping/mainShipping'
@@ -37,7 +37,7 @@ class App extends Component {
             <Route path='/signin' component={SignIn} />
             {/* <Route path='/email' component={Email} /> */}
             <Route path='/confirmation' component={Confirmation} />
-            <Route path='/Wellcome' component={Wellcome} />
+            <Route path='/Welcome' component={Welcome} />
             <Route path='/company' component={Company} />
             <Route path='/mainshipping' component={MainShipping} />
             <Route path='/newItem' component={NewItem} />

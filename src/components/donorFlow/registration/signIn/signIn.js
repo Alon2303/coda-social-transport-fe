@@ -120,7 +120,7 @@ const SignIn = () => {
 //        this.setState({
 //            user,
 //            valid: "valid",
-//            message: `${user.name} Wellcome back!`  
+//            message: `${user.name} Welcome back!`  
 //        })
 //        setTimeout(() => {
 //            this.props.history.replace("/wellcome"); 
