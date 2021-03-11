@@ -36,13 +36,13 @@ const SignIn = () => {
         // console.log(password)
         // console.log(email)
         const user = await getUsersByEmail(email, password)
-        // console.log("user", user);
-        // console.log("check",!user);
+        console.log("user", user);
+        console.log("check",!user);
     }
 
     return (
         <ThemeProvider theme={theme}>
-            <Container>
+            <Container >
                 <form onSubmit={handleSubmit}>
                     <Grid container justify={'center'}>
                         <img src={logo} alt={'logo'} style={{width:53, height:45}} justify={'center'}/>
@@ -80,53 +80,6 @@ const SignIn = () => {
             </Container>
         </ThemeProvider>
     )
-}
-
-//         this.setState({
-//             [name] : value.toLowerCase(),
-//         });
-//     };
-
-//     signupProcessDone = (e) =>{
-//          setTimeout(() => {
-//             this.props.history.push({
-//                 pathname: './confirmation',
-//                 state: {
-//                     name: this.state.name
-//                 }
-//             })
-//         }, 2000) 
-//     };
-
-//   const signInProcessDone =  async e => {
-//    e.preventDefault();
-//    const {email, password} = this.state;
-//    console.log("singin component", email, password)
-//    const user = await getUsersByEmail(email, password)
-//    console.log("user", user);
-//    console.log("check",!user);
-//    if (user.name === 'Error'){
-//        console.log("1", user.message);
-//        this.setState({
-//            valid: "invalid",
-//            message: "User doesn't exist in the system!"
-//        })
-//    }else if(user.message === 'worng password') {
-//        this.setState({
-//            valid: "invalid",
-//            message: "One of the inputs is invalid"  
-//        })
-//    }else {
-//        this.setState({
-//            user,
-//            valid: "valid",
-//            message: `${user.name} Wellcome back!`  
-//        })
-//        setTimeout(() => {
-//            this.props.history.replace("/wellcome"); 
-//        }, 3000)
-//    }
-//}
-
+};
 
 export default SignIn;

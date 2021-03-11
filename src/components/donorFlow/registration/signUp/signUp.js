@@ -32,9 +32,7 @@ const SignUp = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        // console.log(email);
-        // console.log(name);
-        // console.log(password);
+      
         // console.log(password2);
         // console.log(password === password2);
         if(password === password2){

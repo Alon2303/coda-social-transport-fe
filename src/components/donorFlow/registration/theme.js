@@ -2,6 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme ({
     //direction: 'rtl',
+    
     typography: {
         h6:{
             fontFamily: 'Rubik',
@@ -25,13 +26,6 @@ const theme = createMuiTheme ({
             }
         }
     },
-    //     overrides: {
-//         MuiSelect:{
-//             root:{
-//                 textAlign:'right'
-//             }
-//         }
-//    }
 });
 
 export default theme;
