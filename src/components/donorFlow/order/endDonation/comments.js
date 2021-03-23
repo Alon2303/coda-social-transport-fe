@@ -1,8 +1,45 @@
 import React from 'react';
-import { addDonationToDB } from '../../../../api/sendDonation'
+import { addDonationToDB } from '../../../../api/sendDonation';
+import next from '../../../../images/donation/next.svg';
+import back from '../../../../images/donation/back.svg';
+import { TextField } from '@material-ui/core';
+import { withStyles } from "@material-ui/core/styles";
 
-class Comments extends React.Component{
-    constructor(props){
+
+const styles = theme => ({
+    amountInput: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: '55px',
+            heigth: '16px',
+            borderRadius: '26px',
+            padding: '0px'
+        },
+    },
+    line: {
+        ' & > *': {
+            margin: theme.spacing(1),
+            width: '259px',
+        },
+        '&:focus, &:hover, &:visited, &:link, &:active': {
+            textDecoration: 'none',
+        }
+    },
+    underline: {
+        '&:before': {
+            borderBottomColor: '#56735E',
+        },
+        '&:after': {
+            borderBottomColor: '#56735E',
+        },
+        '&:hover:before': {
+            borderBottomColor: ['#56735E', '!important'],
+        },
+    },
+});
+
+class Comments extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             alternativeShippingDate: null,
@@ -10,9 +47,9 @@ class Comments extends React.Component{
             awaitingPaymeny: null,
             paymentStatus: null,
             donorName: this.props.location.state.donorName,
-            logo: this.props.location.state.logo,             
+            logo: this.props.location.state.logo,
             items: this.props.location.state.items,
-            contact:{
+            contact: {
                 contactName: this.props.location.state.contactName,
                 phone: this.props.location.state.phone
             },
@@ -24,18 +61,22 @@ class Comments extends React.Component{
         }
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         e.preventDefault();
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         this.setState({
-            [name] : value.toLowerCase(),
+            [name]: value.toLowerCase(),
         });
     };
 
+    handleBack = () => {
+        // TODO: go back to previous page
+    }
+
     signupProcess = async e => {
         e.preventDefault();
-        const {alternativeShippingDate, status, awaitingPaymeny, paymentStatus, donorName,logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress,shippingMethod, comments} = this.state;
-        const donation = await addDonationToDB(alternativeShippingDate, status, awaitingPaymeny, paymentStatus, donorName,logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress,shippingMethod, comments);
+        const { alternativeShippingDate, status, awaitingPaymeny, paymentStatus, donorName, logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, comments } = this.state;
+        const donation = await addDonationToDB(alternativeShippingDate, status, awaitingPaymeny, paymentStatus, donorName, logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, comments);
         console.log("donation", donation);
         setTimeout(() => {
             this.props.history.push({
@@ -44,29 +85,35 @@ class Comments extends React.Component{
         }, 2000)
     };
 
-    render(){
+    render() {
         //const {comments, contactName, shippingDateStart,contact} = this.state;
+        const { classes } = this.props;
 
         return (
-        <form className={"container fluid"} onSubmit={this.handleSubmit}>
-            <div className={"d-flex justify-content-center"}>
-                <div className={"text-right"}>
-                    <h6>כותרת</h6>
-                    <div className={"text-center"} style={{backgroundColor:"white"}}>
-                        <div>
-                            <p>האם יש לך הערות להוסיף להזמנה? </p>
-                            <textarea className={"form-control"} aria-label={"With textarea"} type={"text"} name={"comments"} onChange={this.handleChange}/>
-                        </div>
-                        <hr />
-                        <div>
-                            <button type={"submit"} onClick={this.signupProcess}>סיום הזמנה</button>
-                        </div>
+            <form className="donation-comments" onSubmit={this.handleSubmit}>
+                <p>ולפני סיום...</p>
+                <p>זה המקום להוסיף שעות נוחות לאיסוף ההובלה,</p>
+                <p>העדפה לעמותה או ארגון אליו הפריטים שלך יועברו,</p>
+                <p>או כל דבר שנראה לך חשוב</p>
+                {/* <textarea className={"form-control"} aria-label={"With textarea"} type={"text"} name={"comments"} onChange={this.handleChange} /> */}
+
+                <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                    onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
+                {/* <button type={"submit"} onClick={this.signupProcess}>סיום הזמנה</button> */}
+
+                <footer className="flex shipping-footer">
+                    <div>
+                        <img src={back} alt="go back" />
+                        <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
                     </div>
-                </div>
-            </div>
-        </form>
+                    <div>
+                        <button className="footer-selected-button shipping-form-submit" type={"submit"} onClick={this.signupProcess}>הבא</button>
+                        <img src={next} alt="next page" />
+                    </div>
+                </footer>
+            </form>
         )
     }
 }
 
-export default Comments;
+export default withStyles(styles)(Comments);

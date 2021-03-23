@@ -1,0 +1,15 @@
+.donation-comments {
+    text-align: center;
+    background-color: #3A4F40;
+    height: 100vh;
+    color: #ffffff;
+    padding-top: 43px;
+    padding-left: 39px;
+    padding-right: 39px;
+    font-family: RubikRegular sans-serif;
+    line-height: 18px;
+}
+
+.donation-comments p {
+    margin-bottom: 0;
+}
