@@ -6,6 +6,12 @@
     padding-top: 27px;
     font-family: RubikRegular sans-serif;
     height: 100%;
+    padding-right: 34px;
+    padding-left: 34px;
+}
+
+.new-item-container {
+    max-width: 311px;
 }
 
 .new-item-count {

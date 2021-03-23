@@ -244,80 +244,85 @@ class NewItem extends React.Component {
 
         return (
             <div className="new-item">
-                <h3>פריט {currentItem}</h3>
+                <div className="new-item-container">
+                    <h3>פריט {currentItem}</h3>
 
-                {(images.length >= 1) ?
-                    '' : (
-                        <div >
-                            <p>כמה דגשים לצילום הפריט:
+                    {(images.length >= 1) ?
+                        '' : (
+                            <div >
+                                <p>כמה דגשים לצילום הפריט:
                             <br />
                             יש לצרף <span className="bold">לפחות</span> תמונה אחת של הפריט הנתרם.
                             <br />נשמח שהתמונה תהיה הכי אותנטית, בדיוק כמו התרומה שלך.
                             <br />
                             אפשר לצרף עד 3 תמונות מזוויות שונות.</p>
+                            </div>
+
+                        )}
+
+                    <div className="swipe-gallery"
+                        onTouchStart={this.touchStart.bind(this)}
+                        onTouchMove={this.touchMove.bind(this)}
+                        onTouchEnd={this.touchEnd.bind(this)}
+                    >
+
+                        {(images[currImage]) ?
+                            (
+                                <div className="image-gallery" >
+                                    <img src={this.state.images[currImage]} alt="img" />
+                                    <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
+                                </div>
+                            ) : (
+                                <label className={classes.imagePlaceholder} >
+                                    <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
+                                    <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
+                                </label>
+                            )}
+                    </div>
+
+
+                    <div className="swipe-gallery-bottom">
+                        <img src={(currImage === 0) ? imageWhiteDot : imageBlackDot} />
+                        <img src={(currImage === 1) ? imageWhiteDot : imageBlackDot} />
+                        <img src={(currImage === 2) ? imageWhiteDot : imageBlackDot} />
+                    </div>
+
+                    <div className="new-item-form">
+
+                        <div className="new-item-count">
+                            <p className="red-color">*</p>
+                            <p className="bold amount">כמות</p>
+                            <form className={classes.amountInput} noValidate autoComplete="off" >
+                                <TextField id="outlined-basic" variant="outlined" type={"text"} name={"count"} onChange={this.handleChange} />
+                            </form>
+                            <p>יח'</p>
                         </div>
 
-                    )}
+                        <div className="new-item-info">
 
-                <div className="swipe-gallery"
-                    onTouchStart={this.touchStart.bind(this)}
-                    onTouchMove={this.touchMove.bind(this)}
-                    onTouchEnd={this.touchEnd.bind(this)}
-                >
+                            <p>מידע נוסף</p>
+                            <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
 
-                    {(images[currImage]) ?
-                        (
-                            <div className="image-gallery" >
-                                <img src={this.state.images[currImage]} alt="img" />
-                                <DeleteIcon fontSize="small" className="delete-icon" onClick={this.onDeleteImage} />
-                            </div>
-                        ) : (
-                            <label className={classes.imagePlaceholder} >
-                                <input style={{ display: 'none' }} type="file" name="img" accept="image/*" multiple onChange={this.handleUpload} />
-                                <Avatar src={imagePlaceholder} variant="contained" className="new-item-avatar" />
-                            </label>
-                        )}
-                </div>
+                            <form className={classes.line} noValidate autoComplete="off">
+                                <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                                    onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
+                            </form>
 
+                        </div>
+                    </div>
 
-                <div className="swipe-gallery-bottom">
-                    <img src={(currImage === 0) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(currImage === 1) ? imageWhiteDot : imageBlackDot} />
-                    <img src={(currImage === 2) ? imageWhiteDot : imageBlackDot} />
-                </div>
+                    {/* check if "submit" btn should be disabled */}
+                    <div className={classes.button}>
 
-                <div className="new-item-count">
-                    <p className="red-color">*</p>
-                    <p className="bold amount">כמות</p>
-                    <form className={classes.amountInput} noValidate autoComplete="off" >
-                        <TextField id="outlined-basic" variant="outlined" type={"text"} name={"count"} onChange={this.handleChange} />
-                    </form>
-                    <p>יח'</p>
-                </div>
+                        {(count && images.length >= 1) ?
 
-                <div className="new-item-info">
-
-                    <p>מידע נוסף</p>
-                    <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
-
-                    <form className={classes.line} noValidate autoComplete="off">
-                        <TextField id="standard-basic" multiline type={"text"} name={"comments"}
-                            onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
-                    </form>
+                            <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
+                            :
+                            <Button variant="contained" disabled>הוספה</Button>
+                        }
+                    </div>
 
                 </div>
-
-                {/* check if "submit" btn should be disabled */}
-                <div className={classes.button}>
-
-                    {(count && images.length >= 1) ?
-
-                        <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
-                        :
-                        <Button variant="contained" disabled>הוספה</Button>
-                    }
-                </div>
-
             </div>
 
         )
