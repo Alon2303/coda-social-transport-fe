@@ -57,14 +57,14 @@ class MainShipping extends React.Component {
             donorName: this.props.location.state.donorName,
             logo: this.props.location.state.logo,
             items: this.props.location.state.items,
-            contactName: '',
-            phone: '',
-            shippingDateStart: '',
-            shippingDateEnd: '',
-            pickUpAddress: '',
-            shippingMethod: 'הובלה עצמאית',
-            isSelfShipping: true,
-            comments: '',
+            contactName: this.props.location.state.contactName,
+            phone: this.props.location.state.phone,
+            shippingDateStart: this.props.location.state.shippingDateStart,
+            shippingDateEnd: this.props.location.state.shippingDateEnd,
+            pickUpAddress: this.props.location.state.pickUpAddress,
+            shippingMethod: this.props.location.state.shippingMethod,
+            isSelfShipping: this.props.location.state.isSelfShipping,
+            comments: this.props.location.state.comments,
         }
     }
 
@@ -89,12 +89,29 @@ class MainShipping extends React.Component {
     }
 
     handleBack = () => {
-        // TODO: go back to previous page
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        this.props.history.push({
+            pathname: './donoritems',
+            state: {
+                donorName,
+                logo,
+                items,
+                contactName,
+                phone,
+                shippingDateStart,
+                shippingDateEnd,
+                pickUpAddress,
+                shippingMethod,
+                isSelfShipping,
+                comments
+
+            }
+        });
     }
 
     contactDetails = async e => {
         e.preventDefault();
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, comments } = this.state;
         setTimeout(() => {
             this.props.history.push({
                 pathname: './comments',
@@ -107,7 +124,9 @@ class MainShipping extends React.Component {
                     shippingDateStart,
                     shippingDateEnd,
                     shippingMethod,
-                    pickUpAddress
+                    pickUpAddress,
+                    isSelfShipping,
+                    comments
                 }
             })
         }, 2000)
@@ -115,7 +134,8 @@ class MainShipping extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress } = this.state;
+        const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress, comments } = this.state;
+
         return (
             <div className={"shipping-request"}>
 
@@ -139,19 +159,19 @@ class MainShipping extends React.Component {
                         <div>
                             <p className="form-titles">תאריך</p>
                             <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(shippingDateStart) ? shippingDateStart : ''} />
 
                             <p className="form-titles">עם מי לדבר?</p>
                             <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(contactName) ? contactName : ''} />
 
                             <p className="form-titles">טלפון</p>
                             <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(phone) ? phone : ''} />
 
                             <p className="form-titles">זה המקום לכתוב העדפה לארגון אליו הפריטים יועברו או כל דבר אחר שנראה לך חשוב</p>
                             <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(comments) ? comments : ''} />
 
                             <div className="shipping-address flex">
                                 <div>
@@ -171,32 +191,32 @@ class MainShipping extends React.Component {
 
                                     <p className="form-titles">מתאריך</p>
                                     <TextField id="standard-basic" type={"date"} name={"shippingDateStart"} onChange={this.handleChange} required className={classes.narrow, classes.formInput}
-                                        InputProps={{ classes: { underline: classes.underline } }} />
+                                        InputProps={{ classes: { underline: classes.underline } }} value={(shippingDateStart) ? shippingDateStart : ''} />
                                 </div>
                                 <div className={classes.narrow}>
 
                                     <p className="form-titles">עד תאריך</p>
                                     <TextField id="standard-basic" type={"date"} name={"shippingDateEnd"} onChange={this.handleChange} required className={classes.narrow, classes.formInput}
-                                        InputProps={{ classes: { underline: classes.underline } }} />
+                                        InputProps={{ classes: { underline: classes.underline } }} value={(shippingDateEnd) ? shippingDateEnd : ''} />
                                 </div>
                             </div>
 
                             <p className="form-titles">עם מי לדבר?</p>
                             <TextField id="standard-basic" type={"text"} name={"contactName"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(contactName) ? contactName : ''} />
 
                             <p className="form-titles">טלפון</p>
                             <TextField id="standard-basic" type={"text"} name={"phone"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(phone) ? phone : ''} />
 
                             <p className="form-titles">כתובת</p>
                             <TextField id="standard-basic" type={"text"} name={"pickUpAddress"} onChange={this.handleChange} required className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(pickUpAddress) ? pickUpAddress : ''} />
 
 
                             <p className="form-titles">תמיד טוב לדעת אם יש חנייה, מעלית או דברים נוספים שיכולים להקל עלינו</p>
                             <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} />
+                                InputProps={{ classes: { underline: classes.underline } }} value={(comments) ? comments : ''} />
                         </div>
                     }
 
@@ -211,7 +231,6 @@ class MainShipping extends React.Component {
                                     (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
                                 <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
                             </div>
-
                             :
                             <div>
                                 <button className={

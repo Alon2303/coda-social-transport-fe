@@ -10,7 +10,7 @@ const ShipmentCoordination = () => {
         const newValue = e.target.value;
         setShipmentAccepted(newValue);
         // const { donationId, itemIdx } = props;
-        // donationService.updateItemAccept(donationId, itemIdx, newValue);
+        // adminDonationService.updateItemAccept(donationId, itemIdx, newValue);
     }
 
     return (

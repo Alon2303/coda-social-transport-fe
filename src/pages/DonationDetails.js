@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Services
-import donationService from '../services/donationService';
+import adminDonationService from '../services/adminDonationService';
 
 import { loadDonationById, saveDonation } from '../store/actions/donationActions';
 
@@ -33,7 +33,7 @@ class DonationDetails extends Component {
 
     setCount = async (itemIdx, updatedCount) => {
         const { id } = this.props.match.params;
-        const updatedDonation = await donationService.updateItemCount(id, itemIdx, +updatedCount);
+        const updatedDonation = await adminDonationService.updateItemCount(id, itemIdx, +updatedCount);
         await this.props.saveDonation(updatedDonation);
         await this.props.loadDonationById(id);
 

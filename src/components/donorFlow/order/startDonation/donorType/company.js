@@ -1,41 +1,55 @@
 import React from 'react';
- 
+
 class Company extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            donorName:'',
-            logo: null
+            donorName: '',
+            logo: null,
+            contactName: '',
+            phone: '',
+            shippingDateStart: '',
+            shippingDateEnd: '',
+            pickUpAddress: '',
+            shippingMethod: 'הובלה עצמאית',
+            isSelfShipping: true,
+            comments: '',
         }
     }
 
-    handleChange = (e) =>{
+    handleChange = (e) => {
         e.preventDefault();
-        let {name, value} = e.target;
+        let { name, value } = e.target;
         this.setState({
-            [name] : value.toLowerCase(),
+            [name]: value.toLowerCase(),
         });
     };
 
-    handleUpload = (e)=>{
+    handleUpload = (e) => {
         this.setState({
             logo: e.target.files[0],
             loaded: 0
         })
     };
 
-    sendDetailsDone = (e) =>{
-        const {donorName, logo} = this.state;
+    sendDetailsDone = (e) => {
+        const { donorName, logo, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
         setTimeout(() => {
             this.props.history.push({
-                pathname: './newitem',
+                pathname: './donoritems',
+                // pathname: './newitem',
                 state: {
                     donorName,
-                    logo,      
+                    logo,
                     items: [],
-                    currentItem: 1,
-                    imgCounter: 0,
-                    images: []
+                    contactName,
+                    phone,
+                    shippingDateStart,
+                    shippingDateEnd,
+                    pickUpAddress,
+                    shippingMethod,
+                    isSelfShipping,
+                    comments
                 }
             })
         }, 2000)
@@ -47,33 +61,33 @@ class Company extends React.Component {
         this.sendDetailsDone();
     };
 
-    render(){
-        const {donorName, logo} = this.state;
+    render() {
+        const { donorName, logo } = this.state;
         console.log("donorName", donorName);
-        return(
+        return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
                     <div className={"text-right"}>
-                        <img src={require('../../../../../images/logo.png')} alt={"logo"} height={"100px"}/>
+                        <img src={require('../../../../../images/logo.png')} alt={"logo"} height={"100px"} />
                         <h6>פרטי חברה</h6>
-                        <div className={"text-center"} style={{backgroundColor:"white"}}>
+                        <div className={"text-center"} style={{ backgroundColor: "white" }}>
                             <div>
-                            <p>שם החברה התורמת</p>
-                                <input type={"text"} name={"donorName"} onChange={this.handleChange}/>
+                                <p>שם החברה התורמת</p>
+                                <input type={"text"} name={"donorName"} onChange={this.handleChange} />
                             </div>
                             <hr />
-                                <p>הוספת לוגו של החברה</p>
-                                <input type={"file"} name={"logo"} onChange={this.handleUpload}/>
-                                {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
-                            </div>
-                            <br/>
-                            { donorName && logo &&
-                        <div>
-                            <button type={"submit"} onClick={this.sendDetails}>מאושר, המשך/י</button>
+                            <p>הוספת לוגו של החברה</p>
+                            <input type={"file"} name={"logo"} onChange={this.handleUpload} />
+                            {/* <button type={"button"} onClick={this.handleClick}>Upload</button> */}
                         </div>
+                        <br />
+                        {donorName && logo &&
+                            <div>
+                                <button type={"submit"} onClick={this.sendDetails}>מאושר, המשך/י</button>
+                            </div>
                         }
                     </div>
-                
+
                 </div>
             </form>
         )

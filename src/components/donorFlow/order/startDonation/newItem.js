@@ -36,7 +36,7 @@ const styles = theme => ({
             borderBottomColor: ['#56735E', '!important'],
         },
     },
-    button: {
+    buttonSubmit: {
         '& > *': {
             borderRadius: '16px',
             height: '37px',
@@ -73,10 +73,18 @@ class NewItem extends React.Component {
             items: this.props.location.state.items,
             imgCounter: this.props.location.state.imgCounter,
             images: this.props.location.state.images,
+            contactName: this.props.location.state.contactName,
+            phone: this.props.location.state.phone,
+            shippingDateStart: this.props.location.state.shippingDateStart,
+            shippingDateEnd: this.props.location.state.shippingDateEnd,
+            pickUpAddress: this.props.location.state.pickUpAddress,
+            shippingMethod: this.props.location.state.shippingMethod,
+            isSelfShipping: this.props.location.state.isSelfShipping,
+            comments: this.props.location.state.comments,
             selectedFile: '',
             count: '',
             maxImg: 3,
-            comments: '',
+            itemComments: '',
             startX: 0,
             startY: 0,
             currentX: 0,
@@ -176,67 +184,88 @@ class NewItem extends React.Component {
 
     newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, count, comments, items, images } = this.state;
-        tempItems = { count, comments, images };
-        console.log("newItemProcesssDone");
+        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        tempItems = { count, itemComments, images };
         this.setState({
             items: [...items, tempItems],
         });
+        console.log("newItemProcessDone -----  , items: ", items);
+        console.log("newItemProcessDone -----  , tempItems: ", tempItems);
         setTimeout(() => {
             this.props.history.push({
-                pathname: './mainshipping',
+                pathname: './donoritems',
                 state: {
                     donorName,
                     logo,
-                    items: this.state.items
+                    items: this.state.items,
+                    contactName,
+                    phone,
+                    shippingDateStart,
+                    shippingDateEnd,
+                    pickUpAddress,
+                    shippingMethod,
+                    isSelfShipping,
+                    comments
                 }
             })
         }, 2000)
     };
 
-    addNewItem = (e) => {
-        e.preventDefault();
-        const { donorName, logo, currentItem, count, comments, items, images } = this.state;
-        let tempItems = [];
-        tempItems = { tags: 'כללי', count, comments, images, itemAccepted: 'לא' };
-        if (currentItem === '1') {
-            this.setState({
-                items: [tempItems],
-                currentItem: currentItem + 1
-            });
-        } else {
-            this.setState({
-                items: [...items, tempItems],
-                currentItem: currentItem + 1
-            });
-        }
-        setTimeout(() => {
-            this.props.history.push({
-                pathname: './newitem',
-                state: {
-                    donorName,
-                    logo,
-                    items,
-                    currentItem: currentItem,
-                    imgCounter: 0,
-                    images: this.props.location.state.images,
-                }
-            })
-        }, 2000)
-        this.handleRest();
-    };
+    // addNewItem = (e) => {
+    //     e.preventDefault();
+    //     const { donorName, logo, currentItem, count, comments, items, images } = this.state;
+    //     let tempItems = [];
+    //     tempItems = { tags: 'כללי', count, comments, images, itemAccepted: 'לא' };
+    //     if (currentItem === '1') {
+    //         this.setState({
+    //             items: [tempItems],
+    //             currentItem: currentItem + 1
+    //         });
+    //     } else {
+    //         this.setState({
+    //             items: [...items, tempItems],
+    //             currentItem: currentItem + 1
+    //         });
+    //     }
+    //     setTimeout(() => {
+    //         this.props.history.push({
+    //             pathname: './newitem',
+    //             state: {
+    //                 donorName,
+    //                 logo,
+    //                 items,
+    //                 currentItem: currentItem,
+    //                 imgCounter: 0,
+    //                 images: this.props.location.state.images,
+    //             }
+    //         })
+    //     }, 2000)
+    //     this.handleRest();
+    // };
 
     newItemProcess = (e) => {
         e.preventDefault();
-        const { count, comments, selectedFile } = this.state;
+        const { count, itemComments, selectedFile } = this.state;
         // how the data should look:
         // itmes: [{count: num, images: ["ffff", "ffff"], comments: ''}]
         this.setState({
-            items: [{ tags: 'כללי', count, comments, selectedFile, itemAccepted: 'לא' }],
+            items: [{ tags: 'כללי', count, itemComments, selectedFile, itemAccepted: 'לא' }],
             count: ''
         });
         this.newItemProcessDone();
     };
+
+    goBack = () => {
+        const { donorName, logo, items } = this.state;
+        this.props.history.push({
+            pathname: './donoritems',
+            state: {
+                donorName,
+                logo,
+                items
+            }
+        })
+    }
 
     render() {
         const { classes } = this.props;
@@ -244,10 +273,11 @@ class NewItem extends React.Component {
 
         return (
             <div className="new-item">
+                <button className="close-new-item" tabindex="-1" onClick={this.goBack}>+</button>
                 <div className="new-item-container">
-                    <h3>פריט {currentItem}</h3>
+                    <h3 style={{ marginTop: '-18px' }}>פריט {currentItem}</h3>
 
-                    {(images.length >= 1) ?
+                    {(images && images.length >= 1) ?
                         '' : (
                             <div >
                                 <p>כמה דגשים לצילום הפריט:
@@ -304,7 +334,7 @@ class NewItem extends React.Component {
                             <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
 
                             <form className={classes.line} noValidate autoComplete="off">
-                                <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                                <TextField id="standard-basic" multiline type={"text"} name={"itemComments"}
                                     onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
                             </form>
 
@@ -312,7 +342,7 @@ class NewItem extends React.Component {
                     </div>
 
                     {/* check if "submit" btn should be disabled */}
-                    <div className={classes.button}>
+                    <div className={classes.buttonSubmit}>
 
                         {(count && images.length >= 1) ?
 

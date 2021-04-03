@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 // Services
-import donationService from '../../services/donationService';
+import adminDonationService from '../../services/adminDonationService';
 import { loadDonationById, saveDonation } from '../../store/actions/donationActions';
 
 const DonationRowActionBtns = (props) => {
@@ -17,7 +17,7 @@ const DonationRowActionBtns = (props) => {
     const handleDonationStatus = async (donation, status) => {
         const id = donation._id;
         if (window.confirm(`Are you sure you want to change ${donation.donorName}'s donation to ${status}?`)) {
-            let updatedDonation = await donationService.updateStatus(id, status);
+            let updatedDonation = await adminDonationService.updateStatus(id, status);
             await props.saveDonation(updatedDonation);
             await props.loadDonationById(id);
         }

@@ -12,6 +12,11 @@ body {
     font-family: RubikRegular sans-serif;
 }
 
+button:focus {
+    outline: none;
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
 .bold {
     font-weight: bold;
 }

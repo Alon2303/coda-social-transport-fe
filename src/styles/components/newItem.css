@@ -2,16 +2,17 @@
     /* direction: rtl; */
     background-color: #ADD2DC;
     border: 1px solid lightgray;
-    text-align: center;
-    padding-top: 27px;
     font-family: RubikRegular sans-serif;
     height: 100%;
     padding-right: 34px;
     padding-left: 34px;
+    padding-top: 27px;
 }
 
 .new-item-container {
     max-width: 311px;
+    text-align: center;
+
 }
 
 .new-item-count {
@@ -67,4 +68,21 @@
     position:absolute;
     bottom: 0; 
     right: 18px;
+}
+
+.close-new-item{
+    background-color: inherit;
+    border: none;
+    width: 31px;
+    height: 37px;
+    top: 38px;
+    left: 19px;
+    font-size: 28px;
+    transform: rotate(-45deg);
+}
+
+.close-new-item:focus, .close-new-item:target{
+    outline: none;
+    border: none;
+    display:none;
 }
