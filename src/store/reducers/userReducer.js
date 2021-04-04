@@ -1,5 +1,8 @@
 
 const initState = {
+    currDonor: null,
+    currDonorsDonationItems: [],
+    currDonorsDonationShippingInfo: null
 };
 
 const userReducer = (state = initState, action) => {

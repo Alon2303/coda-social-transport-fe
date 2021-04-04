@@ -15,6 +15,7 @@ import Navigation from './components/donorFlow/navigation/navigation';
 import Confirmation from './components/donorFlow/registration/signUp/confirmation';
 import Welcome from './components/donorFlow/order/startDonation/welcome';
 import Company from './components/donorFlow/order/startDonation/donorType/company';
+import DonorItems from './components/donorFlow/order/startDonation/DonorItems';
 import NewItem from './components/donorFlow/order/startDonation/newItem';
 import MainShipping from './components/donorFlow/order/shipping/mainShipping'
 import Comments from './components/donorFlow/order/endDonation/comments';
@@ -30,15 +31,16 @@ class App extends Component {
         <div className="App">
           <Switch>
             <Route exact path='/' component={SignUp} />
-      
-            // donor flow 
-            <Route path='/navigation' component={Navigation} />            
-            <Route path='/signup' component={SignUp} />            
+
+            // donor flow
+            <Route path='/navigation' component={Navigation} />
+            <Route path='/signup' component={SignUp} />
             <Route path='/signin' component={SignIn} />
             {/* <Route path='/email' component={Email} /> */}
             <Route path='/confirmation' component={Confirmation} />
             <Route path='/Welcome' component={Welcome} />
             <Route path='/company' component={Company} />
+            <Route path='/donoritems' component={DonorItems} />
             <Route path='/mainshipping' component={MainShipping} />
             <Route path='/newItem' component={NewItem} />
             <Route path='/comments' component={Comments} />

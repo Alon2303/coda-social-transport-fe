@@ -9,7 +9,7 @@ const AlternativeShipmentDate = () => {
         const newValue = e.target.value;
         setExternalShipmentAccepted(newValue);
         // const { donationId, itemIdx } = props;
-        // donationService.updateItemAccept(donationId, itemIdx, newValue);
+        // adminDonationService.updateItemAccept(donationId, itemIdx, newValue);
     }
 
     return (

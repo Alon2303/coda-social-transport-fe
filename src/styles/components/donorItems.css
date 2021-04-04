@@ -1,0 +1,14 @@
+.donor-items {
+    background-color: #3A4F40;
+    height: 100vh;
+    color: #ffffff;
+    padding-top: 43px;
+    font-family: RubikRegular sans-serif;
+    line-height: 18px;
+    direction: ltr;
+}
+
+.donor-item-footer {
+    direction: rtl;
+    padding-left: 29px;
+}

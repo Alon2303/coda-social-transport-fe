@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Services
-import donationService from '../../services/donationService';
+import adminDonationService from '../../services/adminDonationService';
 import { saveDonation } from '../../store/actions/donationActions';
 
 
@@ -25,7 +25,7 @@ class DonationTags extends Component {
     onSetTag = async (e) => {
         const selectedTag = e.target.value;
         const { donation, itemIdx } = this.props;
-        let updatedDonation = await donationService.updateTag(donation._id, itemIdx, selectedTag);
+        let updatedDonation = await adminDonationService.updateTag(donation._id, itemIdx, selectedTag);
         await this.props.saveDonation(updatedDonation);
     }
 

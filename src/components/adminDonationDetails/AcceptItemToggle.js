@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 // Services
-import donationService from '../../services/donationService';
+import adminDonationService from '../../services/adminDonationService';
 import { loadDonationById, saveDonation } from '../../store/actions/donationActions';
 
 const AcceptItemToggle = (props) => {
@@ -24,13 +24,13 @@ const AcceptItemToggle = (props) => {
         const newValue = e.target.value;
         setItemAccepted(newValue);
         const { donationId, itemIdx } = props;
-        let updatedDonation = await donationService.updateItemAccept(donationId, itemIdx, newValue);
+        let updatedDonation = await adminDonationService.updateItemAccept(donationId, itemIdx, newValue);
         await props.saveDonation(updatedDonation);
     }
 
     const onSetReason = async (e) => {
         const { donationId, itemIdx } = props;
-        let updatedDonation = await donationService.updateRejectReason(donationId, itemIdx, e.target.value);
+        let updatedDonation = await adminDonationService.updateRejectReason(donationId, itemIdx, e.target.value);
         // await props.saveDonation(updatedDonation);
         await props.saveDonation(updatedDonation);
     }
