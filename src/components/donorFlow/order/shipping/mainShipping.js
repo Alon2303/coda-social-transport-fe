@@ -85,7 +85,7 @@ class MainShipping extends React.Component {
         this.setState({
             [name]: value
         })
-        console.log("on change -state: ", this.state);
+        // console.log("on change -state: ", this.state);
     }
 
     handleBack = () => {
@@ -235,7 +235,7 @@ class MainShipping extends React.Component {
                             <div>
                                 <button className={
                                     (shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
-                                <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
+                                <img src={(shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? next : nextDisabled} alt="next page" />
                             </div>
                         }
                     </footer>
