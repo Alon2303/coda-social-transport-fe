@@ -80,6 +80,7 @@ class NewItem extends React.Component {
             pickUpAddress: this.props.location.state.pickUpAddress,
             shippingMethod: this.props.location.state.shippingMethod,
             isSelfShipping: this.props.location.state.isSelfShipping,
+            shippingComments: this.props.location.state.shippingComments,
             comments: this.props.location.state.comments,
             selectedFile: '',
             count: '',
@@ -184,7 +185,7 @@ class NewItem extends React.Component {
 
     newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
         tempItems = { count, itemComments, images };
         this.setState({
             items: [...items, tempItems],
@@ -205,6 +206,7 @@ class NewItem extends React.Component {
                     pickUpAddress,
                     shippingMethod,
                     isSelfShipping,
+                    shippingComments,
                     comments
                 }
             })
@@ -312,6 +314,7 @@ class NewItem extends React.Component {
 
 
                     <div className="swipe-gallery-bottom">
+                        {/* TODO: change to white dot if image uploaded */}
                         <img src={(currImage === 0) ? imageWhiteDot : imageBlackDot} />
                         <img src={(currImage === 1) ? imageWhiteDot : imageBlackDot} />
                         <img src={(currImage === 2) ? imageWhiteDot : imageBlackDot} />

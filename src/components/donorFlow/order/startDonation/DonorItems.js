@@ -58,11 +58,12 @@ class DonorItems extends React.Component {
             pickUpAddress: this.props.location.state.pickUpAddress,
             shippingMethod: this.props.location.state.shippingMethod,
             isSelfShipping: this.props.location.state.isSelfShipping,
+            shippingComments: this.props.location.state.shippingComments,
             comments: this.props.location.state.comments,
         }
     }
     addNewItem = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
         let currentItem = (!items.length) ? 1 : items.length + 1;
         this.props.history.push({
             pathname: './newitem',
@@ -80,13 +81,14 @@ class DonorItems extends React.Component {
                 pickUpAddress,
                 shippingMethod,
                 isSelfShipping,
+                shippingComments,
                 comments
             }
         })
     };
 
     goToNextPage = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, comments } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
         if (this.state.items.length === 0) return;
         this.props.history.push({
             pathname: './mainshipping',
@@ -101,6 +103,7 @@ class DonorItems extends React.Component {
                 shippingMethod,
                 pickUpAddress,
                 isSelfShipping,
+                shippingComments,
                 comments
             }
         })

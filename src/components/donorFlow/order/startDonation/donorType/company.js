@@ -13,6 +13,7 @@ class Company extends React.Component {
             pickUpAddress: '',
             shippingMethod: 'הובלה עצמאית',
             isSelfShipping: true,
+            shippingComments: '',
             comments: '',
         }
     }
@@ -33,7 +34,7 @@ class Company extends React.Component {
     };
 
     sendDetailsDone = (e) => {
-        const { donorName, logo, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        const { donorName, logo, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
         setTimeout(() => {
             this.props.history.push({
                 pathname: './donoritems',
@@ -49,6 +50,7 @@ class Company extends React.Component {
                     pickUpAddress,
                     shippingMethod,
                     isSelfShipping,
+                    shippingComments,
                     comments
                 }
             })

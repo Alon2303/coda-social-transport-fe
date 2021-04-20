@@ -39,6 +39,7 @@ class Comments extends React.Component {
             pickUpAddress: this.props.location.state.pickUpAddress,
             shippingMethod: this.props.location.state.shippingMethod,
             isSelfShipping: this.props.location.state.isSelfShipping,
+            shippingComments: this.props.location.state.shippingComments,
             comments: this.props.location.state.comments,
         }
     }
@@ -52,7 +53,7 @@ class Comments extends React.Component {
     };
 
     handleBack = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, comments } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
         this.props.history.push({
             pathname: './mainshipping',
             state: {
@@ -66,13 +67,14 @@ class Comments extends React.Component {
                 shippingMethod,
                 pickUpAddress,
                 isSelfShipping,
+                shippingComments,
                 comments
             }
         });
     }
 
     goToNextPage = () => {
-        const { alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        const { alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
 
         this.props.history.push({
             pathname: './closedonation',
@@ -87,6 +89,7 @@ class Comments extends React.Component {
                 shippingMethod,
                 pickUpAddress,
                 isSelfShipping,
+                shippingComments,
                 comments
             }
         })

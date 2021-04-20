@@ -64,6 +64,7 @@ class MainShipping extends React.Component {
             pickUpAddress: this.props.location.state.pickUpAddress,
             shippingMethod: this.props.location.state.shippingMethod,
             isSelfShipping: this.props.location.state.isSelfShipping,
+            shippingComments: this.props.location.state.shippingComments,
             comments: this.props.location.state.comments,
         }
     }
@@ -89,7 +90,7 @@ class MainShipping extends React.Component {
     }
 
     handleBack = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, comments } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
         this.props.history.push({
             pathname: './donoritems',
             state: {
@@ -103,6 +104,7 @@ class MainShipping extends React.Component {
                 pickUpAddress,
                 shippingMethod,
                 isSelfShipping,
+                shippingComments,
                 comments
 
             }
@@ -111,7 +113,7 @@ class MainShipping extends React.Component {
 
     contactDetails = async e => {
         e.preventDefault();
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, comments } = this.state;
+        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
         setTimeout(() => {
             this.props.history.push({
                 pathname: './comments',
@@ -126,6 +128,7 @@ class MainShipping extends React.Component {
                     shippingMethod,
                     pickUpAddress,
                     isSelfShipping,
+                    shippingComments,
                     comments
                 }
             })
@@ -134,7 +137,7 @@ class MainShipping extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress, comments } = this.state;
+        const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress, shippingComments } = this.state;
 
         return (
             <div className={"shipping-request"}>
@@ -170,8 +173,8 @@ class MainShipping extends React.Component {
                                 InputProps={{ classes: { underline: classes.underline } }} value={(phone) ? phone : ''} />
 
                             <p className="form-titles">זה המקום לכתוב העדפה לארגון אליו הפריטים יועברו או כל דבר אחר שנראה לך חשוב</p>
-                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} value={(comments) ? comments : ''} />
+                            <TextField id="standard-basic" type={"text"} name={"shippingComments"} onChange={this.handleChange} className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} value={(shippingComments) ? shippingComments : ''} />
 
                             <div className="shipping-address flex">
                                 <div>
@@ -215,8 +218,8 @@ class MainShipping extends React.Component {
 
 
                             <p className="form-titles">תמיד טוב לדעת אם יש חנייה, מעלית או דברים נוספים שיכולים להקל עלינו</p>
-                            <TextField id="standard-basic" type={"text"} name={"comments"} onChange={this.handleChange} className={classes.formInput}
-                                InputProps={{ classes: { underline: classes.underline } }} value={(comments) ? comments : ''} />
+                            <TextField id="standard-basic" type={"text"} name={"shippingComments"} onChange={this.handleChange} className={classes.formInput}
+                                InputProps={{ classes: { underline: classes.underline } }} value={(shippingComments) ? shippingComments : ''} />
                         </div>
                     }
 
