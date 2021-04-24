@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, TextField } from '@material-ui/core';
+import { Switch, TextField, Typography } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import footerLogo from '../../../../images/donation/logo-green-black-and-yellow.svg';
 import next from '../../../../images/donation/next.svg';
@@ -144,7 +144,7 @@ class MainShipping extends React.Component {
 
                 <form className={"shipping-form"}>
                     <div>
-                        <p className={(isSelfShipping) ? 'selected-shipping' : 'unselected-shipping'}>ההובלה עליי</p>
+                        <Typography className={(isSelfShipping) ? 'selected-shipping' : 'unselected-shipping'}>ההובלה עליי</Typography>
                         <Switch
                             checked={this.state.isSelfShipping}
                             onChange={this.handleShippingMethodChange}
@@ -153,7 +153,7 @@ class MainShipping extends React.Component {
                             className={classes.toggle}
                             inputProps={{ 'aria-label': 'primary checkbox' }}
                         />
-                        <p className={(isSelfShipping) ? 'unselected-shipping' : 'selected-shipping'}>אשמח שתובילו</p>
+                        <Typography className={(isSelfShipping) ? 'unselected-shipping' : 'selected-shipping'}>אשמח שתובילו</Typography>
                     </div>
                 </form>
 
@@ -224,22 +224,22 @@ class MainShipping extends React.Component {
                     }
 
                     <footer className="flex shipping-footer">
-                        <div>
+                        <Typography>
                             <img src={back} alt="go back" />
                             <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
-                        </div>
+                        </Typography>
                         {isSelfShipping ?
-                            <div>
+                            <Typography>
                                 <button className={
                                     (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
                                 <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
-                            </div>
+                            </Typography>
                             :
-                            <div>
+                            <Typography>
                                 <button className={
                                     (shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
                                 <img src={(shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? next : nextDisabled} alt="next page" />
-                            </div>
+                            </Typography>
                         }
                     </footer>
                 </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles";
-import { Fab, Paper, Grid } from '@material-ui/core';
+import { Fab, Paper, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import next from '../../../../images/donation/next.svg';
 import nextDisabled from '../../../../images/donation/nextDisabled.svg';
@@ -21,13 +21,14 @@ const styles = theme => ({
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        whiteSpace: 'nowrap',
+        // whiteSpace: 'nowrap',
         marginBottom: theme.spacing(1),
         height: '198px',
         width: '146px',
         borderRadius: '26px',
         backgroundColor: '#4b5d50',
-        marginRight: '15px'
+        marginRight: '15px',
+        display: 'grid'
     },
     addItemPaper: {
         backgroundColor: '#ADD2DC',
@@ -62,6 +63,7 @@ class DonorItems extends React.Component {
             comments: this.props.location.state.comments,
         }
     }
+
     addNewItem = () => {
         const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
         let currentItem = (!items.length) ? 1 : items.length + 1;
@@ -119,29 +121,54 @@ class DonorItems extends React.Component {
             <div className="donor-items">
                 <div className={classes.container}>
                     <Paper className={classes.addItemPaper}>
-                        <p>הוספת פריט {items.length + 1}</p>
+                        <Typography>
+                            הוספת פריט {items.length + 1}
+                        </Typography>
                         <Fab className={classes.fav} aria-label="add" onClick={this.addNewItem}>
                             <AddIcon />
                         </Fab>
                     </Paper>
 
                     <Paper className={classes.paper}>
-
+                        {items[0] ?
+                            <div>
+                                <Typography>
+                                    {items[0].count + ` פריט 1 | יחידות`}
+                                </Typography>
+                                <img src={items[0].images[0]} alt="img" />
+                            </div>
+                            : ''}
                     </Paper>
+
                     <Paper className={classes.paper}>
-
+                        {items[1] ?
+                            <div>
+                                <Typography>
+                                    {items[1].count + ` פריט 2 | יחידות`}
+                                </Typography>
+                                <img src={items[1].images[0]} alt="img" />
+                            </div>
+                            : ''}
                     </Paper>
+
                 </div>
+
                 <div className={classes.container}>
                     <Paper className={classes.paper}>
-
+                        {items[2] ?
+                            items[2].count + ` פריט 3 | יחידות`
+                            : ''}
                     </Paper>
 
                     <Paper className={classes.paper}>
-
+                        {items[3] ?
+                            items[3].count + ` פריט 4 | יחידות`
+                            : ''}
                     </Paper>
                     <Paper className={classes.paper}>
-
+                        {items[4] ?
+                            items[4].count + ` פריט 5 | יחידות`
+                            : ''}
                     </Paper>
                 </div>
 
@@ -149,7 +176,11 @@ class DonorItems extends React.Component {
                     <div className="donor-item-footer">
                         <button className={
                             (items.length > 0) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"}
-                            onClick={this.goToNextPage}>הבא</button>
+                            onClick={this.goToNextPage}>
+                            <Typography>
+                                הבא
+                        </Typography>
+                        </button>
                         <img src={(items.length > 0) ? next : nextDisabled} alt="next page" />
                     </div>
                 </footer>

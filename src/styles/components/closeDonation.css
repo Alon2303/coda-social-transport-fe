@@ -25,3 +25,11 @@
 .donation-summary p {
     font-size: 12px;
 }
+
+.save-donation-round-btn {
+    width: 66px;
+    height: 66px;
+    background-color: #88AD3F;
+    border-radius: 50%;
+    border: none;
+}

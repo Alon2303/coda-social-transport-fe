@@ -2,7 +2,7 @@ import React from 'react';
 
 import next from '../../../../images/donation/next.svg';
 import back from '../../../../images/donation/back.svg';
-import { TextField } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 
 
@@ -102,25 +102,28 @@ class Comments extends React.Component {
 
         return (
             <form className="donation-comments" onSubmit={this.handleSubmit}>
-                <p>ולפני סיום...</p>
-                <p>זה המקום להוסיף שעות נוחות לאיסוף ההובלה,</p>
-                <p>העדפה לעמותה או ארגון אליו הפריטים שלך יועברו,</p>
-                <p>או כל דבר שנראה לך חשוב</p>
-                {/* <textarea className={"form-control"} aria-label={"With textarea"} type={"text"} name={"comments"} onChange={this.handleChange} /> */}
+                <Typography>
 
-                <TextField id="standard-basic" multiline type={"text"} name={"comments"}
-                    onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} value={comments} />
-                {/* <button type={"submit"} onClick={this.signupProcess}>סיום הזמנה</button> */}
+                    <p>ולפני סיום...</p>
+                    <p>זה המקום להוסיף שעות נוחות לאיסוף ההובלה,</p>
+                    <p>העדפה לעמותה או ארגון אליו הפריטים שלך יועברו,</p>
+                    <p>או כל דבר שנראה לך חשוב</p>
+                    {/* <textarea className={"form-control"} aria-label={"With textarea"} type={"text"} name={"comments"} onChange={this.handleChange} /> */}
+
+                    <TextField id="standard-basic" multiline type={"text"} name={"comments"}
+                        onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} value={comments} />
+                    {/* <button type={"submit"} onClick={this.signupProcess}>סיום הזמנה</button> */}
+                </Typography>
 
                 <footer className="flex shipping-footer">
-                    <div>
+                    <Typography>
                         <img src={back} alt="go back" />
                         <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
-                    </div>
-                    <div>
+                    </Typography>
+                    <Typography>
                         <button className="footer-selected-button shipping-form-submit" type={"submit"} onClick={this.goToNextPage}>הבא</button>
                         <img src={next} alt="next page" />
-                    </div>
+                    </Typography>
                 </footer>
             </form>
         )

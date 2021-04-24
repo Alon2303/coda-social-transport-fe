@@ -1,9 +1,10 @@
 import React from 'react';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { addDonationToDB } from '../../../../api/sendDonation';
 import next from '../../../../images/donation/next.svg';
 import back from '../../../../images/donation/back.svg';
+import createDonation from '../../../../images/donation/createDonation.png';
 
 const styles = theme => ({
     root: {
@@ -110,28 +111,43 @@ class CloseDonation extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { items } = this.state;
         console.log(' props : ', this.props);
         return (
             <div className="donation-summary">
-                <h2>פרטי ההובלה</h2>
-                <h4>{this.state.shippingDateStart}</h4>
-                <h3>{this.state.contactName} + {this.state.phone} </h3>
-                <p>{this.state.comments}</p>
+                <Typography variant="h2">ההובלה שלך</Typography>
+                <Typography variant="h4">{this.state.shippingDateStart}</Typography>
+                <Typography variant="h4">{this.state.contactName} + {this.state.phone} </Typography>
+                <Typography>{this.state.comments}</Typography>
 
-                {/* <div className={classes.root}> */}
-                <Grid container spacing={3}>
-                    {/* <FormRow /> */}
-                    {this.renderGrid}
-                </Grid>
-                {/* </div> */}
+                <div className={classes.root}>
+                    <Grid
+                        container
+                        spacing={2}
+                        direction="row"
+                    >
+                        {items.map((item) => (
+                            <Grid item xs={6} key={items.indexOf(item)}>
+                                <Paper className={classes.paper} >
+                                    <Typography>
+                                        {`פריט ${items.indexOf(item) + 1} | ${item.count} יח' `}
+                                    </Typography>
+                                </Paper>
+                            </Grid>
+                        ))}
+                    </Grid>
+
+                </div>
+
                 <footer className="flex shipping-footer">
-                    <div>
+                    <Typography>
                         <img src={back} alt="go back" />
                         <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
-                    </div>
+                    </Typography>
                     <div>
-                        <button className="footer-selected-button shipping-form-submit" type={"submit"} onClick={this.saveDonation}>הבא</button>
-                        <img src={next} alt="next page" />
+                        <button className="save-donation-round-btn" type={"submit"} onClick={this.saveDonation}>
+                            <img src={createDonation} alt="Create donation" />
+                        </button>
                     </div>
                 </footer>
             </div>
