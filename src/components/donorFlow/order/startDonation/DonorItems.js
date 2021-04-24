@@ -173,16 +173,14 @@ class DonorItems extends React.Component {
                 </div>
 
                 <footer className="shipping-footer">
-                    <div className="donor-item-footer">
+                    <Typography className="donor-item-footer">
                         <button className={
                             (items.length > 0) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"}
                             onClick={this.goToNextPage}>
-                            <Typography>
-                                הבא
-                        </Typography>
+                            הבא
                         </button>
                         <img src={(items.length > 0) ? next : nextDisabled} alt="next page" />
-                    </div>
+                    </Typography>
                 </footer>
             </div>
         )

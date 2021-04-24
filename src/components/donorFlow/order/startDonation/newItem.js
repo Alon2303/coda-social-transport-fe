@@ -263,13 +263,23 @@ class NewItem extends React.Component {
     };
 
     goBack = () => {
-        const { donorName, logo, items } = this.state;
+        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
+
         this.props.history.push({
             pathname: './donoritems',
             state: {
                 donorName,
                 logo,
-                items
+                items: this.state.items,
+                contactName,
+                phone,
+                shippingDateStart,
+                shippingDateEnd,
+                pickUpAddress,
+                shippingMethod,
+                isSelfShipping,
+                shippingComments,
+                comments
             }
         })
     }

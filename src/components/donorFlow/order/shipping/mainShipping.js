@@ -229,7 +229,7 @@ class MainShipping extends React.Component {
                             <button className="shipping-form-submit footer-selected-button" type={"submit"} onClick={this.handleBack}>הקודם</button>
                         </Typography>
                         {isSelfShipping ?
-                            <Typography>
+                            <Typography >
                                 <button className={
                                     (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
                                 <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />

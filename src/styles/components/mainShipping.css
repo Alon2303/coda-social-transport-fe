@@ -78,8 +78,10 @@ width: 180px;
 
 .footer-selected-button{
     color: #ffffff;
+    font-size: 12px;
 }
 
 .footer-unselected-button{
     color: #738779;
+    font-size: 12px;
 }

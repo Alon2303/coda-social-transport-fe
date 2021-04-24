@@ -90,35 +90,16 @@ class CloseDonation extends React.Component {
         const donation = await addDonationToDB(alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, shippingComments, comments);
     };
 
-    renderGrid() {
-        const { classes } = this.props;
-        return (
-            // <React.Fragment>
-            //     <Grid item xs={6}>
-            //         <Paper className={classes.paper}>
-
-            //         </Paper>
-            //     </Grid>
-            //     <Grid item xs={6}>
-            //         <Paper className={classes.paper}>
-
-            //         </Paper>
-            //     </Grid>
-            <button> CVDSW ESF </button >
-            // </React.Fragment>
-        );
-    }
-
     render() {
         const { classes } = this.props;
         const { items } = this.state;
         console.log(' props : ', this.props);
         return (
             <div className="donation-summary">
-                <Typography variant="h2">ההובלה שלך</Typography>
-                <Typography variant="h4">{this.state.shippingDateStart}</Typography>
-                <Typography variant="h4">{this.state.contactName} + {this.state.phone} </Typography>
-                <Typography>{this.state.comments}</Typography>
+                <Typography variant="h2" style={{ marginBottom: '6px' }}>פרטי ההובלה</Typography>
+                <Typography variant="h4" style={{ marginBottom: '4px' }}>{this.state.shippingDateStart}</Typography>
+                <Typography variant="h4" style={{ marginBottom: '8px' }}>  {this.state.contactName} {this.state.phone}</Typography>
+                <Typography style={{ marginBottom: '36px' }}>{this.state.comments}</Typography>
 
                 <div className={classes.root}>
                     <Grid
@@ -132,6 +113,7 @@ class CloseDonation extends React.Component {
                                     <Typography>
                                         {`פריט ${items.indexOf(item) + 1} | ${item.count} יח' `}
                                     </Typography>
+                                    <img src={item.images[0]} alt="img" />
                                 </Paper>
                             </Grid>
                         ))}
