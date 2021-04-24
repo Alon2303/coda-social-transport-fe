@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Button, Avatar, } from '@material-ui/core';
+import { TextField, Button, Avatar, Typography, } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from "@material-ui/core/styles";
 import imagePlaceholder from '../../../../images/donation/imagePlaceholder.svg'
@@ -7,11 +7,16 @@ import imageBlackDot from '../../../../images/donation/imageBlackDot.svg'
 import imageWhiteDot from '../../../../images/donation/imageWhiteDot.svg'
 
 const styles = theme => ({
+    title: {
+        marginTop: '-18px',
+        marginBottom: '12px',
+        fontSize: '20px',
+    },
     amountInput: {
         '& > *': {
             margin: theme.spacing(1),
             width: '55px',
-            heigth: '16px',
+            height: '16px',
             borderRadius: '26px',
             padding: '0px'
         },
@@ -277,18 +282,19 @@ class NewItem extends React.Component {
             <div className="new-item">
                 <button className="close-new-item" tabindex="-1" onClick={this.goBack}>+</button>
                 <div className="new-item-container">
-                    <h3 style={{ marginTop: '-18px' }}>פריט {currentItem}</h3>
+                    <Typography variant="h5" className={classes.title}>פריט {currentItem}</Typography>
+                    {/* <Typography variant="h5" style={{ marginTop: '-18px', marginBottom: '12px', fontSize: '20px' }}>פריט {currentItem}</Typography> */}
 
                     {(images && images.length >= 1) ?
                         '' : (
-                            <div >
+                            <Typography>
                                 <p>כמה דגשים לצילום הפריט:
                             <br />
                             יש לצרף <span className="bold">לפחות</span> תמונה אחת של הפריט הנתרם.
                             <br />נשמח שהתמונה תהיה הכי אותנטית, בדיוק כמו התרומה שלך.
                             <br />
                             אפשר לצרף עד 3 תמונות מזוויות שונות.</p>
-                            </div>
+                            </Typography>
 
                         )}
 
@@ -322,16 +328,16 @@ class NewItem extends React.Component {
 
                     <div className="new-item-form">
 
-                        <div className="new-item-count">
+                        <Typography className="new-item-count" style={{ marginBottom: '36px' }}>
                             <p className="red-color">*</p>
                             <p className="bold amount">כמות</p>
                             <form className={classes.amountInput} noValidate autoComplete="off" >
                                 <TextField id="outlined-basic" variant="outlined" type={"text"} name={"count"} onChange={this.handleChange} />
                             </form>
                             <p>יח'</p>
-                        </div>
+                        </Typography>
 
-                        <div className="new-item-info">
+                        <Typography className="new-item-info">
 
                             <p>מידע נוסף</p>
                             <p>חשוב לציין את מידות הפריט ומצב השימוש בו</p>
@@ -341,7 +347,7 @@ class NewItem extends React.Component {
                                     onChange={this.handleChange} InputProps={{ classes: { underline: classes.underline } }} />
                             </form>
 
-                        </div>
+                        </Typography>
                     </div>
 
                     {/* check if "submit" btn should be disabled */}
@@ -349,9 +355,17 @@ class NewItem extends React.Component {
 
                         {(count && images.length >= 1) ?
 
-                            <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>הוספה</Button>
+                            <Button variant="contained" type={"submit"} onClick={this.newItemProcess}>
+                                <Typography>
+                                    הוספה
+                                </Typography>
+                            </Button>
                             :
-                            <Button variant="contained" disabled>הוספה</Button>
+                            <Button variant="contained" disabled>
+                                <Typography>
+                                    הוספה
+                                </Typography>
+                            </Button>
                         }
                     </div>
 
