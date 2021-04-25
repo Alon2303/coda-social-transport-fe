@@ -1,4 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// Services
+import donorDonationService from '../../../../services/donorDonationService';
+import { setNewDonation } from '../../../../store/actions/donationActions';
+
 import { TextField, Button, Avatar, Typography, } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from "@material-ui/core/styles";
@@ -71,22 +77,11 @@ class NewItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            items: this.props.donation.items,
             currImage: 0,
-            donorName: this.props.location.state.donorName,
-            logo: this.props.location.state.logo,
             currentItem: this.props.location.state.currentItem,
-            items: this.props.location.state.items,
             imgCounter: this.props.location.state.imgCounter,
             images: this.props.location.state.images,
-            contactName: this.props.location.state.contactName,
-            phone: this.props.location.state.phone,
-            shippingDateStart: this.props.location.state.shippingDateStart,
-            shippingDateEnd: this.props.location.state.shippingDateEnd,
-            pickUpAddress: this.props.location.state.pickUpAddress,
-            shippingMethod: this.props.location.state.shippingMethod,
-            isSelfShipping: this.props.location.state.isSelfShipping,
-            shippingComments: this.props.location.state.shippingComments,
-            comments: this.props.location.state.comments,
             selectedFile: '',
             count: '',
             maxImg: 3,
@@ -190,32 +185,17 @@ class NewItem extends React.Component {
 
     newItemProcessDone = (e) => {
         let tempItems = [];
-        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
+        const { donation } = this.props;
+        const { count, images, itemComments, items } = this.state;
         tempItems = { count, itemComments, images };
         this.setState({
             items: [...items, tempItems],
         });
-        console.log("newItemProcessDone -----  , items: ", items);
+        donation.items = [...donation.items, tempItems];
+        console.log("newItemProcessDone -----  , donation.items: ", donation.items);
         console.log("newItemProcessDone -----  , tempItems: ", tempItems);
-        setTimeout(() => {
-            this.props.history.push({
-                pathname: './donoritems',
-                state: {
-                    donorName,
-                    logo,
-                    items: this.state.items,
-                    contactName,
-                    phone,
-                    shippingDateStart,
-                    shippingDateEnd,
-                    pickUpAddress,
-                    shippingMethod,
-                    isSelfShipping,
-                    shippingComments,
-                    comments
-                }
-            })
-        }, 2000)
+        this.props.setNewDonation(donation);
+        this.props.history.push({ pathname: './donoritems' })
     };
 
     // addNewItem = (e) => {
@@ -253,8 +233,6 @@ class NewItem extends React.Component {
     newItemProcess = (e) => {
         e.preventDefault();
         const { count, itemComments, selectedFile } = this.state;
-        // how the data should look:
-        // itmes: [{count: num, images: ["ffff", "ffff"], comments: ''}]
         this.setState({
             items: [{ tags: 'כללי', count, itemComments, selectedFile, itemAccepted: 'לא' }],
             count: ''
@@ -285,7 +263,7 @@ class NewItem extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, donation } = this.props;
         const { currImage, currentItem, count, maxImg, comments, items, donorName, logo, imgCounter, images } = this.state;
 
         return (
@@ -386,8 +364,17 @@ class NewItem extends React.Component {
     }
 }
 
-export default withStyles(styles)(NewItem);
+const mapStateToProps = (state) => {
+    console.log('PROPS IN NEW ITEM : ', state.donation.currDonation);
+    return {
+        donation: state.donation.currDonation,
+    };
+};
 
+const mapDispatchToProps = {
+    setNewDonation
+};
 
-
-
+export default withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(NewItem)
+)

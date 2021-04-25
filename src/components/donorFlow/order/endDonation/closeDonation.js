@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// Services
+import { setNewDonation } from '../../../../store/actions/donationActions';
+
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { addDonationToDB } from '../../../../api/sendDonation';
-import next from '../../../../images/donation/next.svg';
 import back from '../../../../images/donation/back.svg';
 import createDonation from '../../../../images/donation/createDonation.png';
 
@@ -43,63 +47,36 @@ class CloseDonation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            alternativeShippingDate: null,
-            status: 'חדש',
-            awaitingPayment: null,
-            paymentStatus: null,
-            donorName: this.props.location.state.donorName,
-            logo: this.props.location.state.logo,
-            items: this.props.location.state.items,
-            contactName: this.props.location.state.contactName,
-            phone: this.props.location.state.phone,
-            shippingDateStart: this.props.location.state.shippingDateStart,
-            shippingDateEnd: this.props.location.state.shippingDateEnd,
-            pickUpAddress: this.props.location.state.pickUpAddress,
-            shippingMethod: this.props.location.state.shippingMethod,
-            isSelfShipping: this.props.location.state.isSelfShipping,
-            shippingComments: this.props.location.state.shippingComments,
-            comments: this.props.location.state.comments,
+            donorName: this.props.donation.donorName,
+            items: this.props.donation.items,
+            contactName: this.props.donation.contact.contactName,
+            phone: this.props.donation.contact.phone,
+            shippingDateStart: this.props.donation.shippingDateStart,
+            shippingDateEnd: this.props.donation.shippingDateEnd,
+            comments: this.props.donation.comments,
         }
     }
 
     handleBack = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
-        this.props.history.push({
-            pathname: './comments',
-            state: {
-                donorName,
-                logo,
-                items,
-                contactName,
-                phone,
-                shippingDateStart,
-                shippingDateEnd,
-                pickUpAddress,
-                shippingMethod,
-                isSelfShipping,
-                shippingComments,
-                comments
-            }
-        })
+        this.props.history.push({ pathname: './comments' })
     }
 
     saveDonation = async e => {
         e.preventDefault();
-        const { alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, shippingComments, comments } = this.state;
-        const contact = { contactName, phone }
+        const { contact, alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, shippingComments, comments } = this.props.donation;
         const donation = await addDonationToDB(alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contact, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, shippingComments, comments);
     };
 
     render() {
-        const { classes } = this.props;
-        const { items } = this.state;
+        const { classes, donation } = this.props;
+        const { items, comments } = this.state;
         console.log(' props : ', this.props);
         return (
             <div className="donation-summary">
                 <Typography variant="h2" style={{ marginBottom: '6px' }}>פרטי ההובלה</Typography>
-                <Typography variant="h4" style={{ marginBottom: '4px' }}>{this.state.shippingDateStart}</Typography>
-                <Typography variant="h4" style={{ marginBottom: '8px' }}>  {this.state.contactName} {this.state.phone}</Typography>
-                <Typography style={{ marginBottom: '36px' }}>{this.state.comments}</Typography>
+                <Typography variant="h4" style={{ marginBottom: '4px' }}>{donation.shippingDateStart}</Typography>
+                <Typography variant="h4" style={{ marginBottom: '8px' }}>  {donation.contact.contactName} {donation.contact.phone}</Typography>
+                <Typography style={{ marginBottom: '36px' }}>{comments}</Typography>
 
                 <div className={classes.root}>
                     <Grid
@@ -137,4 +114,17 @@ class CloseDonation extends React.Component {
     }
 }
 
-export default withStyles(styles)(CloseDonation);
+const mapStateToProps = (state) => {
+    console.log('PROPS IN CLOSE DONATION : ', state.donation.currDonation);
+    return {
+        donation: state.donation.currDonation,
+    };
+};
+
+const mapDispatchToProps = {
+    setNewDonation
+};
+
+export default withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(CloseDonation)
+)

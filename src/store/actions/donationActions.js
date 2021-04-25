@@ -1,4 +1,5 @@
 import adminDonationService from '../../services/adminDonationService';
+import donorDonationService from '../../services/donorDonationService';
 
 // LIST
 export function loadDonations(filterBy) {
@@ -13,6 +14,13 @@ export function loadDonationById(donationId) {
     console.log(donationId, 'in action');
     return async dispatch => {
         let donation = await adminDonationService.getById(donationId);
+        dispatch({ type: 'SET_CURR_DONATION', donation })
+    }
+}
+
+export function setNewDonation(donation) {
+    console.log(donation, ' setting up new donation in action');
+    return dispatch => {
         dispatch({ type: 'SET_CURR_DONATION', donation })
     }
 }

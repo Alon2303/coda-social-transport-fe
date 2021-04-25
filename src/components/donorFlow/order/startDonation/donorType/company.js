@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// Services
+import donorDonationService from '../../../../../services/donorDonationService';
+import { setNewDonation } from '../../../../../store/actions/donationActions';
 
 class Company extends React.Component {
     constructor(props) {
@@ -6,15 +11,6 @@ class Company extends React.Component {
         this.state = {
             donorName: '',
             logo: null,
-            contactName: '',
-            phone: '',
-            shippingDateStart: '',
-            shippingDateEnd: '',
-            pickUpAddress: '',
-            shippingMethod: 'הובלה עצמאית',
-            isSelfShipping: true,
-            shippingComments: '',
-            comments: '',
         }
     }
 
@@ -34,38 +30,21 @@ class Company extends React.Component {
     };
 
     sendDetailsDone = (e) => {
-        const { donorName, logo, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
-        setTimeout(() => {
-            this.props.history.push({
-                pathname: './donoritems',
-                // pathname: './newitem',
-                state: {
-                    donorName,
-                    logo,
-                    items: [],
-                    contactName,
-                    phone,
-                    shippingDateStart,
-                    shippingDateEnd,
-                    pickUpAddress,
-                    shippingMethod,
-                    isSelfShipping,
-                    shippingComments,
-                    comments
-                }
-            })
-        }, 2000)
+        let donationTemplate = donorDonationService.getNewDonationTemplate();
+        donationTemplate['donorName'] = this.state.donorName;
+        donationTemplate['logo'] = this.state.logo;
+        this.props.setNewDonation(donationTemplate);
+        this.props.history.push({ pathname: './donoritems' })
     };
 
     sendDetails = async e => {
         e.preventDefault();
-        //const {donorName, logo}  = this.state;
         this.sendDetailsDone();
     };
 
     render() {
         const { donorName, logo } = this.state;
-        console.log("donorName", donorName);
+
         return (
             <form className={"container fluid"} onSubmit={this.handleSubmit}>
                 <div className={"d-flex justify-content-center"}>
@@ -96,4 +75,15 @@ class Company extends React.Component {
     }
 };
 
-export default Company;
+
+const mapStateToProps = (state) => {
+    return {
+        donation: state.donation.currDonation,
+    };
+};
+
+const mapDispatchToProps = {
+    setNewDonation
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Company);

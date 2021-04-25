@@ -1,15 +1,22 @@
 const newDonationTemplate = {
     donorName: '',
     logo: null,
-    contactName: '',
-    phone: '',
+    shippingMethod: 'הובלה עצמאית',
     shippingDateStart: '',
     shippingDateEnd: '',
+    alternativeShippingDate: '',
     pickUpAddress: '',
-    shippingMethod: 'הובלה עצמאית',
     isSelfShipping: true,
     shippingComments: '',
     comments: '',
+    status: 'חדש',
+    awaitingPayment: '',
+    paymentStatus: '',
+    contact: {
+        contactName: '',
+        phone: '',
+    },
+    items: []
 }
 
 

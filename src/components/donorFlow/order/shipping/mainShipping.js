@@ -1,4 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// Services
+import { setNewDonation } from '../../../../store/actions/donationActions';
+
+
 import { Switch, TextField, Typography } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import footerLogo from '../../../../images/donation/logo-green-black-and-yellow.svg';
@@ -54,18 +60,14 @@ class MainShipping extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            donorName: this.props.location.state.donorName,
-            logo: this.props.location.state.logo,
-            items: this.props.location.state.items,
-            contactName: this.props.location.state.contactName,
-            phone: this.props.location.state.phone,
-            shippingDateStart: this.props.location.state.shippingDateStart,
-            shippingDateEnd: this.props.location.state.shippingDateEnd,
-            pickUpAddress: this.props.location.state.pickUpAddress,
-            shippingMethod: this.props.location.state.shippingMethod,
-            isSelfShipping: this.props.location.state.isSelfShipping,
-            shippingComments: this.props.location.state.shippingComments,
-            comments: this.props.location.state.comments,
+            contactName: this.props.donation.contact.contactName,
+            phone: this.props.donation.contact.phone,
+            shippingDateStart: this.props.donation.shippingDateStart,
+            shippingDateEnd: this.props.donation.shippingDateEnd,
+            pickUpAddress: this.props.donation.pickUpAddress,
+            shippingMethod: this.props.donation.shippingMethod,
+            isSelfShipping: this.props.donation.isSelfShipping,
+            shippingComments: this.props.donation.shippingComments,
         }
     }
 
@@ -90,55 +92,31 @@ class MainShipping extends React.Component {
     }
 
     handleBack = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
-        this.props.history.push({
-            pathname: './donoritems',
-            state: {
-                donorName,
-                logo,
-                items,
-                contactName,
-                phone,
-                shippingDateStart,
-                shippingDateEnd,
-                pickUpAddress,
-                shippingMethod,
-                isSelfShipping,
-                shippingComments,
-                comments
-
-            }
-        });
+        this.props.history.push({ pathname: './donoritems' });
     }
 
-    contactDetails = async e => {
+    saveShippingDetails = async e => {
         e.preventDefault();
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
-        setTimeout(() => {
-            this.props.history.push({
-                pathname: './comments',
-                state: {
-                    donorName,
-                    logo,
-                    items,
-                    contactName,
-                    phone,
-                    shippingDateStart,
-                    shippingDateEnd,
-                    shippingMethod,
-                    pickUpAddress,
-                    isSelfShipping,
-                    shippingComments,
-                    comments
-                }
-            })
-        }, 2000)
+        const { donation } = this.props;
+        const { contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
+
+        donation.shippingDateStart = shippingDateStart;
+        donation.shippingMethod = shippingMethod;
+        donation.shippingComments = shippingComments;
+        donation.contact.contactName = contactName;
+        donation.contact.phone = phone;
+
+        if (!isSelfShipping) {
+            donation.shippingDateEnd = shippingDateEnd;
+        }
+
+        this.props.setNewDonation(donation);
+        this.props.history.push({ pathname: './comments' })
     }
 
     render() {
         const { classes } = this.props;
         const { isSelfShipping, shippingDateStart, shippingDateEnd, contactName, phone, pickUpAddress, shippingComments } = this.state;
-
         return (
             <div className={"shipping-request"}>
 
@@ -146,7 +124,7 @@ class MainShipping extends React.Component {
                     <div>
                         <Typography className={(isSelfShipping) ? 'selected-shipping' : 'unselected-shipping'}>ההובלה עליי</Typography>
                         <Switch
-                            checked={this.state.isSelfShipping}
+                            checked={isSelfShipping}
                             onChange={this.handleShippingMethodChange}
                             name="isSelfShipping"
                             color="default"
@@ -231,14 +209,17 @@ class MainShipping extends React.Component {
                         {isSelfShipping ?
                             <Typography >
                                 <button className={
-                                    (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
-                                <img src={(shippingDateStart && contactName && phone) ? next : nextDisabled} alt="next page" />
+                                    (shippingDateStart && contactName && phone) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.saveShippingDetails}>הבא</button>
+                                <img src={(shippingDateStart && contactName && phone) ?
+                                    next : nextDisabled} alt="next page" />
                             </Typography>
                             :
                             <Typography>
                                 <button className={
-                                    (shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.contactDetails}>הבא</button>
-                                <img src={(shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ? next : nextDisabled} alt="next page" />
+                                    (shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ?
+                                        "footer-selected-button shipping-form-submit" : "footer-unselected-button shipping-form-submit"} type={"submit"} onClick={this.saveShippingDetails}>הבא</button>
+                                <img src={(shippingDateStart && shippingDateEnd && contactName && phone && pickUpAddress) ?
+                                    next : nextDisabled} alt="next page" />
                             </Typography>
                         }
                     </footer>
@@ -248,4 +229,17 @@ class MainShipping extends React.Component {
     }
 }
 
-export default withStyles(styles)(MainShipping);
+const mapStateToProps = (state) => {
+    console.log('PROPS IN MAIN SHIPPING : ', state.donation.currDonation);
+    return {
+        donation: state.donation.currDonation,
+    };
+};
+
+const mapDispatchToProps = {
+    setNewDonation
+};
+
+export default withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(MainShipping)
+)

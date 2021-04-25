@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+// Services
+import { setNewDonation } from '../../../../store/actions/donationActions';
+
 
 import next from '../../../../images/donation/next.svg';
 import back from '../../../../images/donation/back.svg';
@@ -29,18 +34,7 @@ class Comments extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            donorName: this.props.location.state.donorName,
-            logo: this.props.location.state.logo,
-            items: this.props.location.state.items,
-            contactName: this.props.location.state.contactName,
-            phone: this.props.location.state.phone,
-            shippingDateStart: this.props.location.state.shippingDateStart,
-            shippingDateEnd: this.props.location.state.shippingDateEnd,
-            pickUpAddress: this.props.location.state.pickUpAddress,
-            shippingMethod: this.props.location.state.shippingMethod,
-            isSelfShipping: this.props.location.state.isSelfShipping,
-            shippingComments: this.props.location.state.shippingComments,
-            comments: this.props.location.state.comments,
+            comments: this.props.donation.comments,
         }
     }
 
@@ -53,50 +47,21 @@ class Comments extends React.Component {
     };
 
     handleBack = () => {
-        const { donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, shippingMethod, pickUpAddress, isSelfShipping, shippingComments, comments } = this.state;
         this.props.history.push({
             pathname: './mainshipping',
-            state: {
-                donorName,
-                logo,
-                items,
-                contactName,
-                phone,
-                shippingDateStart,
-                shippingDateEnd,
-                shippingMethod,
-                pickUpAddress,
-                isSelfShipping,
-                shippingComments,
-                comments
-            }
         });
     }
 
     goToNextPage = () => {
-        const { alternativeShippingDate, status, awaitingPayment, paymentStatus, donorName, logo, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
+        const { donation } = this.props;
+        const { comments } = this.state;
 
-        this.props.history.push({
-            pathname: './closedonation',
-            state: {
-                donorName,
-                logo,
-                items,
-                contactName,
-                phone,
-                shippingDateStart,
-                shippingDateEnd,
-                shippingMethod,
-                pickUpAddress,
-                isSelfShipping,
-                shippingComments,
-                comments
-            }
-        })
+        donation.comments = comments;
+        this.props.setNewDonation(donation);
+        this.props.history.push({ pathname: './closedonation' })
     };
 
     render() {
-        //const {comments, contactName, shippingDateStart,contact} = this.state;
         const { classes } = this.props;
         const { comments } = this.state;
 
@@ -130,4 +95,17 @@ class Comments extends React.Component {
     }
 }
 
-export default withStyles(styles)(Comments);
+const mapStateToProps = (state) => {
+    console.log('PROPS IN COMMENTS : ', state.donation.currDonation);
+    return {
+        donation: state.donation.currDonation,
+    };
+};
+
+const mapDispatchToProps = {
+    setNewDonation
+};
+
+export default withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(Comments)
+)
