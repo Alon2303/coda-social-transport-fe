@@ -84,4 +84,9 @@ width: 180px;
 .footer-unselected-button{
     color: #738779;
     font-size: 12px;
+    cursor: none;
+}
+
+.footer-unselected-button:hover{
+    cursor: auto;
 }

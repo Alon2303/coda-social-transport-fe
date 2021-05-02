@@ -192,8 +192,6 @@ class NewItem extends React.Component {
             items: [...items, tempItems],
         });
         donation.items = [...donation.items, tempItems];
-        console.log("newItemProcessDone -----  , donation.items: ", donation.items);
-        console.log("newItemProcessDone -----  , tempItems: ", tempItems);
         this.props.setNewDonation(donation);
         this.props.history.push({ pathname: './donoritems' })
     };
@@ -241,25 +239,7 @@ class NewItem extends React.Component {
     };
 
     goBack = () => {
-        const { donorName, logo, count, itemComments, images, items, contactName, phone, shippingDateStart, shippingDateEnd, pickUpAddress, shippingMethod, isSelfShipping, shippingComments, comments } = this.state;
-
-        this.props.history.push({
-            pathname: './donoritems',
-            state: {
-                donorName,
-                logo,
-                items: this.state.items,
-                contactName,
-                phone,
-                shippingDateStart,
-                shippingDateEnd,
-                pickUpAddress,
-                shippingMethod,
-                isSelfShipping,
-                shippingComments,
-                comments
-            }
-        })
+        this.props.history.push({ pathname: './donoritems' })
     }
 
     render() {

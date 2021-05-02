@@ -1,5 +1,4 @@
 import adminDonationService from '../../services/adminDonationService';
-import donorDonationService from '../../services/donorDonationService';
 
 // LIST
 export function loadDonations(filterBy) {

@@ -33,3 +33,8 @@
     border-radius: 50%;
     border: none;
 }
+
+
+.closed-item-cards-img {
+    max-width: 100%;
+}

@@ -12,3 +12,20 @@
     direction: rtl;
     padding-left: 29px;
 }
+
+.item-card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 7px 20px;
+}
+
+.item-card-img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.remove-item-icon {
+    display: flex;
+    flex-direction: column;
+    height: 10px;
+}

@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { addDonationToDB } from '../../../../api/sendDonation';
 import back from '../../../../images/donation/back.svg';
 import createDonation from '../../../../images/donation/createDonation.png';
+import ic_delete_top from '../../../../images/donation/ic_delete_top.svg';
+import ic_delete_bottom from '../../../../images/donation/ic_delete_bottom.svg';
 
 const styles = theme => ({
     root: {
@@ -23,9 +25,10 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
         whiteSpace: 'nowrap',
         marginBottom: theme.spacing(1),
-        height: '198px',
-        width: '146px',
+        height: '94px',
+        width: '140px',
         borderRadius: '26px',
+        color: '#FFFFFF',
         backgroundColor: '#4b5d50',
         marginRight: '15px'
     },
@@ -57,6 +60,17 @@ class CloseDonation extends React.Component {
         }
     }
 
+
+    removeItem = (idx) => {
+        const { donation } = this.props;
+        const donationCopy = JSON.parse(JSON.stringify(donation));
+        console.log(donation.items, 'before splice')
+        donationCopy.items.splice(idx, 1);
+        console.log(donation.items, 'after splice')
+        this.props.setNewDonation(donationCopy);
+        this.setState({ ...this.state, items: donationCopy.items })
+    }
+
     handleBack = () => {
         this.props.history.push({ pathname: './comments' })
     }
@@ -84,13 +98,20 @@ class CloseDonation extends React.Component {
                         spacing={2}
                         direction="row"
                     >
-                        {items.map((item) => (
-                            <Grid item xs={6} key={items.indexOf(item)}>
-                                <Paper className={classes.paper} >
-                                    <Typography>
-                                        {`פריט ${items.indexOf(item) + 1} | ${item.count} יח' `}
-                                    </Typography>
-                                    <img src={item.images[0]} alt="img" />
+                        {items.map((item, i) => (
+                            <Grid item xs={6} key={i}>
+                                <Paper className={classes.paper}  >
+                                    <div className="item-card-header" >
+                                        <div className="remove-item-icon" onClick={() => this.removeItem(i)}>
+                                            <img src={ic_delete_top} alt="Remove item" />
+                                            <img src={ic_delete_bottom} alt="Remove item" />
+                                        </div>
+                                        <Typography>
+                                            {`פריט ${i + 1} | ${item.count} יח' `}
+                                        </Typography>
+                                    </div>
+
+                                    <img className="closed-item-cards-img" src={item.images[0]} alt="img" />
                                 </Paper>
                             </Grid>
                         ))}

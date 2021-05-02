@@ -11,6 +11,8 @@ const donationReducer = (state = initState, action) => {
         case 'SET_DONATIONS':
             return { ...state, donations: action.donations };
         case 'SET_CURR_DONATION':
+
+            console.log(action.donation)
             return { ...state, currDonation: action.donation };
         case 'UPDATE_DONATION':
             return {
