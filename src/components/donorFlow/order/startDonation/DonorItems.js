@@ -87,87 +87,76 @@ class DonorItems extends React.Component {
         this.props.history.push({ pathname: './mainshipping' })
     }
 
+    emptyGridItems = () => {
+        const { classes, donation } = this.props;
+        const emptyElements = [];
+        console.log(" donation.items.length___ ", donation.items.length);
+        for (let i = (donation.items.length) ? donation.items.length + 1 : 1; i < 6; i++) {
+            console.log(" ___ ", i);
+            emptyElements.push(
+                <Grid item xs={4} key={i}>
+                    <Paper className={classes.paper}></Paper>
+                </Grid>);
+
+        }
+        return emptyElements;
+    }
+
     render() {
         const { classes, donation } = this.props;
+        const { items } = donation;
         console.log('items: ', donation.items);
         console.log('items.length: ', donation.items.length);
 
         return (
             <div className="donor-items">
                 <div className={classes.container}>
-                    <Paper className={classes.addItemPaper}>
+                    {/* <Paper className={classes.addItemPaper}>
                         <Typography className={classes.font12px}>
                             הוספת פריט {donation.items.length + 1}
                         </Typography>
                         <Fab className={classes.fav} aria-label="add" onClick={this.addNewItem}>
                             <AddIcon />
                         </Fab>
-                    </Paper>
+                    </Paper> */}
 
-                    <Paper className={classes.paper}>
-                        {donation.items[0] ?
-                            <div key="1">
-                                <div className="item-card-header">
-                                    <div className="remove-item-icon" onClick={() => this.removeItem(0)}>
-                                        <img src={ic_delete_top} alt="Remove item" />
-                                        <img src={ic_delete_bottom} alt="Remove item" />
-                                    </div>
+                    <div className={classes.root}>
+                        <Grid
+                            container
+                            spacing={2}
+                            direction="row"
+                        >
+                            <Grid item xs={4} key={-1}>
+                                <Paper className={classes.addItemPaper}>
                                     <Typography className={classes.font12px}>
-                                        {donation.items[0].count + ` פריט 1 | יח`}
+                                        הוספת פריט {donation.items.length + 1}
                                     </Typography>
-                                </div>
-                                <img className="item-card-img" src={donation.items[0].images[0]} alt="img" />
-                            </div>
-                            : ''}
-                    </Paper>
+                                    <Fab className={classes.fav} aria-label="add" onClick={this.addNewItem}>
+                                        <AddIcon />
+                                    </Fab>
+                                </Paper>
+                            </Grid>
+                            {items.map((item, i) => (
+                                <Grid item xs={4} key={i}>
+                                    <Paper className={classes.paper}  >
+                                        <div className="item-card-header" >
+                                            <div className="remove-item-icon" onClick={() => this.removeItem(i)}>
+                                                <img src={ic_delete_top} alt="Remove item" />
+                                                <img src={ic_delete_bottom} alt="Remove item" />
+                                            </div>
+                                            <Typography>
+                                                {`פריט ${i + 1} | ${item.count} יח' `}
+                                            </Typography>
+                                        </div>
 
-                    <Paper className={classes.paper}>
-                        {donation.items[1] ?
-                            <div>
-                                <div className="item-card-header">
-                                    <div className="remove-item-icon">
-                                        <img src={ic_delete_top} alt="Delete item" />
-                                        <img src={ic_delete_bottom} alt="Delete item" />
-                                    </div>
-                                    <Typography className={classes.font12px}>
-                                        {donation.items[1].count + ` פריט 2 | יח`}
-                                    </Typography>
-                                </div>
-                                <img className="item-card-img" src={donation.items[1].images[0]} alt="img" />
-                            </div>
-                            : ''}
-                    </Paper>
+                                        <img className="closed-item-cards-img" src={item.images[0]} alt="img" />
+                                    </Paper>
+                                </Grid>
+                            ))}
 
-                </div>
-
-                <div className={classes.container}>
-                    <Paper className={classes.paper}>
-                        {donation.items[2] ?
-                            <div>
-                                <div className="item-card-header">
-                                    <div className="remove-item-icon">
-                                        <img src={ic_delete_top} alt="Delete item" />
-                                        <img src={ic_delete_bottom} alt="Delete item" />
-                                    </div>
-                                    <Typography className={classes.font12px}>
-                                        {donation.items[2].count + ` פריט 3 | יח`}
-                                    </Typography>
-                                </div>
-                                <img className="item-card-img" src={donation.items[2].images[0]} alt="img" />
-                            </div>
-                            : ''}
-                    </Paper>
-
-                    <Paper className={classes.paper}>
-                        {donation.items[3] ?
-                            donation.items[3].count + ` פריט 4 | יחידות`
-                            : ''}
-                    </Paper>
-                    <Paper className={classes.paper}>
-                        {donation.items[4] ?
-                            donation.items[4].count + ` פריט 5 | יחידות`
-                            : ''}
-                    </Paper>
+                            {this.emptyGridItems()}
+                        </Grid>
+                    </div>
                 </div>
 
                 <footer className="shipping-footer">

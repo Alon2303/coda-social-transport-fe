@@ -60,13 +60,10 @@ class CloseDonation extends React.Component {
         }
     }
 
-
     removeItem = (idx) => {
         const { donation } = this.props;
         const donationCopy = JSON.parse(JSON.stringify(donation));
-        console.log(donation.items, 'before splice')
         donationCopy.items.splice(idx, 1);
-        console.log(donation.items, 'after splice')
         this.props.setNewDonation(donationCopy);
         this.setState({ ...this.state, items: donationCopy.items })
     }
@@ -84,7 +81,7 @@ class CloseDonation extends React.Component {
     render() {
         const { classes, donation } = this.props;
         const { items, comments } = this.state;
-        console.log(' props : ', this.props);
+
         return (
             <div className="donation-summary">
                 <Typography variant="h2" style={{ marginBottom: '6px' }}>פרטי ההובלה</Typography>
